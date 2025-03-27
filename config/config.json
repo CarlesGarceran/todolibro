@@ -1,0 +1,13 @@
+{
+    "db_config":
+    {
+        "hostname": "127.0.0.1:3306",
+        "username": "todolibro",
+        "dbname": "todolibrodb",
+        "password": "ZTU4MDlhODM0NTE2NGNlNGI1NGY3OThlNmUzYmUxZDQ="
+    },
+    "production": false,
+    "testingSite": false,
+    "siteName": "TodoLibro",
+    "salt": ""
+}
