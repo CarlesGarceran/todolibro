@@ -1,0 +1,52 @@
+.avatar-holder {
+    display: inline-block;  /* Ensures the container is inline-block to wrap content */
+    margin-right: 10%;     /* Maintain the margin-right you wanted */
+}
+
+.full_size {
+    display: flex;                /* Use flexbox layout */
+    align-items: center;          /* Vertically center the text and image */
+    width: 100%;
+}
+
+.avatar {
+    margin-right: 10px;           /* Add some space between the image and the text */
+}
+
+.username-text {
+    margin-left: 10px;            /* Adjust space between the image and the text */
+    white-space: nowrap;          /* Prevent the text from wrapping */
+}
+
+.avatar_icon
+{
+    width: 40px;
+    height: 40px;
+}
+
+
+/* MQ */
+
+@media screen and (max-width: 768px) 
+{
+    .avatar-holder
+    {
+        display: none;
+    }
+
+
+    .button_holder
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media screen and (min-width: 768px)
+{
+    .simple-dropdown
+    {
+        display: none;
+    }
+}

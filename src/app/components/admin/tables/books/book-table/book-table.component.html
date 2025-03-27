@@ -1,0 +1,48 @@
+<div class="flex w-full overflow-x-auto">
+    <table class="table-zebra table">
+        <thead>
+            <tr>
+                @for (item of header; track $index)
+                {
+                <th>{{item}}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (table_data?.length === 0)
+            {
+            <tr>
+                @for (item of header; track $index)
+                {
+                <td><app-loading></app-loading></td>
+                }
+            </tr>
+            }
+            @else
+            {
+            @for (item of table_data; track $index)
+            {
+            <tr>
+                <td>{{item.ISBN}}</td>
+                <td>{{item.Name}}</td>
+                <td class="tooltip tooltip-top" data-tooltip="author name">
+                    {{item.Author}}
+                </td>
+
+                <td class="tooltip tooltip-top" data-tooltip="publisher name">
+                    {{item.Publisher}}
+                </td>
+                <td>{{item.Image}}</td>
+                @if(item.LaunchDate != null)
+                {
+                    <td>{{item.LaunchDate.toDateString()}}</td>
+                }
+                <td>{{item.Price}}</td>
+                <td><button class="btn btn-outline-error">Delete</button></td>
+                <td><button class="btn btn-outline-success">Edit</button></td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,39 @@
+<div class="cntr h-full w-full">
+    @if (buffer == null || buffer.length
+    <= 0) { <app-loading />
+    }
+    @else
+    {
+    <div class="card postcard relative">
+        <h2 class="text-white text-xl font-semibold mb-2 align-center mt-5">{{ header }}</h2>
+
+        <div class="card-body sub_container relative items-center justify-center">
+            <!-- Left Button -->
+            <button class="absolute left-0 z-10 h-full px-4 btn btn-ghost hover:bg-opacity-70 buttons"
+                (click)="scrollLeft()" (mousedown)="startScrollLeft();" (mouseup)="stopScroll();"
+                (mouseleave)="stopScroll();" (touchstart)="startScrollLeft();"
+                (touchend)="stopScroll();">
+                &lt;
+            </button>
+
+            <!-- Carousel Content -->
+            <div class="flex overflow-hidden w-full space-x-4 px-8" #scrollContainer>
+                @for (item of buffer; track $index) {
+                <app-carousel-book-item [Item]="item"></app-carousel-book-item>
+                }
+            </div>
+
+            <!-- Right Button -->
+            <button class="absolute right-0 z-10 h-full px-4  btn btn-ghost hover:bg-opacity-70 buttons"
+                (click)="scrollRight();" 
+                (mousedown)="startScrollRight();" 
+                (mouseup)="stopScroll();"
+                (mouseleave)="stopScroll();"
+                (touchstart)="startScrollRight();"
+                (touchend)="stopScroll();">
+                &gt;
+            </button>
+        </div>
+    </div>
+    }
+</div>

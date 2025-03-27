@@ -1,0 +1,70 @@
+<div class="navbar rounded-lg">
+	<div class="navbar-start">
+		<app-search-bar></app-search-bar>
+	</div>
+	<div class="navbar-center">
+		<a class="navbar-item" routerLink="/home">{{site_title}}</a>
+	</div>
+	<div class="navbar-end">
+		@if (!loggedIn)
+		{
+		<a class="navbar-item" routerLink="/login">Login</a>
+		}
+		@else
+		{
+		<div class="avatar-holder">
+			<div class="dropdown-container avatar-holder">
+				<div class="dropdown avatar-holder">
+					<div class="full_size">
+						<label class="flex cursor-pointer px-0" tabindex="0">
+							<img [src]="userData?.profile_picture" class="avatar avatar_icon avatar-ring avatar-md "
+								alt="avatar icon" />
+						</label>
+						<p class="username-text" tabindex="0">
+							Hola, {{userData.username}}!
+						</p>
+					</div>
+					<div class="dropdown-menu dropdown-menu-bottom-left">
+						<button class="dropdown-item text-sm">Profile</button>
+						<button class="dropdown-item text-sm">My Shelves</button>
+						<button class="dropdown-item text-sm">Favorites</button>
+						<button class="dropdown-item text-sm">Account settings</button>
+						<button class="dropdown-item text-sm" (click)="closeSession();">Log out</button>
+						
+						@if(userIsAdministrator(1))
+						{
+							<div class="divider"></div>
+							<button class="dropdown-item text-sm" (click)="toAdminPanel();">Administrator Site</button>
+						}
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="simple-dropdown">
+			<input type="checkbox" id="drawer-right" class="drawer-toggle" />
+
+			<label for="drawer-right" class="btn btn-ghost">=</label>
+			<label class="overlay" for="drawer-right"></label>
+			<div class="drawer drawer-right">
+				<div class="drawer-content pt-10 flex flex-col h-full">
+					<label for="drawer-right" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+					<div class="button_holder">
+						<button class="btn btn-ghost btn-block text-sm" tabindex="0">Profile</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="1">My Shelves</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="2">Favorites</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="3">Account settings</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="4" (click)="closeSession();">Log out</button>
+						
+						@if(userIsAdministrator(1))
+						{
+							<div class="divider"></div>
+							<button class="dropdown-item text-sm" (click)="toAdminPanel();">Administrator Site</button>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+		}
+	</div>
+</div>

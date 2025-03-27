@@ -1,0 +1,35 @@
+.flex {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-component {
+    width: 33.333%;
+}
+
+.flex-component-bg {
+    width: 45.5555%;
+}
+
+.flex-component-sm {
+    width: 16.6666%;
+}
+
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+}

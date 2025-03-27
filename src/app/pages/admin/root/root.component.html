@@ -1,0 +1,8 @@
+@if(hasAccess())
+{
+    <app-admin-sidebar [userProfile]="user" [opLevel]="opLevel" (returnToSite)="returnToSite()"></app-admin-sidebar>
+}
+@else 
+{
+    <p>Wait while we redirect you...</p>
+}

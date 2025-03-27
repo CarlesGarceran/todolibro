@@ -1,0 +1,10 @@
+<div class="card flex desktop-only">
+    <input [(ngModel)]="inputText" class="input-ghost-primary input input-solid flex-component-bg" placeholder="Buscar" />
+    <select [(ngModel)]="selectFilter" class="select select-ghost-primary select-solid flex-component">
+        <option>Nombre</option>
+        <option>Autor</option>
+        <option>ISBN</option>
+        <option>Editorial</option>
+    </select>
+    <button class="flex-component-sm btn-solid btn btn-ghost" (click)="search();">Buscar</button>
+</div>
