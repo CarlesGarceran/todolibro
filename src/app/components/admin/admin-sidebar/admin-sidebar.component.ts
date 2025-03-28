@@ -3,10 +3,11 @@ import { User } from '../../../interfaces/user';
 import { BackendService } from '../../../services/backend.service';
 import { SidebarSelection } from '../../../enums/SidebarSelection';
 import { AddLibroFormComponent } from "../forms/add-libro-form/add-libro-form.component";
+import { LogFormComponent } from "../forms/log-form/log-form.component";
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [AddLibroFormComponent],
+  imports: [AddLibroFormComponent, LogFormComponent],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css'
 })

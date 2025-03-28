@@ -1,0 +1,21 @@
+.layout
+{
+    flex-direction: row;
+}
+
+.fit-screen
+{
+    max-width: 25%;
+}
+
+@media screen and (max-width: 1398px) {
+    .layout
+    {
+        flex-direction: column;
+    }
+
+    .fit-screen
+    {
+        max-width: 100%;
+    }
+}

@@ -1,10 +1,11 @@
 import { Component, inject, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SiteConfigService } from './services/siteconfig.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, FontAwesomeModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

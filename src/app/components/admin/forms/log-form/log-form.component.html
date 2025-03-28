@@ -1,0 +1,3 @@
+<div class="flex flex-grow w-full h-full flex-row flex-wrap overflow-scroll">
+    <app-log-table class="size-max flex-grow basis-full" (onDelete)="deleteEntry($event);" [header]="table_Header" [body]="table_Body" #tableRef></app-log-table>
+</div>

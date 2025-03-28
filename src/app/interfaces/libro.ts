@@ -6,4 +6,5 @@ export interface Libro {
     Image?: string;
     LaunchDate: Date;
     Price: number;
+    Synopsis : string;
 }

@@ -8,6 +8,7 @@ import { User } from '../interfaces/user';
 import { Libro } from '../interfaces/libro';
 import { Author } from '../interfaces/author';
 import { Publisher } from '../interfaces/publisher';
+import { Log } from '../interfaces/log';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,10 @@ export class BackendService {
 
   }
 
+//#region LIBROS
   getLibros(limit : number = -1): Observable<Libro[]> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + `/getAllLibros.php?limit=${limit}`, null,
+    return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + `/books/getAllLibros.php?limit=${limit}`, null,
       {
         "headers": headers,
         withCredentials: true
@@ -39,7 +41,8 @@ export class BackendService {
             Publisher: element["PublisherId"],
             Image: element["ImageUrl"],
             LaunchDate: new Date(element["LaunchDate"]["date"]),
-            Price: element['Price']
+            Price: element['Price'],
+            Synopsis: element['Synopsis']
           };
 
           libros.push(libro);
@@ -48,6 +51,20 @@ export class BackendService {
         return libros;
       }));
   }
+
+  getLibro(ISBN : number) : Observable<Libro>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<Libro>(TodoLibroConfig.getBackendUrl() + `/book/getByISBN.php`, JSON.stringify({
+      isbn : ISBN
+    }),
+      {
+        "headers": headers,
+        withCredentials: true
+      });
+  }
+
+//#endregion
 
   getAuthor(authorId : number) : Observable<Author> 
   {
@@ -106,5 +123,37 @@ export class BackendService {
       {
         withCredentials: false
       });
+  }
+
+  getLogs() : Observable<Log[]>
+  {
+    return this.httpClient.get(TodoLibroConfig.getBackendUrl() + "/logging/get.php",
+      {
+        withCredentials: true
+      }).pipe(map((arg : any) => {
+        var logs : Log[] = [];
+
+        arg.forEach((element : any) => {
+          logs.push({
+            userId: element['userId'],
+            Action: element['Action'],
+            Date: new Date(element['Time']),
+            rawDate: element['Time']
+          })
+        });
+
+        return logs;
+      }));
+  }
+
+  deleteLog(log : Log) : Observable<any>
+  {
+    return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + "/logging/delete.php", JSON.stringify({
+      userId : log.userId,
+      action: log.Action,
+      date: log.rawDate
+    }), {
+      withCredentials: true
+    });
   }
 }

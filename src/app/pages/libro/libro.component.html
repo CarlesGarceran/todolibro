@@ -1,1 +1,43 @@
 <app-topbar></app-topbar>
+@if(libro == null)
+{
+<app-loading></app-loading>
+}
+@else
+{
+<div class="flex w-svw h-svw grid-cols-3 grid-rows-1 gap-1 border-2 p-5 border-solid border-border bg-gray-1 layout">
+    <img [src]="libro.Image" class="flex-shrink shadow p-1 border-solid border-border bg-gray-1 border-2">
+    <div class="flex-grow block p-5 border-solid border-border bg-gray-1 border-2">
+        <h1 class="text-center font-bold text-xl backdrop-blur-md">
+            <h1 class="justify-center text-center font-bold text-xl blur-md m-0 left-0 right-0 absolute">
+                {{libro.Name}}
+            </h1>
+            {{libro.Name}}
+        </h1>
+        <div class="divider"></div>
+        <p>
+            {{libro.Synopsis}}
+        </p>
+    </div>
+    <div class="flex card p-5 flex-shrink fit-screen flex-column">
+
+        <h1 class="text-center font-bold text-xl">
+            Precio: {{libro.Price}}€
+        </h1>
+        <div class="divider"></div>
+
+        <button class="btn btn-outline-primary flex-grow">
+            <fa-icon [icon]="storeIcon"></fa-icon>&nbsp;Comprar
+        </button>
+        <button class="btn btn-outline-success flex-grow">
+            <fa-icon [icon]="shoppingCartIcon"></fa-icon>&nbsp;Añadir al carrito
+        </button>
+        <button class="btn btn-outline-error flex-grow">
+            <fa-icon [icon]="wishListIcon"></fa-icon>&nbsp;Añadir a favoritos
+        </button>
+        <button class="btn btn-outline-warning flex-grow">
+            <fa-icon [icon]="shelveIcon"></fa-icon>&nbsp;Añadir a una estanteria
+        </button>
+    </div>
+</div>
+}

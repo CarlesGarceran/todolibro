@@ -25,16 +25,16 @@
 						</p>
 					</div>
 					<div class="dropdown-menu dropdown-menu-bottom-left">
-						<button class="dropdown-item text-sm">Profile</button>
-						<button class="dropdown-item text-sm">My Shelves</button>
-						<button class="dropdown-item text-sm">Favorites</button>
-						<button class="dropdown-item text-sm">Account settings</button>
-						<button class="dropdown-item text-sm" (click)="closeSession();">Log out</button>
+						<button class="dropdown-item text-sm">Perfil</button>
+						<button class="dropdown-item text-sm">Estanterias</button>
+						<button class="dropdown-item text-sm">Favoritos</button>
+						<button class="dropdown-item text-sm">Configuración de la cuenta</button>
+						<button class="dropdown-item text-sm" (click)="closeSession();">Cerrar Sesión</button>
 						
 						@if(userIsAdministrator(1))
 						{
 							<div class="divider"></div>
-							<button class="dropdown-item text-sm" (click)="toAdminPanel();">Administrator Site</button>
+							<button class="dropdown-item text-sm" (click)="toAdminPanel();">Sitio de Administración</button>
 						}
 					
 					</div>
@@ -50,16 +50,16 @@
 				<div class="drawer-content pt-10 flex flex-col h-full">
 					<label for="drawer-right" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
 					<div class="button_holder">
-						<button class="btn btn-ghost btn-block text-sm" tabindex="0">Profile</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="1">My Shelves</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="2">Favorites</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="3">Account settings</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="4" (click)="closeSession();">Log out</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="0">Perfil</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="1">Estanterias</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="2">Favoritos</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="3">Configuración de la cuenta</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="4" (click)="closeSession();">Cerrar Sesión</button>
 						
 						@if(userIsAdministrator(1))
 						{
 							<div class="divider"></div>
-							<button class="dropdown-item text-sm" (click)="toAdminPanel();">Administrator Site</button>
+							<button class="dropdown-item text-sm" (click)="toAdminPanel();">Sitio de Administración</button>
 						}
 					</div>
 				</div>
