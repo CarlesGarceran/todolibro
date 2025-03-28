@@ -14,6 +14,12 @@ try
 
     $sqlHandler =  getSQLHandler();
     
+    $statement = $sqlHandler->prepare(QUERY);
+    $statement->bindValue(":in_isbn", $userData['isbn']);
+
+    $statement->execute();
+
+    NOP_OBJ($statement->fetch());
 }
 catch(Exception $ex)
 {

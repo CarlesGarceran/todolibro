@@ -13,12 +13,12 @@ function SESSION_SetUser(int $id, $name, $email, $pfp, $password, $sessionid)
 
 function HasRole(int $userId, int $expectedRole) : bool
 {
-    $sql = "SELECT MAX(r.RoleId)
+    $sql = "SELECT MAX(r.RoleId) as 'Level'
     FROM Roles r 
     JOIN Roles_has_Users rhu 
     ON (r.idRole = rhu.Roles_idRole)
     JOIN Users u ON (rhu.Users_userId = u.userId)
-    WHERE u.userId = :userId";
+    WHERE u.userId = :userId LIMIT 1;";
 
     $sqlHandler = getSQLHandler();
     
@@ -26,6 +26,13 @@ function HasRole(int $userId, int $expectedRole) : bool
     $sqlBind->bindValue(":userId", $userId, PDO::PARAM_INT);
 
     $sqlBind->execute();
+
+    $data = $sqlBind->fetchAll();
+
+    foreach ($data as $dmp) {
+        if($dmp['Level'] < $expectedRole)
+            return false;
+    }
 
     return true;
 }

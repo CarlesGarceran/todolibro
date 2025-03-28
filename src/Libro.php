@@ -9,8 +9,9 @@ class Libro
     public string $ImageUrl;
     public DateTime $LaunchDate;
     public float $Price;
+    public string $Synopsis;
 
-    public function __construct(string $ISBN, string $Name, int $PublisherId, int $AuthorId, string $ImageUrl, DateTime $LaunchDate, float $price) 
+    public function __construct(string $ISBN, string $Name, int $PublisherId, int $AuthorId, string $ImageUrl, DateTime $LaunchDate, float $price, string $Synopsis) 
     {
         $this->ISBN = $ISBN;
         $this->Name = $Name;
@@ -19,5 +20,6 @@ class Libro
         $this->ImageUrl = $ImageUrl;
         $this->LaunchDate = $LaunchDate;
         $this->Price = $price;
+        $this->Synopsis = $Synopsis;
     }
 }

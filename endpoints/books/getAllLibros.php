@@ -1,8 +1,8 @@
 <?php
 
-include_once "../functions.php";
-include_once "../src/RuntimeError.php";
-include_once "../src/Libro.php";
+include_once "../../functions.php";
+include_once "../../src/RuntimeError.php";
+include_once "../../src/Libro.php";
 
 try {
     INIT_BACKEND_CALL();
@@ -43,7 +43,8 @@ try {
                 (int)$libro['Author'],
                 (string)$libro['Image'],
                 new DateTime((string)$libro['LaunchDate']),
-                ((float)$libro['Price'])
+                ((float)$libro['Price']),
+                (string)$libro['Synopsis']
             )
         );
     }

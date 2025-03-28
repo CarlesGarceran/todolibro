@@ -5,7 +5,10 @@ include_once "../../functions.php";
 include_once "../../src/RuntimeError.php";
 include_once "../../src/Libro.php";
 
-define("GET_ALL_LOGS", "SELECT * FROM Log;");
+define("DELETE_LOG", "DELETE FROM `Log` 
+WHERE `userId`= :userId
+AND `Action`= :action
+AND `Time` LIKE :date;");
 
 try {
     INIT_BACKEND_CALL();
@@ -22,6 +25,8 @@ try {
     if(!isset($_SESSION[$sessionId]))
         NOP_OBJ(new RuntimeError(500, "Failed to obtain user data"));
 
+    $userData = fromJson(file_get_contents("php://input"), true);
+
     $tmp_user = fromJson($_SESSION[$sessionId]['User']);
     $userId =  (int)$tmp_user['id'];
 
@@ -29,20 +34,15 @@ try {
         NOP_OBJ(new RuntimeError(404, "Unauthorized access, insufficient permissons"));
 
     $handler = getSQLHandler();
-    $statement = $handler->prepare(GET_ALL_LOGS);
+    $statement = $handler->prepare(DELETE_LOG);
+    $statement->bindValue(":userId", $userData['userId'], PDO::PARAM_INT);
+    $statement->bindValue(":action", $userData['action']);
+    $statement->bindValue(":date", $userData['date']);
+
+
     $statement->execute();
 
-    $vardmp = [];
-
-    foreach ($statement->fetchAll() as $key => $value) {
-        if($value != null)
-        {
-            array_push($vardmp, $value);
-        }
-    }
-
-
-    NOP_OBJ($vardmp);
+    NOP_OBJ([]);
 
 } catch (Exception $ex) {
     if (!is_in_production()) {
