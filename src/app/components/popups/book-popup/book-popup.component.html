@@ -1,0 +1,15 @@
+<label class="btn btn-primary hidden" for="modal-1">Open Modal</label>
+<input #modalHandler class="modal-state hidden" id="modal-1" type="checkbox" />
+<div class="modal">
+	<label class="modal-overlay" for="modal-1"></label>
+	<div class="modal-content flex flex-col gap-5">
+		<label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+		<h2 class="text-xl">{{popupTitle}}</h2>
+		<span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolorum voluptate ratione dicta. Maxime cupiditate, est commodi consectetur earum iure, optio, obcaecati in nulla saepe maiores nobis iste quasi alias!</span>
+		<div class="flex gap-3">
+			<button class="btn btn-error btn-block" for="modal-1">Delete</button>
+
+			<button class="btn btn-block" for="modal-1" (click)="hidePopup();">Cancel</button>
+		</div>
+	</div>
+</div>
