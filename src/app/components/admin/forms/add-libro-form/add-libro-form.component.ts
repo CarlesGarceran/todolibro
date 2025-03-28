@@ -2,10 +2,11 @@ import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from 
 import { Libro } from '../../../../interfaces/libro';
 import { BookTableComponent } from "../../tables/books/book-table/book-table.component";
 import { BackendService } from '../../../../services/backend.service';
+import { BookPopupComponent } from "../../../popups/book-popup/book-popup.component";
 
 @Component({
   selector: 'app-add-libro-form',
-  imports: [BookTableComponent],
+  imports: [BookTableComponent, BookPopupComponent],
   templateUrl: './add-libro-form.component.html',
   styleUrl: './add-libro-form.component.css'
 })
