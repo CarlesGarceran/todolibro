@@ -10,7 +10,6 @@ export class SessionService {
 
   constructor(private httpClient : HttpClient) { }
 
-
   loginUser(obj : { email : string, password : string }) : Observable<Object>
     {
       var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -28,6 +28,9 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
 
+  @Input("book_buffer")
+  public libro_buffer : Libro[] = [];
+
   scrollLeft() {
     if (this.holding == false)
       this.scrollContainer.nativeElement.scrollBy({ left: -100, behavior: 'smooth' });
@@ -72,7 +75,8 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
 
   constructor() {
     super("libro");
-
+    this.data = this.libro_buffer;
+    
     /*
 
     this.data?.push(
@@ -205,17 +209,20 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
 
   ngOnInit(): void {
 
-    this.backendService.getLibros(10).subscribe((libros: Libro[]) => {
-      libros.forEach((value: Libro) => {
-        this.data.push(value);
-      })
-
-      if (this.data != null) {
-        this.counter = 0;
-      }
-
-      this.generateDataChunk();
-    });
+    if(this.data.length <= 0)
+    {
+      this.backendService.getLibros(10).subscribe((libros: Libro[]) => {
+        libros.forEach((value: Libro) => {
+          this.data.push(value);
+        })
+  
+        if (this.data != null) {
+          this.counter = 0;
+        }
+  
+        this.generateDataChunk();
+      });
+    }
   }
 
   generateDataChunk() {

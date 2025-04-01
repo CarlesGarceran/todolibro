@@ -12,7 +12,6 @@ export class CryptoService
     return sha256(contents).toString();
   }
 
-  
   getSHA512Hash(contents : string) : string
   {
     return sha512(contents).toString();

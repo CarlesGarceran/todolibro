@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CryptoService } from '../../services/crypto.service';
 import { BackendService } from '../../services/backend.service';
 import { SessionService } from '../../services/session.service';
+import { UserData } from '../../classes/UserData';
 
 @Component({
   selector: 'app-login',

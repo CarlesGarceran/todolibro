@@ -7,6 +7,7 @@ import { SessionService } from '../services/session.service';
 import { BackendService } from '../services/backend.service';
 import { SearchBarComponent } from '../components/search-bar/search-bar.component';
 import { LoggingService } from '../services/logging.service';
+import { UserData } from '../classes/UserData';
 
 
 @Component({
@@ -20,13 +21,13 @@ export class TopbarComponent implements OnInit {
   sessionService: SessionService = inject(SessionService);
   siteconfigService: SiteConfigService = inject(SiteConfigService);
   cookiesService: CookiesService = inject(CookiesService);
-  loggingService : LoggingService = inject(LoggingService);
+  loggingService: LoggingService = inject(LoggingService);
   router: Router = inject(Router);
 
   protected site_title?: string;
 
   protected loggedIn?: boolean;
-  protected userData: User = { username: 'NULL', id: -1, profile_picture: '', email: '' };
+  protected userData?: User = { username: 'NULL', id: -1, profile_picture: '', email: '' };
 
   protected clearanceLevel: number = 0;
 
@@ -39,15 +40,28 @@ export class TopbarComponent implements OnInit {
   ngOnInit(): void {
     this.loggedIn = this.cookiesService.hasCookie("sessionId");
 
-    if (this.loggedIn) {
+    if (!this.loggedIn)
+      return;
+
+    if (UserData.getUser() !== undefined)
+    {
+      this.userData = UserData.getUser();
+      return;
+    }
+
+    try {
       this.backendServide.getUserData().subscribe((response: User) => {
         this.userData = response;
-      });
-
-      this.backendServide.getUserRole().subscribe((value: number) => {
-        this.clearanceLevel = value;
+        UserData.setUser(response);
       });
     }
+    catch (ex) {
+      this.loggedIn = false;
+    }
+
+    this.backendServide.getUserRole().subscribe((value: number) => {
+      this.clearanceLevel = value;
+    });
   }
 
   userIsAdministrator(clearance_level: number = 0): boolean {
@@ -65,10 +79,8 @@ export class TopbarComponent implements OnInit {
     });
   }
 
-
-  toAdminPanel()
-  {
-    this.loggingService.logToServer(`User: '${this.userData.username}', Has Entered into the administration panel.`).subscribe(()=>{
+  toAdminPanel() {
+    this.loggingService.logToServer(`User: '${this.userData?.username}', Has Entered into the administration panel.`).subscribe(() => {
       this.router.navigate(["/admin"]);
     });
   }
