@@ -22,7 +22,7 @@ export class SessionService {
   
     registerUser(obj: { name: string, email: string, password: string }): Observable<Object> {
       var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this.httpClient.post(TodoLibroConfig.getBackendUrl() + "/register/addUser.php", JSON.stringify(obj),
+      return this.httpClient.post(TodoLibroConfig.getBackendUrl() + "/register/", JSON.stringify(obj),
         {
           "headers": headers,
           withCredentials: true

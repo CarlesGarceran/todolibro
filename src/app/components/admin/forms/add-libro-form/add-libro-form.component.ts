@@ -18,6 +18,9 @@ export class AddLibroFormComponent implements OnInit {
   private tableRef! : BookTableComponent;
   private backendService : BackendService = inject(BackendService);
 
+  @ViewChild("popupRef")
+  private popupRef! : BookPopupComponent;
+
   constructor() {
     this.table_Header.push("ISBN");
     this.table_Header.push("Nombre Libro");
@@ -44,4 +47,8 @@ export class AddLibroFormComponent implements OnInit {
     })
   }
 
+  onEditClick(libro : Libro)
+  {
+    this.popupRef.showPopup();
+  }
 }

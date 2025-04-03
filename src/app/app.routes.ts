@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { FilterBookComponent } from './filter-book/filter-book.component';
+import { FilterBookComponent } from './pages/filter-book/filter-book.component';
 import { RootComponent } from './pages/admin/root/root.component';
 import { LibroComponent } from './pages/libro/libro.component';
 
@@ -28,7 +28,7 @@ export const routes: Routes = [
         title: "Registrarse"
     },
     {
-        path: "filter/:filter",
+        path: "filter",
         component: FilterBookComponent,
         title: "Buscar"
     },

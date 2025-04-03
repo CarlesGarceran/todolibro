@@ -9,6 +9,7 @@ import { Libro } from '../interfaces/libro';
 import { Author } from '../interfaces/author';
 import { Publisher } from '../interfaces/publisher';
 import { Log } from '../interfaces/log';
+import { BackendResponse } from '../interfaces/backend-response';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,18 @@ export class BackendService {
       {
         "headers": headers,
         withCredentials: true
+      });
+  }
+
+  getLibrosByFilter(filterType : string, content : string) : Observable<BackendResponse<Libro[]>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<BackendResponse<Libro[]>>(TodoLibroConfig.getBackendUrl() + `/filter/filter.php?filterType=${filterType}`, JSON.stringify({
+      content: content
+    }),
+      {
+        "headers": headers,
+        withCredentials: false
       });
   }
 
@@ -117,14 +130,7 @@ export class BackendService {
   {
     return this.httpClient.get<{RoleName : string;}>(TodoLibroConfig.getBackendUrl() + `/roles/getRoleName.php?roleId=${roleId}`, {}).pipe(map(response => response.RoleName));
   }
-
-  filterForQuery(arg: { input?: string, category?: string }): Observable<Libro[]> {
-    return this.httpClient.post<Libro[]>(TodoLibroConfig.getBackendUrl() + "/filter/filter.php", JSON.stringify(arg),
-      {
-        withCredentials: false
-      });
-  }
-
+  
   getLogs() : Observable<Log[]>
   {
     return this.httpClient.get(TodoLibroConfig.getBackendUrl() + "/logging/get.php",

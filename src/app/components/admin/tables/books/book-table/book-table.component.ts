@@ -11,6 +11,9 @@ import { LoadingComponent } from "../../../../loading/loading.component";
 })
 export class BookTableComponent extends GenericTableComponent<string, Libro> implements OnInit, OnChanges {
   
+  @Output("onEdit")
+  public onEdit : EventEmitter<Libro> = new EventEmitter<Libro>();
+
   constructor() {
     super();
   }
@@ -33,4 +36,8 @@ export class BookTableComponent extends GenericTableComponent<string, Libro> imp
     this.table_data = this.b_Data;
   }
   
+  onEditFunc(libro : Libro) : void
+  {
+    this.onEdit.emit(libro);
+  }
 }

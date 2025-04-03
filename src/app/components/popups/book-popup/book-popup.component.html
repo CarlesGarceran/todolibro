@@ -1,5 +1,5 @@
 <label class="btn btn-primary hidden" for="modal-1">Open Modal</label>
-<input #modalHandler class="modal-state hidden" id="modal-1" type="checkbox" />
+<input #modalHandler class="modal-state hidden" id="modal-1" type="checkbox" (click)="hidePopup();" />
 <div class="modal">
 	<label class="modal-overlay" for="modal-1"></label>
 	<div class="modal-content flex flex-col gap-5">

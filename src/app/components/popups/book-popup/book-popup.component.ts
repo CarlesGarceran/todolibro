@@ -7,7 +7,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
   styleUrl: './book-popup.component.css'
 })
 export class BookPopupComponent implements AfterViewInit {
-  private visible : boolean = true;
+  private visible : boolean = false;
 
   @ViewChild("modalHandler", { static: false })
   protected modalHandler? : ElementRef<HTMLInputElement>;
@@ -38,16 +38,16 @@ export class BookPopupComponent implements AfterViewInit {
   {
     if(this.visible == true) return;
 
-    this.visible = true;
     this.modalHandler?.nativeElement.click();
+    this.visible = true;
   }
 
   hidePopup()
   {
     if(this.visible == false) return;
 
-    this.visible = false;
     this.modalHandler?.nativeElement.click();
+    this.visible = false;
   }
 
 }

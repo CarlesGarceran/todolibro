@@ -239,7 +239,6 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
     if (this.isLoading) return;
 
     this.isLoading = true;
-
   }
 
 }
