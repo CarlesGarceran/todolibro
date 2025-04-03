@@ -9,7 +9,7 @@ try
 {
     INIT_BACKEND_CALL();
     
-    throw new Exception("Test error");
+    NOP_OBJ(new RuntimeError(500, "Test error"));
 }
 catch(Exception $ex)
 {

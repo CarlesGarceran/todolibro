@@ -86,10 +86,23 @@ function NOP()
 /**
  * Returns the specified object as json to the stream and kills the execution
  */
+#[Deprecated("NOP_OBJ is deprecated for NOP_WRAP")]
 function NOP_OBJ($any)
 {
     $arg = [];
     die(toJson($any));
+}
+
+/**
+ * Returns the specified object encapsulated in a specific json stream, kills the execution
+ */
+function NOP_WRAP($any)
+{
+    $arg = [];
+    $arg['Success'] = !($any instanceof RuntimeError);
+    $arg['Time'] = time();
+    $arg['Data'] = $any;
+    die(toJson($arg));
 }
 
 /**

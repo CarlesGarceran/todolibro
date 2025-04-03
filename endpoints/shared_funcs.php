@@ -2,6 +2,7 @@
 /* Common functions that will be repeated often */
 
 include $_SERVER['DOCUMENT_ROOT'] . "/src/User.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/functions.php";
 
 function SESSION_SetUser(int $id, $name, $email, $pfp, $password, $sessionid)
 {
@@ -35,6 +36,22 @@ function HasRole(int $userId, int $expectedRole) : bool
     }
 
     return true;
+}
+
+function GetUser()
+{
+    if(!isset($_COOKIE['sessionId']))
+        NOP_OBJ(new RuntimeError(400, "User not logged in"));
+
+    $sessionId = $_COOKIE['sessionId'];
+
+    if(!isset($_SESSION))
+        NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
+
+    if(!isset($_SESSION[$sessionId]))
+        NOP_OBJ(new RuntimeError(500, "Failed to obtain user profile"));
+
+    return fromJson($_SESSION[$sessionId]['User']);
 }
 
 ?>
