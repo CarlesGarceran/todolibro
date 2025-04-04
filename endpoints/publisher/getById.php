@@ -12,7 +12,7 @@ try
     INIT_BACKEND_CALL();
 
     if(!isset($_GET['publisherId']))
-        NOP_OBJ(new RuntimeError(500, "Request does not contain an id of a publisher."));
+        NOP_WRAP(new RuntimeError(400, "Request does not contain an id of a publisher."));
 
     $publisherId = (int)$_GET['publisherId'];
 
@@ -26,7 +26,7 @@ try
 
     $auth = new Publisher((int)$ex['PublisherId'], $ex['Name'], $ex['Image']);
 
-    NOP_OBJ($auth);
+    NOP_WRAP($auth);
 }
 catch(Exception $exception)
 {

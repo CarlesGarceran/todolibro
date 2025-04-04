@@ -12,17 +12,6 @@ try
     INIT_BACKEND_CALL();
     session_start();
 
-    if(!isset($_COOKIE['sessionId']))
-        NOP_OBJ(new RuntimeError(400, "User not logged in"));
-
-    $sessionId = $_COOKIE['sessionId'];
-
-    if(!isset($_SESSION))
-        NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
-
-    if(!isset($_SESSION[$sessionId]))
-        NOP_OBJ(new RuntimeError(500, "Failed to obtain user data"));
-
     $sqlHandler = getSQLHandler();
     $sql = "SELECT MAX(r.RoleId) 
     FROM Roles r 
@@ -31,7 +20,7 @@ try
     JOIN Users u ON (rhu.Users_userId = u.userId)
     WHERE u.userId = :userId";
 
-    $tmp_user = fromJson($_SESSION[$sessionId]['User']);
+    $tmp_user = GetUser();
 
     $statement = $sqlHandler->prepare($sql);
     $statement->bindValue(":userId", (int)$tmp_user['id']);

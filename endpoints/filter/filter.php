@@ -13,7 +13,7 @@ try {
         $userData = fromJson(file_get_contents("php://input"), true);
 
     if(!isset($_GET['filterType']))
-        NOP_WRAP(new RuntimeError(500, "Missing filterType"));
+        NOP_WRAP(new RuntimeError(400, "Missing filterType"));
 
     $filterType = (string)$_GET['filterType'];
     $filterContents = (string)$userData['content'];
@@ -48,6 +48,6 @@ try {
 } catch (Exception $ex) {
     if (!is_in_production()) {
         $error = new RuntimeError(500, $ex->getMessage());
-        NOP_OBJ($error);
+        NOP_WRAP($error);
     }
 }
