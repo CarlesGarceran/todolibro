@@ -6,6 +6,7 @@ import { BackendResponse } from '../../interfaces/backend-response';
 import { Router } from '@angular/router';
 import { Error } from '../../interfaces/Error';
 import { temporalStorage } from '../../classes/TemporalStorage';
+import { ErrorPopupComponent } from '../popups/error-popup/error-popup.component';
 
 
 @Component({
@@ -24,21 +25,34 @@ export class SearchBarComponent {
   search() {
     this.backendService.getLibrosByFilter(this.selectFilter, this.inputText).subscribe((result: BackendResponse<any>) => {
       if (result.Success) {
-        const libros : Libro[] = result.Data;
+        const libros: Libro[] = result.Data;
+
+        if (libros.length == 0) {
+          var error: Error = {
+            error_code: 400,
+            message: "No se han encontrado libros con las caracteristicas introducidas"
+          };
+
+          const errComponent = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+          errComponent.setError(error);
+          errComponent.showPopup();
+          return;
+        }
+
         if (libros.length <= 1) {
-          this.router.navigate(['/book/', libros[0].ISBN ]);
+          this.router.navigate(['/book/', libros[0].ISBN]);
         }
         else {
           temporalStorage.addToStorage("bookData", libros);
           this.router.navigate(['/filter']);
         }
       }
-      else
-      {
-        var error : Error = result.Data;
+      else {
+        var error: Error = result.Data;
 
-        console.error(error.error_code);
-        console.error(error.message);
+        const errComponent = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+        errComponent.setError(error);
+        errComponent.showPopup();
       }
     });
   }

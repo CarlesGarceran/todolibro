@@ -1,0 +1,7 @@
+.full_screen
+{
+    position: relative;
+    margin: 20px;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 120px);
+}

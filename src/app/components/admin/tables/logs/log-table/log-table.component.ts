@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
 import { GenericTableComponent } from '../../generic/generic-table/generic-table.component';
-import { LoadingComponent } from "../../../../loading/loading.component";
 import { Log } from '../../../../../interfaces/log';
+import { LoadingFieldComponent } from '../../../../loading-field/loading-field.component';
 
 @Component({
   selector: 'app-log-table',
-  imports: [LoadingComponent],
+  imports: [LoadingFieldComponent],
   templateUrl: './log-table.component.html',
   styleUrl: './log-table.component.css'
 })
