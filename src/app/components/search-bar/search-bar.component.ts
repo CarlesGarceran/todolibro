@@ -50,9 +50,8 @@ export class SearchBarComponent {
       else {
         var error: Error = result.Data;
 
-        const errComponent = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
-        errComponent.setError(error);
-        errComponent.showPopup();
+        const errComponent = temporalStorage.getFromStorage<Function>("show_error_popup");
+        errComponent.call(temporalStorage.getFromStorage("error_popup"), error);
       }
     });
   }

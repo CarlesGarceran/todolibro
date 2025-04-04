@@ -4,6 +4,9 @@ import { Author } from '../../../interfaces/author';
 import { BackendService } from '../../../services/backend.service';
 import { Publisher } from '../../../interfaces/publisher';
 import { RouterLink } from '@angular/router';
+import { BackendResponse } from '../../../interfaces/backend-response';
+import { Error } from '../../../interfaces/Error';
+import { temporalStorage } from '../../../classes/TemporalStorage';
 
 
 @Component({
@@ -31,8 +34,18 @@ export class CarouselBookItemComponent implements OnInit {
         this.Author = auth;
       });
 
-      this.backendService.getPublisher(this.inputItem.Publisher).subscribe((pub : Publisher) => {
-        this.Publisher = pub;
+      this.backendService.getPublisher(this.inputItem.Publisher).subscribe((pub : BackendResponse<Publisher | Error>) => {
+        if(pub.Success)
+        {
+          this.Publisher = pub.Data as Publisher;
+        }
+        else
+        {
+          var error: Error = pub.Data as Error;
+  
+          const errComponent = temporalStorage.getFromStorage<Function>("show_error_popup");
+          errComponent.call(temporalStorage.getFromStorage("error_popup"), error);
+        }
       });
     }
   }

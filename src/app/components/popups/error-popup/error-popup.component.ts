@@ -23,6 +23,9 @@ export class ErrorPopupComponent {
     if (temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup") == null) {
       temporalStorage.addToStorage<ErrorPopupComponent>("error_popup", this);
     }
+
+    if (temporalStorage.getFromStorage<Function>("show_error_popup") == null)
+      temporalStorage.addToStorage<Function>("show_error_popup", this.popupShow); 
   }
 
   setError(err: Error) {
@@ -53,5 +56,11 @@ export class ErrorPopupComponent {
 
     this.modalHandler?.nativeElement.click();
     this.visible = false;
+  }
+
+  popupShow(err : Error)
+  {
+    this.setError(err);
+    this.showPopup();
   }
 }

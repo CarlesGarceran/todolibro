@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SiteConfigService } from './siteconfig.service';
 import { TodoLibroConfig } from '../todolibro.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -10,6 +9,7 @@ import { Author } from '../interfaces/author';
 import { Publisher } from '../interfaces/publisher';
 import { Log } from '../interfaces/log';
 import { BackendResponse } from '../interfaces/backend-response';
+import { Error } from '../interfaces/Error';
 
 @Injectable({
   providedIn: 'root'
@@ -84,9 +84,9 @@ export class BackendService {
     return this.httpClient.get<Author>(TodoLibroConfig.getBackendUrl() + `/author/getById.php?authorId=${authorId}`, {});
   }
 
-  getPublisher(publisherId : number) : Observable<Publisher> 
+  getPublisher(publisherId : number) : Observable<BackendResponse<Publisher | Error>>
   {
-    return this.httpClient.get<Publisher>(TodoLibroConfig.getBackendUrl() + `/publisher/getById.php?publisherId=${publisherId}`, {});
+    return this.httpClient.get<any>(TodoLibroConfig.getBackendUrl() + `/publisher/getById.php?publisherId=${publisherId}`, {});
   }
 
   getUserData(): Observable<User> {
