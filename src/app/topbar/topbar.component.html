@@ -5,7 +5,8 @@
 	<div class="navbar-center">
 		<a class="navbar-item" routerLink="/home">{{site_title}}</a>
 	</div>
-	<div class="navbar-end">
+	<div class="navbar-end gap-5">
+		<app-theme-selector></app-theme-selector>
 		@if (!loggedIn)
 		{
 		<a class="navbar-item" routerLink="/login">Login</a>

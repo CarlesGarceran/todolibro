@@ -17,6 +17,9 @@
 				<span class="text-xs font-normal text-content2">Panel de administrador</span>
 				<span class="text-xs font-normal text-content2">Nivel de permisos: {{permissonLevel}}</span>
 			</div>
+			<div class="flex flex-col">
+				<app-theme-selector></app-theme-selector>
+			</div>
 		</section>
 		<section class="sidebar-content min-h-[20rem]">
 			<nav class="menu rounded-md">
@@ -26,24 +29,24 @@
 						@if (HasAccess(130))
 						{
 						<li class="menu-item" (click)="setSelected(1);">
-							<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" fill="none"
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 24 24" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
 								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
 									stroke="#CCCCCC" stroke-width="0.048"></g>
 								<g id="SVGRepo_iconCarrier">
 									<path
-										d="M7.42598 18H20C19.9965 18.9296 19.9784 19.6228 19.8866 20.1706C19.7773 20.8228 19.5774 21.1682 19.2709 21.4142C18.9643 21.6602 18.5339 21.8206 17.7211 21.9083C16.8844 21.9986 15.7754 22 14.1854 22H9.75461C8.1646 22 7.05566 21.9986 6.21896 21.9083C5.40616 21.8206 4.97573 21.6602 4.66916 21.4142C4.36259 21.1682 4.16271 20.8228 4.05343 20.1706C4.04522 20.1216 4.03761 20.0714 4.03053 20.02C3.99045 19.7288 3.97041 19.5831 4.09696 19.2397C4.22351 18.8964 4.27837 18.8425 4.38811 18.7347C4.71351 18.4151 5.15982 18.1785 5.67321 18.0681C5.96352 18.0057 6.34236 18 7.42598 18Z"
-										fill="#ffffff"></path>
+										d="M7.42598 18H20C19.9965 18.9296 19.9784 19.6228 19.8866 20.1706C19.7773 20.8228 19.5774 21.1682 19.2709 21.4142C18.9643 21.6602 18.5339 21.8206 17.7211 21.9083C16.8844 21.9986 15.7754 22 14.1854 22H9.75461C8.1646 22 7.05566 21.9986 6.21896 21.9083C5.40616 21.8206 4.97573 21.6602 4.66916 21.4142C4.36259 21.1682 4.16271 20.8228 4.05343 20.1706C4.04522 20.1216 4.03761 20.0714 4.03053 20.02C3.99045 19.7288 3.97041 19.5831 4.09696 19.2397C4.22351 18.8964 4.27837 18.8425 4.38811 18.7347C4.71351 18.4151 5.15982 18.1785 5.67321 18.0681C5.96352 18.0057 6.34236 18 7.42598 18Z">
+									</path>
 									<path opacity="0.5"
-										d="M4.72718 2.73332C5.03258 2.42535 5.46135 2.22456 6.27103 2.11478C7.10452 2.00177 8.2092 2 9.7931 2H14.2069C15.7908 2 16.8955 2.00177 17.729 2.11478C18.5387 2.22456 18.9674 2.42535 19.2728 2.73332C19.5782 3.0413 19.7773 3.47368 19.8862 4.2902C19.9982 5.13073 20 6.24474 20 7.84202L20 18H7.42598C6.34236 18 5.96352 18.0057 5.67321 18.0681C5.15982 18.1785 4.71351 18.4151 4.38811 18.7347C4.27837 18.8425 4.22351 18.8964 4.09696 19.2397C4.02435 19.4367 4 19.5687 4 19.7003V7.84202C4 6.24474 4.00176 5.13073 4.11382 4.2902C4.22268 3.47368 4.42179 3.0413 4.72718 2.73332Z"
-										fill="#ffffff"></path>
+										d="M4.72718 2.73332C5.03258 2.42535 5.46135 2.22456 6.27103 2.11478C7.10452 2.00177 8.2092 2 9.7931 2H14.2069C15.7908 2 16.8955 2.00177 17.729 2.11478C18.5387 2.22456 18.9674 2.42535 19.2728 2.73332C19.5782 3.0413 19.7773 3.47368 19.8862 4.2902C19.9982 5.13073 20 6.24474 20 7.84202L20 18H7.42598C6.34236 18 5.96352 18.0057 5.67321 18.0681C5.15982 18.1785 4.71351 18.4151 4.38811 18.7347C4.27837 18.8425 4.22351 18.8964 4.09696 19.2397C4.02435 19.4367 4 19.5687 4 19.7003V7.84202C4 6.24474 4.00176 5.13073 4.11382 4.2902C4.22268 3.47368 4.42179 3.0413 4.72718 2.73332Z">
+									</path>
 									<path
-										d="M7.25 7C7.25 6.58579 7.58579 6.25 8 6.25H16C16.4142 6.25 16.75 6.58579 16.75 7C16.75 7.41421 16.4142 7.75 16 7.75H8C7.58579 7.75 7.25 7.41421 7.25 7Z"
-										fill="#ffffff"></path>
+										d="M7.25 7C7.25 6.58579 7.58579 6.25 8 6.25H16C16.4142 6.25 16.75 6.58579 16.75 7C16.75 7.41421 16.4142 7.75 16 7.75H8C7.58579 7.75 7.25 7.41421 7.25 7Z">
+									</path>
 									<path
-										d="M8 9.75C7.58579 9.75 7.25 10.0858 7.25 10.5C7.25 10.9142 7.58579 11.25 8 11.25H13C13.4142 11.25 13.75 10.9142 13.75 10.5C13.75 10.0858 13.4142 9.75 13 9.75H8Z"
-										fill="#ffffff"></path>
+										d="M8 9.75C7.58579 9.75 7.25 10.0858 7.25 10.5C7.25 10.9142 7.58579 11.25 8 11.25H13C13.4142 11.25 13.75 10.9142 13.75 10.5C13.75 10.0858 13.4142 9.75 13 9.75H8Z">
+									</path>
 								</g>
 							</svg>
 
@@ -51,7 +54,7 @@
 						</li>
 
 						<li class="menu-item" (click)="setSelected(2);">
-							<svg fill="#ffffff" class="h-5 w-5 opacity-75" version="1.1" id="Capa_1"
+							<svg class="h-5 w-5 opacity-75 fill-current" version="1.1" id="Capa_1"
 								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 								viewBox="0 0 964.07 964.07" xml:space="preserve">
 								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -71,27 +74,15 @@
 						</li>
 
 						<li class="menu-item" (click)="setSelected(3);">
-							<svg class="h-5 w-5 opacity-75" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
-								fill="#ffffff">
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="22 22 32 32" xmlns="http://www.w3.org/2000/svg"
+								xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"
+								enable-background="new 0 0 76.00 76.00" xml:space="preserve">
 								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 								<g id="SVGRepo_iconCarrier">
-									<title>file_type_publisher</title>
-									<path
-										d="M16.484,2.475h1.868V8.136h2.214c.088-1.123-.418-2.906,1-3.366,1.956-.23,3.941-.022,5.91-.1.777.069,1.771-.189,2.356.475A4.665,4.665,0,0,1,30,6.561c-.009,4.3-.016,8.6,0,12.893a5.5,5.5,0,0,1-.2,1.711,10.365,10.365,0,0,1-2.96.186,35.2,35.2,0,0,1-.1,4.312c-.267.736-1.142.7-1.78.72-2.2.006-4.407-.009-6.612,0v3.145H16.405c-4.8-.871-9.6-1.673-14.4-2.516Q2,16,2,4.994C6.827,4.154,11.659,3.327,16.484,2.475Z"
-										style="fill:#ffffff"></path>
-									<path
-										d="M22.089,5.714c2.312-.2,4.64-.044,6.958-.094V20.089h-2.2c-.006-3.781.009-7.559-.006-11.339C25.36,7.58,23.376,7.092,22.089,5.714Z"
-										style="fill:#1c1c1cff"></path>
-									<path
-										d="M18.352,9.08h7.235V25.436H18.352q0-.944,0-1.887H23.7c0-.418,0-.84,0-1.258H18.352c0-.525,0-1.047,0-1.573H23.7c0-.418,0-.84,0-1.258H18.352c0-.525,0-1.047,0-1.573H23.7c0-.418,0-.84,0-1.258H18.352c0-.525,0-1.047,0-1.573H23.7v-4.4H18.352C18.349,10.127,18.349,9.605,18.352,9.08Z"
-										style="fill:#1c1c1cff"></path>
-									<path
-										d="M7.029,10.8c1.714.053,3.8-.692,5.218.594,1.349,1.651.988,4.665-1.022,5.649a4.566,4.566,0,0,1-2.306.286c0,1.233-.006,2.466,0,3.7-.635-.063-1.271-.126-1.9-.2C7.045,17.491,7.016,14.147,7.029,10.8Z"
-										style="fill:#1c1c1cff"></path>
-									<path
-										d="M8.916,12.49c.623-.035,1.4-.148,1.818.453a2.315,2.315,0,0,1,.028,2.051c-.365.645-1.17.582-1.8.654C8.9,14.6,8.91,13.543,8.916,12.49Z"
-										style="fill:#ffffff"></path>
+									<path fill-opacity="1" stroke-width="0.2" stroke-linejoin="round"
+										d="M 42.0002,28.9999L 52.0002,28.9999L 52.0002,51.9999L 42.0002,51.9999L 42.0002,49.9999L 50.0002,49.9999L 50.0002,47.9999L 42.0002,47.9999L 42.0002,45.9999L 50.0002,45.9999L 50.0002,43.9999L 42.0002,43.9999L 42.0002,41.9999L 50.0002,41.9999L 50.0002,39.9999L 42.0002,39.9999L 42.0002,37.9999L 50.0002,37.9999L 50.0002,30.9999L 42.0002,30.9999L 42.0002,28.9999 Z M 57.0001,44L 53.0001,44L 53.0001,28.25L 46.4999,24.0001L 57,24.0001L 57.0001,44 Z M 18.9999,23.5001L 41,20.0001L 41,56L 18.9999,52.5001L 18.9999,23.5001 Z M 28.9904,40.243L 30.0929,40.2672C 31.3735,40.1946 32.8667,39.6695 33.5546,38.5869C 34.5025,37.0953 34.4952,34.5216 33.2225,33.2955C 31.6462,31.777 28.8717,32.554 26.6862,32.6708L 26.6893,44.1461L 27.847,44.2174L 29.0046,44.2887L 28.9904,40.243 Z M 28.9933,34.5779L 29.9035,34.5473C 30.365,34.6859 30.9427,34.6269 31.2878,34.963C 32.0555,35.7107 31.7206,37.7802 30.7059,38.1247C 30.4482,38.2122 30.1693,38.2226 29.8978,38.2406L 28.988,38.2384L 28.9933,34.5779 Z ">
+									</path>
 								</g>
 							</svg>
 							<span>Editoriales</span>
@@ -113,14 +104,14 @@
 						@if (HasAccess(127))
 						{
 						<li class="menu-item" (click)="setSelected(5);">
-							<svg class="h-5 w-5 opacity-75" viewBox="0 0 16 16" fill="none"
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
 								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 								<g id="SVGRepo_iconCarrier">
 									<path fill-rule="evenodd" clip-rule="evenodd"
-										d="M16 1H0V13H5L8 16L11 13H16V1ZM3 6H5V8H3V6ZM9 6H7V8H9V6ZM13 6H11V8H13V6Z"
-										fill="#ffffff"></path>
+										d="M16 1H0V13H5L8 16L11 13H16V1ZM3 6H5V8H3V6ZM9 6H7V8H9V6ZM13 6H11V8H13V6Z">
+									</path>
 								</g>
 							</svg>
 							<span>Comentarios</span>
@@ -163,12 +154,12 @@
 						@if (HasAccess(254))
 						{
 						<li class="menu-item" (click)="setSelected(6);">
-							<svg class="h-5 w-5 opacity-75" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
-								fill="none">
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16"
+								xmlns="http://www.w3.org/2000/svg">
 								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 								<g id="SVGRepo_iconCarrier">
-									<g fill="#ffffff">
+									<g>
 										<path
 											d="M5.314 1.256a.75.75 0 01-.07 1.058L3.889 3.5l1.355 1.186a.75.75 0 11-.988 1.128l-2-1.75a.75.75 0 010-1.128l2-1.75a.75.75 0 011.058.07zM7.186 1.256a.75.75 0 00.07 1.058L8.611 3.5 7.256 4.686a.75.75 0 10.988 1.128l2-1.75a.75.75 0 000-1.128l-2-1.75a.75.75 0 00-1.058.07zM2.75 7.5a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H2.75zM2 11.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75zM2.75 13.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z">
 										</path>
@@ -208,24 +199,30 @@
 	<div class="flex w-full flex-row flex-wrap gap-4 p-6">
 		<div class="my-4 grid w-full grid-cols-1 gap-4">
 			<div class="flex h-full w-full items-center justify-center">
-				@switch (selectedMode) 
+				@switch (selectedMode)
 				{
-					@case(0)
-					{
-						<div class="flex h-full w-full items-center justify-center border-2 border-dashed border-border bg-gray-1">Select an option to begin Managing</div>
-					}
-					@case(1)
-					{
-						<app-add-libro-form class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-add-libro-form>
-					}
-					@case(6)
-					{
-						<app-log-form class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-log-form>
-					}
-					@default 
-					{
-						<div class="flex h-full w-full items-center justify-center border-2 border-dashed border-border bg-gray-1">La opción seleccionada no es valida o no está implementada.</div>
-					}
+				@case(0)
+				{
+				<div
+					class="flex h-full w-full items-center justify-center border-2 border-dashed border-border bg-gray-1">
+					Select an option to begin Managing</div>
+				}
+				@case(1)
+				{
+				<app-add-libro-form
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-add-libro-form>
+				}
+				@case(6)
+				{
+				<app-log-form
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-log-form>
+				}
+				@default
+				{
+				<div
+					class="flex h-full w-full items-center justify-center border-2 border-dashed border-border bg-gray-1">
+					La opción seleccionada no es valida o no está implementada.</div>
+				}
 				}
 			</div>
 		</div>

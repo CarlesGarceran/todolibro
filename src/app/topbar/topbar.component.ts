@@ -8,11 +8,14 @@ import { BackendService } from '../services/backend.service';
 import { SearchBarComponent } from '../components/search-bar/search-bar.component';
 import { LoggingService } from '../services/logging.service';
 import { UserData } from '../classes/UserData';
+import { ThemeSelectorComponent } from "../components/theme-selector/theme-selector.component";
+import { Error } from '../interfaces/Error';
+import { BackendResponse } from '../interfaces/backend-response';
 
 
 @Component({
   selector: 'app-topbar',
-  imports: [RouterLink, SearchBarComponent],
+  imports: [RouterLink, SearchBarComponent, ThemeSelectorComponent],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })
@@ -43,25 +46,30 @@ export class TopbarComponent implements OnInit {
     if (!this.loggedIn)
       return;
 
-    if (UserData.getUser() !== undefined)
-    {
+    if (UserData.getUser() !== undefined) {
       this.userData = UserData.getUser();
       return;
     }
 
     try {
-      this.backendServide.getUserData().subscribe((response: User) => {
-        this.userData = response;
-        UserData.setUser(response);
+      this.backendServide.getUserData().subscribe((response: BackendResponse<User | Error>) => {
+        if (response.Success) {
+          this.userData = response.Data as User;
+          UserData.setUser(response.Data as User);
+
+          this.backendServide.getUserRole().subscribe((value: number) => {
+            this.clearanceLevel = value;
+          });
+        }
+        else {
+          this.loggedIn = false;
+          this.cookiesService.deleteCookie("sessionId");
+        }
       });
     }
     catch (ex) {
       this.loggedIn = false;
     }
-
-    this.backendServide.getUserRole().subscribe((value: number) => {
-      this.clearanceLevel = value;
-    });
   }
 
   userIsAdministrator(clearance_level: number = 0): boolean {

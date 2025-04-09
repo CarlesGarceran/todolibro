@@ -28,6 +28,14 @@ export class CookiesService {
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
   }
 
+  deleteCookie(name : string) : void
+  {
+    if(this.hasCookie(name))
+    {
+      document.cookie = name + '=; Max-Age=0';
+    }
+  }
+
   hasCookie(name : string) : boolean
   {
     if(this.getCookie(name) != null)

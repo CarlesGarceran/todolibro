@@ -23,6 +23,7 @@ export class BackendService {
   }
 
 //#region LIBROS
+
   getLibros(limit : number = -1): Observable<Libro[]> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + `/books/getAllLibros.php?limit=${limit}`, null,
@@ -77,6 +78,25 @@ export class BackendService {
       });
   }
 
+  getLibroCount() : Observable<BackendResponse<{ payload : number } | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<{ payload : number } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getLibrosCount.php`,
+      {
+        headers: headers,
+        withCredentials: false
+      });
+  }
+
+  updateLibro(ISBN : number, libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/update.php?ISBN=${ISBN}`, JSON.stringify(libro), {
+      headers: headers,
+      withCredentials: true
+    })
+  }
+
 //#endregion
 
   getAuthor(authorId : number) : Observable<Author> 
@@ -89,24 +109,36 @@ export class BackendService {
     return this.httpClient.get<any>(TodoLibroConfig.getBackendUrl() + `/publisher/getById.php?publisherId=${publisherId}`, {});
   }
 
-  getUserData(): Observable<User> {
+//#region USER
+
+  getUserData(): Observable<BackendResponse<User | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<{ id: number, username: string, email: string, profile_picture: string }>(TodoLibroConfig.getBackendUrl() + "/user/getUserInfo.php", {
+    return this.httpClient.post<BackendResponse<User | Error>>(TodoLibroConfig.getBackendUrl() + "/user/getUserInfo.php", {
       "headers": headers,
     },
       {
         withCredentials: true
-      }).pipe(map(response => {
-        var usr: User = {
-          id: response.id,
-          email: response.email,
-          profile_picture: response.profile_picture,
-          username: response.username
-        }
-
-        return usr;
-      }));
+      });
   }
+
+  getUserName(userId : number) : Observable<BackendResponse<{ id : number, username : string } | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<{ id : number, username : string } | Error>>(TodoLibroConfig.getBackendUrl() + `/user/getUserName.php?userId=${userId}`,
+      {
+        withCredentials: false
+      });
+  }
+
+//#endregion
+
+  testGetSession(): Observable<string> {
+    return this.httpClient.post<{ RSP: string }>(TodoLibroConfig.getBackendUrl() + "/test/sessionGetTest.php", {}, {
+      withCredentials: true
+    }).pipe(map(response => response.RSP));
+  }
+
+//#region ROLES
 
   getUserRole(): Observable<number> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -120,17 +152,15 @@ export class BackendService {
       }));
   }
 
-  testGetSession(): Observable<string> {
-    return this.httpClient.post<{ RSP: string }>(TodoLibroConfig.getBackendUrl() + "/test/sessionGetTest.php", {}, {
-      withCredentials: true
-    }).pipe(map(response => response.RSP));
-  }
-
   getRoleName(roleId : number) : Observable<string>
   {
     return this.httpClient.get<{RoleName : string;}>(TodoLibroConfig.getBackendUrl() + `/roles/getRoleName.php?roleId=${roleId}`, {}).pipe(map(response => response.RoleName));
   }
+
+//#endregion
   
+//#region LOGS
+
   getLogs() : Observable<Log[]>
   {
     return this.httpClient.get(TodoLibroConfig.getBackendUrl() + "/logging/get.php",
@@ -162,4 +192,7 @@ export class BackendService {
       withCredentials: true
     });
   }
+
+//#endregion
+
 }

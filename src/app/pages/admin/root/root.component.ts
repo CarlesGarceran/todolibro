@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { AdminSidebarComponent } from "../../../components/admin/admin-sidebar/admin-sidebar.component";
 import { User } from '../../../interfaces/user';
 import { LoggingService } from '../../../services/logging.service';
+import { BackendResponse } from '../../../interfaces/backend-response';
+import { Error } from '../../../interfaces/Error';
+import { UserData } from '../../../classes/UserData';
 
 @Component({
   selector: 'app-root',
@@ -24,10 +27,18 @@ export class RootComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedIn = this.cookieService.hasCookie("sessionId");
+
     this.backendService.getUserRole().subscribe((role : number)=>
     {
-      this.backendService.getUserData().subscribe((u : User)=>{
-        this.user = u;
+      this.backendService.getUserData().subscribe((u : BackendResponse<User | Error>)=>{
+        if(u.Success)
+        {
+          this.user = u.Data as User;
+        }
+        else
+        {
+          return;
+        }
       }).add(()=>
       {
         this.opLevel = role;

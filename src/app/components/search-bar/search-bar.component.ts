@@ -8,7 +8,6 @@ import { Error } from '../../interfaces/Error';
 import { temporalStorage } from '../../classes/TemporalStorage';
 import { ErrorPopupComponent } from '../popups/error-popup/error-popup.component';
 
-
 @Component({
   selector: 'app-search-bar',
   imports: [FormsModule],

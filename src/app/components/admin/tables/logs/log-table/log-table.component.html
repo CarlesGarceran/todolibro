@@ -23,7 +23,7 @@
             @for (item of table_data; track $index)
             {
             <tr>
-                <td class="tooltip tooltip-top" data-tooltip="User Name">
+                <td class="tooltip tooltip-top" [attr.data-tooltip]="getUsernameFromCache(item.userId)">
                     {{item.userId}}
                 </td>
                 <td>{{item.Action}}</td>
