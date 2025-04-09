@@ -71,6 +71,9 @@ function toJson(mixed $data) : string
  */
 function fromJson(string $data) : object | array
 {
+    if($data == null)
+        return [];
+
     return json_decode($data, true);
 }
 

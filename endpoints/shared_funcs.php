@@ -38,20 +38,40 @@ function HasRole(int $userId, int $expectedRole) : bool
     return true;
 }
 
-function GetUser()
+function GetUser(bool $useNewAPI = false)
 {
     if(!isset($_COOKIE['sessionId']))
-        NOP_OBJ(new RuntimeError(400, "User not logged in"));
+        if($useNewAPI)
+            NOP_WRAP(new RuntimeError(400, "User not logged in"));
+        else
+            NOP_OBJ(new RuntimeError(400, "User not logged in"));
 
     $sessionId = $_COOKIE['sessionId'];
 
     if(!isset($_SESSION))
-        NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
+        if($useNewAPI)
+            NOP_WRAP(new RuntimeError(500, "Failed to initialize session"));
+        else
+            NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
 
     if(!isset($_SESSION[$sessionId]))
-        NOP_OBJ(new RuntimeError(500, "Failed to obtain user profile"));
+        if ($useNewAPI)
+            NOP_WRAP(new RuntimeError(500, "Failed to obtain user profile"));
+        else
+            NOP_OBJ(new RuntimeError(500, "Failed to obtain user profile"));
 
     return fromJson($_SESSION[$sessionId]['User']);
+}
+
+
+function getUserData() : object | array
+{
+    $fileContents = file_get_contents("php://input");
+
+    if($fileContents == null)
+        $fileContents = "";
+
+    return fromJson($fileContents);
 }
 
 ?>

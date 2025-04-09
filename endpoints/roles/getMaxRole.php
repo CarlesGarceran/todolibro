@@ -3,6 +3,7 @@
 use function PHPSTORM_META\sql_injection_subst;
 
 include_once "../../functions.php";
+include_once "../shared_funcs.php";
 include_once "../../src/RuntimeError.php";
 
 $error_code = 500;

@@ -5,7 +5,7 @@ function getSimilarBooks() // Similar genere
 
 }
 
-function getBooksFromSameEditorial()
+function getBooksFromSamePublisher()
 {
     
 }

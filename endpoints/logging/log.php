@@ -3,6 +3,7 @@
 include_once "../../functions.php";
 include_once "../../src/RuntimeError.php";
 include_once "../../src/Libro.php";
+include_once "../shared_funcs.php";
 
 define("QUERY", "INSERT INTO Log(userId, Action, Time) VALUES (:userId, :action, NOW());");
 
@@ -10,22 +11,10 @@ try {
     INIT_BACKEND_CALL();
     session_start();
 
-    if(!isset($_COOKIE['sessionId']))
-        NOP_OBJ(new RuntimeError(400, "User not logged in"));
-
-    $sessionId = $_COOKIE['sessionId'];
-
-    if(!isset($_SESSION))
-        NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
-
-    if(!isset($_SESSION[$sessionId]))
-        NOP_OBJ(new RuntimeError(500, "Failed to obtain user data"));
-
-
+    $tmp_user = GetUser(false);
     $userData = fromJson(file_get_contents("php://input"), true);
 
     $action = $userData['payload'];
-    $tmp_user = fromJson($_SESSION[$sessionId]['User']);
     $userId =  (int)$tmp_user['id'];
 
     $sqlHandler = getSQLHandler();
