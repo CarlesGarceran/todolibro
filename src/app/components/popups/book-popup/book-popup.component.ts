@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Libro } from '../../../interfaces/libro';
 import { AddLibroFormComponent } from '../../admin/forms/add-libro-form/add-libro-form.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-book-popup',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './book-popup.component.html',
   styleUrl: './book-popup.component.css'
 })
@@ -18,7 +20,17 @@ export class BookPopupComponent implements AfterViewInit {
   @Input()
   public popupTitle : string = "";
 
-  protected local_libro? : Libro = undefined;
+  protected local_libro : Libro = {
+    ISBN: '',
+    Name: '',
+    Author: 0,
+    Publisher: 0,
+    LaunchDate: new Date(),
+    Image: '',
+    Synopsis: "",
+    Price: 0,
+    Stock: 0
+  };
 
   private libroFormComponent! : AddLibroFormComponent;
   private libroPtr! : Libro;
@@ -67,7 +79,7 @@ export class BookPopupComponent implements AfterViewInit {
 
   descartarCambios()
   {
-    this.local_libro = undefined;
+    this.local_libro = this.libroPtr;
     this.hidePopup();
   }
 

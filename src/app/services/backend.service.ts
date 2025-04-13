@@ -89,11 +89,30 @@ export class BackendService {
       });
   }
 
-  updateLibro(ISBN : number, libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
+  updateLibro(ISBN : string, libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
   {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/update.php?ISBN=${ISBN}`, JSON.stringify(libro), {
+    return this.httpClient.put<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/?ISBN=${ISBN}`, JSON.stringify(libro), {
       headers: headers,
+      withCredentials: true
+    })
+  }
+
+  addLibro(libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'method': 'POST' });
+    return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + '/books/', JSON.stringify(libro), {
+      headers: headers,
+      withCredentials: true
+    })
+  }
+
+  deleteLibro(libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'method': 'POST' });
+    return this.httpClient.delete<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/`, {
+      headers: headers,
+      body: JSON.stringify(libro),
       withCredentials: true
     })
   }

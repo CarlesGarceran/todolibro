@@ -2,7 +2,12 @@
 
 @if (libros && libros.length > 0)
 {
-    
+    <div class="flex w-full h-full overflow-hidden flex-row gap-5 p-5">
+        @for (libro of libros; track $index) 
+        {
+            <app-libro-entry [libro]="libro"></app-libro-entry>
+        }
+    </div>
 }
 @else 
 {

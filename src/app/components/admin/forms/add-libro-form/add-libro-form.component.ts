@@ -40,13 +40,15 @@ export class AddLibroFormComponent implements OnInit {
     this.table_Header.push("Foto");
     this.table_Header.push("Fecha de Lanzamiento");
     this.table_Header.push("Precio");
+    this.table_Header.push("Synopsis");
+    this.table_Header.push("Stock");
     this.table_Header.push("");
     this.table_Header.push("");
   }
 
   ngOnInit(): void 
   {
-    this.backendService.getLibros(2).subscribe((books : Libro[]) => {
+    this.backendService.getLibros(this.showInPage).subscribe((books : Libro[]) => {
       this.table_Body = books;
       this.tableRef?.updateTable();
       this.maxEntries = books.length;
@@ -66,10 +68,32 @@ export class AddLibroFormComponent implements OnInit {
     })
   }
 
+  success()
+  {
+
+  }
+
   onEditClick(libro : Libro)
   {
     this.popupRef.setLibro(libro, this);
     this.popupRef.showPopup();
+  }
+
+  onDeleteClick(libro : Libro)
+  {
+    this.backendService.deleteLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
+      if(rsp.Success)
+      {
+        this.success();
+      }
+      else
+      {
+        const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+        const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+
+        errorFunc.call(errorInstance, (rsp.Data as Error));
+      }
+    })
   }
 
   libroUpdated(libro : Libro, oldBook : Libro)
@@ -77,7 +101,7 @@ export class AddLibroFormComponent implements OnInit {
     this.backendService.updateLibro(oldBook?.ISBN, libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
       if(rsp.Success)
       {
-        window.location.reload();
+        this.success();
       }
       else
       {

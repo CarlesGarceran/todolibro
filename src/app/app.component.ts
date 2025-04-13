@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { SiteConfigService } from './services/siteconfig.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ErrorPopupComponent } from "./components/popups/error-popup/error-popup.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent],
+  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

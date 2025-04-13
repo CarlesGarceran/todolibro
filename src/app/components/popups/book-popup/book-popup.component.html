@@ -1,36 +1,42 @@
 <label class="btn btn-primary hidden" for="modal-1">Open Modal</label>
 <input #modalHandler class="modal-state hidden" id="modal-1" type="checkbox" (click)="hidePopup();" />
 <div class="modal">
-	<label class="modal-overlay" for="modal-1"></label>
-	<div class="modal-content flex flex-col gap-5 w-fit h-fit">
-		<label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
-		<h2 class="text-xl m-5">{{popupTitle}}</h2>
-		<div class="flex flex-col gap-5">
-			<span>
-				ISBN: <input class="input hover:input-solid flex-shrink" placeholder="ISBN" [value]="local_libro?.ISBN">
-			</span>
-			<span>
-				Nombre: <input class="input hover:input-solid flex-shrink" placeholder="Nombre" [value]="local_libro?.Name">
-			</span>
-			<span>
-				Autor: <input class="input hover:input-solid flex-shrink" placeholder="Autor" [value]="local_libro?.Author" type="number">
-			</span>
-			<span>
-				Editorial: <input class="input hover:input-solid flex-shrink" placeholder="Editorial" [value]="local_libro?.Publisher" type="number">
-			</span>
-			<span>
-				Fecha de Lanzamiento: <input class="input hover:input-solid flex-shrink" placeholder="Fecha de Lanzamiento" [value]="convertToHTML(local_libro?.LaunchDate)" type="date">
-			</span>
-			<span>
-				Imagen: <input class="input hover:input-solid flex-shrink" placeholder="Imagen" [value]="local_libro?.Image" type="text">
-			</span>
-			<span>
-				Precio: <input class="input hover:input-solid flex-shrink" placeholder="Precio" [value]="local_libro?.Price" type="number">
-			</span>
-		</div>
-		<div class="flex gap-3">
-			<button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Actualizar</button>
-			<button class="btn btn-error btn-block" for="modal-1" (click)="descartarCambios();">Cancelar</button>
-		</div>
-	</div>
+  <label class="modal-overlay" for="modal-1"></label>
+  <div class="modal-content flex flex-col gap-5 w-fit h-fit">
+    <label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+    <h2 class="text-xl m-5">{{popupTitle}}</h2>
+    <div class="flex flex-col gap-5">
+      <span>
+        ISBN: <input [(ngModel)]="local_libro.ISBN" class="input hover:input-solid flex-shrink" placeholder="ISBN">
+      </span>
+      <span>
+        Nombre: <input [(ngModel)]="local_libro.Name" class="input hover:input-solid flex-shrink" placeholder="Nombre">
+      </span>
+      <span>
+        Autor: <input [(ngModel)]="local_libro.Author" class="input hover:input-solid flex-shrink" placeholder="Autor" type="number">
+      </span>
+      <span>
+        Editorial: <input [(ngModel)]="local_libro.Publisher" class="input hover:input-solid flex-shrink" placeholder="Editorial" type="number">
+      </span>
+      <span>
+        Fecha de Lanzamiento: <input class="input hover:input-solid flex-shrink" placeholder="Fecha de Lanzamiento" type="date" [value]="convertToHTML(local_libro.LaunchDate)">
+      </span>
+      <span>
+        Imagen: <input [(ngModel)]="local_libro.Image" class="input hover:input-solid flex-shrink" placeholder="Imagen" type="text">
+      </span>
+      <span>
+        Precio: <input [(ngModel)]="local_libro.Price" class="input hover:input-solid flex-shrink" placeholder="Precio" type="number">
+      </span>
+      <span>
+        Synopsis: <textarea [(ngModel)]="local_libro.Synopsis" class="textarea input hover:input-solid flex-shrink" placeholder="Synopsis"></textarea>
+      </span>
+      <span>
+        Stock: <input [(ngModel)]="local_libro.Stock" class="input hover:input-solid flex-shrink" placeholder="Precio" type="number">
+      </span>
+    </div>
+    <div class="flex gap-3">
+      <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Actualizar</button>
+      <button class="btn btn-error btn-block" for="modal-1" (click)="descartarCambios();">Cancelar</button>
+    </div>
+  </div>
 </div>

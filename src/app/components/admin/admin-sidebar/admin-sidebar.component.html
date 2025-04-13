@@ -127,7 +127,7 @@
 										<path stroke-linecap="round" stroke-linejoin="round"
 											d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
 									</svg>
-									<span>Account</span>
+									<span>Categorias</span>
 								</div>
 
 								<span class="menu-icon">
@@ -142,11 +142,8 @@
 
 							<div class="menu-item-collapse">
 								<div class="min-h-0">
-									<label class="menu-item menu-item-disabled ml-6">Accounts</label>
-									<label class="menu-item ml-6">Billing</label>
-									<label class="menu-item ml-6">Security</label>
-									<label class="menu-item ml-6">Notifications</label>
-									<label class="menu-item ml-6">Integrations</label>
+									<label class="menu-item ml-6" (click)="setSelected(7);">Categorias</label>
+									<label class="menu-item ml-6" (click)="setSelected(8);">Categorizar Libros</label>
 								</div>
 							</div>
 						</li>
@@ -168,6 +165,41 @@
 							</svg>
 
 							<span>Logs</span>
+						</li>
+
+						
+						<li class="menu-item" (click)="setSelected(9);">
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16"
+								xmlns="http://www.w3.org/2000/svg">
+								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+								<g id="SVGRepo_iconCarrier">
+									<g>
+										<path
+											d="M5.314 1.256a.75.75 0 01-.07 1.058L3.889 3.5l1.355 1.186a.75.75 0 11-.988 1.128l-2-1.75a.75.75 0 010-1.128l2-1.75a.75.75 0 011.058.07zM7.186 1.256a.75.75 0 00.07 1.058L8.611 3.5 7.256 4.686a.75.75 0 10.988 1.128l2-1.75a.75.75 0 000-1.128l-2-1.75a.75.75 0 00-1.058.07zM2.75 7.5a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H2.75zM2 11.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75zM2.75 13.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z">
+										</path>
+									</g>
+								</g>
+							</svg>
+
+							<span>Roles</span>
+						</li>
+
+						<li class="menu-item" (click)="setSelected(10);">
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16"
+								xmlns="http://www.w3.org/2000/svg">
+								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+								<g id="SVGRepo_iconCarrier">
+									<g>
+										<path
+											d="M5.314 1.256a.75.75 0 01-.07 1.058L3.889 3.5l1.355 1.186a.75.75 0 11-.988 1.128l-2-1.75a.75.75 0 010-1.128l2-1.75a.75.75 0 011.058.07zM7.186 1.256a.75.75 0 00.07 1.058L8.611 3.5 7.256 4.686a.75.75 0 10.988 1.128l2-1.75a.75.75 0 000-1.128l-2-1.75a.75.75 0 00-1.058.07zM2.75 7.5a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H2.75zM2 11.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75zM2.75 13.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z">
+										</path>
+									</g>
+								</g>
+							</svg>
+
+							<span>File Uploader</span>
 						</li>
 						}
 					</ul>

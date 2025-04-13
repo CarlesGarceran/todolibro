@@ -14,6 +14,8 @@ export class BookTableComponent extends GenericTableComponent<string, Libro> imp
   
   @Output("onEdit")
   public onEdit : EventEmitter<Libro> = new EventEmitter<Libro>();
+  @Output("onDelete")
+  public onDelete : EventEmitter<Libro> = new EventEmitter<Libro>();
 
   constructor() {
     super();
@@ -36,7 +38,12 @@ export class BookTableComponent extends GenericTableComponent<string, Libro> imp
     this.header = this.h_Data;
     this.table_data = this.b_Data;
   }
-  
+
+  onDeleteFunc(libro : Libro): void
+  {
+    this.onDelete.emit(libro);
+  }
+
   onEditFunc(libro : Libro) : void
   {
     this.onEdit.emit(libro);

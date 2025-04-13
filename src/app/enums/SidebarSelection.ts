@@ -6,5 +6,9 @@ export enum SidebarSelection
     Publishers,
     Users,
     Comments,
-    Logs
+    Logs,
+    Categories,
+    Categories_Has_Books,
+    Roles,
+    FileUploader
 }

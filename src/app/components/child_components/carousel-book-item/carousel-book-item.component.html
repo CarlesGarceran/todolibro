@@ -1,6 +1,8 @@
 <div class="card flexbox desktop-only">
     <div class="card-body image gap-5">
-        <img class="flex-shrink" style="background-image: url('{{inputItem?.Image}}');" [src]="inputItem?.Image">
+        <div class="w-64 h-80">
+        <img class="h-full w-full object-contain" [src]="inputItem?.Image">
+        </div>
         <p class="center">{{inputItem?.Name}}</p>
         <div class="flex_container">
             <a class="rel" routerLink="/author/{{inputItem?.Author}}">Autor: {{Author?.Name}}</a>

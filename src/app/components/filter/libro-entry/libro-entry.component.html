@@ -1,0 +1,21 @@
+<div class="card w-full h-full">
+    <div class="card-body flex flex-row grid-cols-3 items-center gap-4">
+        <div class="flex-column">
+            <div class="flex-row">
+                <div class="w-80 h-auto">
+                    <img [src]="libro?.Image" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <h2 class="card-header">{{libro?.Name}}</h2>
+                    <p class="text-content2">{{getTrimmedSynopsis()}}</p>
+                </div>
+            </div>
+            <div class="divider-horizontal"></div>
+            <div class="btn-group btn-group-rounded btn-group-scrollable">
+                <button class="btn btn-primary" [routerLink]="['/book', libro?.ISBN]">Ver Ahora</button>
+                <button class="btn btn-error">Añadir a favoritos</button>
+                <button class="btn btn-error">Añadir a una estanteria</button>
+            </div>
+        </div>
+    </div>
+</div>

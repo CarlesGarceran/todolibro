@@ -6,7 +6,9 @@
 @else
 {
 <div class="flex w-svw h-svw grid-cols-3 grid-rows-1 gap-1 border-2 p-5 border-solid border-border bg-gray-1 layout">
-    <img [src]="libro.Image" class="flex-shrink shadow p-1 border-solid border-border bg-gray-1 border-2">
+    <div class="w-full h-full">
+        <img [src]="libro.Image" class="w-full h-full object-contain bg-gray-1 border-2">
+    </div>
     <div class="flex-grow block p-5 border-solid border-border bg-gray-1 border-2">
         <h1 class="text-center font-bold text-xl backdrop-blur-md">
             <h1 class="justify-center text-center font-bold text-xl blur-md m-0 left-0 right-0 absolute">
