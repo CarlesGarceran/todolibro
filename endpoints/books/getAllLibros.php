@@ -44,7 +44,8 @@ try {
                 (string)$libro['Image'],
                 new DateTime((string)$libro['LaunchDate']),
                 ((float)$libro['Price']),
-                (string)$libro['Synopsis']
+                (string)$libro['Synopsis'],
+                (int)$libro['Stock']
             )
         );
     }
