@@ -1,4 +1,4 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CookiesService } from '../services/cookies.service';
 import { User } from '../interfaces/user';
@@ -19,7 +19,7 @@ import { BackendResponse } from '../interfaces/backend-response';
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })
-export class TopbarComponent implements OnInit {
+export class TopbarComponent implements OnInit, OnChanges {
   backendServide: BackendService = inject(BackendService);
   sessionService: SessionService = inject(SessionService);
   siteconfigService: SiteConfigService = inject(SiteConfigService);
@@ -72,8 +72,18 @@ export class TopbarComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void 
+  {
+    if(!this.loggedIn)
+      return;
+
+    this.backendServide.getUserRole().subscribe((value: number) => {
+      this.clearanceLevel = value;
+    });
+  }
+
   userIsAdministrator(clearance_level: number = 0): boolean {
-    return clearance_level <= this.clearanceLevel;
+    return this.clearanceLevel >= clearance_level;
   }
 
   userHasLoggedIn(): boolean {

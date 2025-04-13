@@ -44,7 +44,8 @@ export class BackendService {
             Image: element["ImageUrl"],
             LaunchDate: new Date(element["LaunchDate"]["date"]),
             Price: element['Price'],
-            Synopsis: element['Synopsis']
+            Synopsis: element['Synopsis'],
+            Stock: element['Stock']
           };
 
           libros.push(libro);

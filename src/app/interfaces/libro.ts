@@ -7,4 +7,5 @@ export interface Libro {
     LaunchDate: Date;
     Price: number;
     Synopsis : string;
+    Stock : number;
 }
