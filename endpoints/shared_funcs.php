@@ -74,4 +74,40 @@ function getUserData() : object | array
     return fromJson($fileContents);
 }
 
+
+class IsA
+{
+    static function Libro(mixed $any): bool
+    {
+        if (!isset($any['ISBN']))
+            return false;
+
+        if (!isset($any['Name']))
+            return false;
+
+        if (!isset($any['Publisher']))
+            return false;
+
+        if (!isset($any['Author']))
+            return false;
+
+        if (!isset($any['Image']))
+            return false;
+
+        if (!isset($any['LaunchDate']))
+            return false;
+
+        if (!isset($any['Price']))
+            return false;
+
+        if (!isset($any['Synopsis']))
+            return false;
+
+        if (!isset($any['Stock']))
+            return false;
+
+        return true;
+    }
+};
+
 ?>

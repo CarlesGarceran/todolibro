@@ -5,9 +5,8 @@ include_once "../shared_funcs.php";
 include_once "../../src/RuntimeError.php";
 include_once "../../src/Libro.php";
 
-define("QUERY", "UPDATE Books
-SET ISBN = :newISBN, Name = :newName, Publisher = :newPublisher, Author = :newAuthor, Image = :newImage, LaunchDate = :newLaunchDate, Price = :newPrice, Synopsis = :newSynopsis, Stock = :newStock
-WHERE ISBN = :inISBN;
+define("QUERY", "INSERT INTO Books (ISBN, Name, Publisher, Author, Image, LaunchDate, Price, Synopsis, Stock)
+VALUES (:newISBN, :newName, :newPublisher, :newAuthor, :newImage, :newLaunchDate, :newPrice, :newSynopsis, :newStock);
 ");
 
 try {
@@ -22,11 +21,6 @@ try {
 
     if(!(HasRole((int)$user['id'], 130)))
         NOP_WRAP(new RuntimeError(401, "Unauthorized to perform this request"));
-
-    if (!isset($_GET['ISBN']))
-        NOP_WRAP(new RuntimeError(400, "Bad Request - Failed to GET ISBN."));
-
-    $ISBN = $_GET['ISBN'];
 
     $userData = getUserData();
     $sqlHandler = getSQLHandler();
