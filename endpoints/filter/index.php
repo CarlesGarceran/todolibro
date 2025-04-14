@@ -22,16 +22,16 @@ try {
     $query = "";
     switch ($filterType) {
         case 'ISBN':
-            $query = "SELECT * FROM Books WHERE Books.ISBN LIKE :filterContent;";
+            $query = "SELECT Books.* FROM Books WHERE Books.ISBN LIKE :filterContent;";
             break;
         case 'Autor':
-            $query = "SELECT * FROM Books JOIN Authors ON (Books.Author = Authors.AuthorId) WHERE Authors.Name LIKE :filterContent;";
+            $query = "SELECT Books.* FROM Books JOIN Authors ON (Books.Author = Authors.AuthorId) WHERE Authors.Name LIKE :filterContent;";
             break;
         case 'Nombre':
-            $query = "SELECT * FROM Books WHERE Books.Name LIKE :filterContent;";
+            $query = "SELECT Books.* FROM Books WHERE Books.Name LIKE :filterContent;";
             break;
         case 'Editorial':
-            $query = "SELECT * FROM Books JOIN Publishers ON (Books.Publisher = Publishers.PublisherId) WHERE Publishers.Name LIKE :filterContent;";
+            $query = "SELECT Books.* FROM Books JOIN Publishers ON (Books.Publisher = Publishers.PublisherId) WHERE Publishers.Name LIKE :filterContent;";
             break;
         default:
             NOP_WRAP(new RuntimeError(404, "No se pudo encontrar el tipo de filtro"));

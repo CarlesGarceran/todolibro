@@ -165,3 +165,75 @@ function getLocaleHandler() : Locale
 
     return LoadLocale();
 }
+
+
+function isGET() : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === 'GET');
+}
+
+function isPUT() : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === 'PUT');
+}
+
+function isPOST() : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === 'POST');
+}
+
+function isPATCH() : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === 'PATCH');
+}
+
+function isDELETE() : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === 'DELETE');
+}
+
+function isOPTIONS() : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === 'OPTIONS');
+}
+
+function isCUSTOM(string $expected) : bool
+{
+    return ($_SERVER['REQUEST_METHOD'] === $expected);
+}
+
+function onGET($callback)
+{
+    if(isGET())
+        $callback();
+}
+
+function onPOST($callback)
+{
+    if(isPOST())
+        $callback();
+}
+
+function onPUT($callback)
+{
+    if(isPUT())
+        $callback();
+}
+
+function onPATCH($callback)
+{
+    if(isPATCH())
+        $callback();
+}
+
+function onDELETE($callback)
+{
+    if(isDELETE())
+        $callback();
+}
+
+function onCUSTOM($expected, $callback)
+{
+    if(isCUSTOM($expected))
+        $callback();
+}

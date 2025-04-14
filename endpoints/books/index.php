@@ -4,20 +4,22 @@ include "../../functions.php";
 
 INIT_BACKEND_CALL();
 
-if($_SERVER['REQUEST_METHOD'] === 'PUT')
-{
+onGET(function() {
+    include "getAllLibros.php";
+    return;
+});
+
+onPUT(function() {
     include "update.php";
     return;
-}
+});
 
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-{
+onPOST(function() {
     include "add.php";
     return;
-}
+});
 
-if($_SERVER['REQUEST_METHOD'] === 'DELETE')
-{
+onDELETE(function() {
     include "delete.php";
     return;
-}
+});
