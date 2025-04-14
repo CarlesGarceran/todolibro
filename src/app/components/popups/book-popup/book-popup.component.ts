@@ -33,7 +33,17 @@ export class BookPopupComponent implements AfterViewInit {
   };
 
   private libroFormComponent! : AddLibroFormComponent;
-  private libroPtr! : Libro;
+  protected libroPtr : Libro = {
+    ISBN: '',
+    Name: '',
+    Author: 0,
+    Publisher: 0,
+    LaunchDate: new Date(),
+    Image: '',
+    Synopsis: "",
+    Price: 0,
+    Stock: 0
+  };
 
   constructor() {
     
@@ -42,9 +52,18 @@ export class BookPopupComponent implements AfterViewInit {
   setLibro(libro : Libro, formComponent : AddLibroFormComponent)
   {
     this.local_libro = libro;
-    this.popupTitle = "Editando Libro: " + libro.Name;
-    this.libroPtr = libro;
     this.libroFormComponent = formComponent;
+   
+    if(this.local_libro.ISBN == '')
+    {
+      this.popupTitle = "Añadir Libro";
+    }
+    else
+    {
+      this.popupTitle = "Editando Libro: " + this.local_libro.Name;
+    }
+
+    Object.assign(this.libroPtr, libro);
   }
 
   setVisible(value : boolean)

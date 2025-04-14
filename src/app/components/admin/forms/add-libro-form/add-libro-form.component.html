@@ -1,5 +1,9 @@
-<div class="flex flex-grow w-full h-full flex-row flex-wrap overflow-scroll">
-    <app-book-table class="size-max flex-grow basis-full" [header]="table_Header" [body]="table_Body" (onEdit)="onEditClick($event);" (onDelete)="onDeleteClick($event);" #tableRef></app-book-table>
+<div class="flex w-full h-full flex-row flex-wrap overflow-scroll grid-rows-3">
+    <div class="flex object-top">
+        <button class="btn" (click)="onAddClick();">+</button>
+    </div>
+
+    <app-book-table class="w-full" [header]="table_Header" [body]="table_Body" (onEdit)="onEditClick($event);" (onDelete)="onDeleteClick($event);" #tableRef></app-book-table>
 
     <div class="pagination align-bottom items-end justify-center object-bottom flex-grow mb-2.5">
         <button class="btn">

@@ -1,0 +1,16 @@
+<app-topbar></app-topbar>
+
+@if(publisher == null)
+{
+    <app-loading></app-loading>
+}
+@else 
+{
+    <br>
+    <div class="flex w-full h-full">
+        <app-glowing-text class="w-full justify-center text-center" [textContent]="publisher.Name"></app-glowing-text>
+    </div>
+    <div class="flex w-full h-full">
+        <app-linear-carousel [book_buffer]="bookBuffer" [prepackedData]="true"></app-linear-carousel>
+    </div>
+}

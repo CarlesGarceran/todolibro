@@ -22,36 +22,6 @@ export class SearchBarComponent {
   private backendService: BackendService = inject(BackendService);
 
   search() {
-    this.backendService.getLibrosByFilter(this.selectFilter, this.inputText).subscribe((result: BackendResponse<any>) => {
-      if (result.Success) {
-        const libros: Libro[] = result.Data;
-
-        if (libros.length == 0) {
-          var error: Error = {
-            error_code: 400,
-            message: "No se han encontrado libros con las caracteristicas introducidas"
-          };
-
-          const errComponent = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
-          errComponent.setError(error);
-          errComponent.showPopup();
-          return;
-        }
-
-        if (libros.length <= 1) {
-          this.router.navigate(['/book/', libros[0].ISBN]);
-        }
-        else {
-          temporalStorage.addToStorage("bookData", libros);
-          this.router.navigate(['/filter']);
-        }
-      }
-      else {
-        var error: Error = result.Data;
-
-        const errComponent = temporalStorage.getFromStorage<Function>("show_error_popup");
-        errComponent.call(temporalStorage.getFromStorage("error_popup"), error);
-      }
-    });
+    this.router.navigate(['/filter/', this.selectFilter, this.inputText]);
   }
 }

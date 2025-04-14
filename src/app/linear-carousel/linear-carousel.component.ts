@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Libro } from '../interfaces/libro';
 import { LinearStorage } from '../classes/LinearStorage';
 import { CarouselBookItemComponent } from '../components/child_components/carousel-book-item/carousel-book-item.component';
@@ -11,7 +11,7 @@ import { LoadingComponent } from "../components/loading/loading.component";
   templateUrl: './linear-carousel.component.html',
   styleUrl: './linear-carousel.component.css'
 })
-export class LinearCarouselComponent extends LinearStorage<Libro> implements OnInit {
+export class LinearCarouselComponent extends LinearStorage<Libro> implements OnInit, OnChanges {
   @Input("header_name")
   public header: string = "";
 
@@ -30,6 +30,9 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
 
   @Input("book_buffer")
   public libro_buffer : Libro[] = [];
+
+  @Input("prepackedData")
+  public inputData : boolean = false;
 
   scrollLeft() {
     if (this.holding == false)
@@ -76,140 +79,18 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
   constructor() {
     super("libro");
     this.data = this.libro_buffer;
-    
-    /*
+  }
 
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 1",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 2",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 3",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 4",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 5",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 6",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://2.bp.blogspot.com/-IxQFw8UKBQc/VANQF3Yh1HI/AAAAAAAAAZE/m3ONw94MHqU/s1600/bt0PNcd.jpg"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 7",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 8",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 9",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 10",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://2.bp.blogspot.com/-IxQFw8UKBQc/VANQF3Yh1HI/AAAAAAAAAZE/m3ONw94MHqU/s1600/bt0PNcd.jpg"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 11",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-    
-    this.data?.push(
-      {
-        ISBN: 0,
-        Name: "TITLE 12",
-        Author: 0,
-        Publisher: 0,
-        Image: "https://c.wallhere.com/photos/1a/10/Chainsaw_Man_red_background_feathers_scars_misaka_asa-2169061.jpg!d"
-      }
-    );
-
-    */
-
+  ngOnChanges(changes: SimpleChanges): void 
+  {
+    this.setLibros(this.libro_buffer);
   }
 
   ngOnInit(): void {
 
-    if(this.data.length <= 0)
+    this.data = this.libro_buffer;
+
+    if(this.libro_buffer.length <= 0 && !this.inputData)
     {
       this.backendService.getLibros(10).subscribe((libros: Libro[]) => {
         libros.forEach((value: Libro) => {
@@ -223,6 +104,25 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
         this.generateDataChunk();
       });
     }
+  }
+
+  fixNumbers(n : number) : number
+  {
+    return parseFloat(n + "");
+  }
+
+  setLibros(buffer : Libro[])
+  {
+    for(let x = 0; x < this.data.length; x++)
+    {
+      this.data.pop();
+    }
+
+    buffer.forEach((value: Libro) => {
+      value.Price = this.fixNumbers(value.Price);
+      this.data.push(value);
+    });
+    this.generateDataChunk();
   }
 
   generateDataChunk() {

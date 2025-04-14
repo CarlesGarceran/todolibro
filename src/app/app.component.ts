@@ -1,9 +1,10 @@
 import { Component, inject, Inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { SiteConfigService } from './services/siteconfig.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ErrorPopupComponent } from "./components/popups/error-popup/error-popup.component";
 import { FormsModule } from '@angular/forms';
+import { routes } from './app.routes';
 
 @Component({
   selector: 'app-root',

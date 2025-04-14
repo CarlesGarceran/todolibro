@@ -79,6 +79,22 @@ export class AddLibroFormComponent implements OnInit {
     this.popupRef.showPopup();
   }
 
+  onAddClick()
+  {
+    this.popupRef.setLibro({
+      ISBN: '',
+      Name: "",
+      Author: 0,
+      Publisher: 0,
+      LaunchDate: new Date(),
+      Price: 0,
+      Synopsis: "",
+      Image: "",
+      Stock: 0
+    }, this);
+    this.popupRef.showPopup();
+  }
+
   onDeleteClick(libro : Libro)
   {
     this.backendService.deleteLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
@@ -98,18 +114,37 @@ export class AddLibroFormComponent implements OnInit {
 
   libroUpdated(libro : Libro, oldBook : Libro)
   {
-    this.backendService.updateLibro(oldBook?.ISBN, libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
-      if(rsp.Success)
-      {
-        this.success();
-      }
-      else
-      {
-        const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
-        const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
-
-        errorFunc.call(errorInstance, (rsp.Data as Error));
-      }
-    });
+    if(oldBook.ISBN.length <= 0)
+    {
+      this.backendService.addLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
+        if(rsp.Success)
+        {
+          this.success();
+        }
+        else
+        {
+          const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+          const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+  
+          errorFunc.call(errorInstance, (rsp.Data as Error));
+        }
+      });
+    }
+    else
+    {
+      this.backendService.updateLibro(oldBook?.ISBN, libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
+        if(rsp.Success)
+        {
+          this.success();
+        }
+        else
+        {
+          const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+          const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+  
+          errorFunc.call(errorInstance, (rsp.Data as Error));
+        }
+      });
+    }
   }
 }

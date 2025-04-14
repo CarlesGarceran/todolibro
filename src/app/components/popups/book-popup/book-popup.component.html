@@ -35,7 +35,14 @@
       </span>
     </div>
     <div class="flex gap-3">
-      <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Actualizar</button>
+      @if (libroPtr.ISBN == '') 
+      {
+        <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Guardar</button>
+      }
+      @else
+      {
+        <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Actualizar</button>
+      }
       <button class="btn btn-error btn-block" for="modal-1" (click)="descartarCambios();">Cancelar</button>
     </div>
   </div>

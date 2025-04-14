@@ -5,6 +5,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FilterBookComponent } from './pages/filter-book/filter-book.component';
 import { RootComponent } from './pages/admin/root/root.component';
 import { LibroComponent } from './pages/libro/libro.component';
+import { ConfigComponent } from './pages/config/config.component';
+import { PublisherComponent } from './pages/publisher/publisher.component';
 
 export const routes: Routes = [
     {
@@ -28,7 +30,7 @@ export const routes: Routes = [
         title: "Registrarse"
     },
     {
-        path: "filter",
+        path: "filter/:filter_type/:filter_arg",
         component: FilterBookComponent,
         title: "Buscar"
     },
@@ -39,7 +41,7 @@ export const routes: Routes = [
     },
     {
         path: "publishers/:id",
-        component: FilterBookComponent,
+        component: PublisherComponent,
         title: "Perfil de la Editorial"
     },
     {
@@ -51,5 +53,10 @@ export const routes: Routes = [
         path: "admin",
         component: RootComponent,
         title: "Panel de administrador"
+    },
+    {
+        path: "config",
+        component: ConfigComponent,
+        title: "Configuración del usuario"
     }
 ];

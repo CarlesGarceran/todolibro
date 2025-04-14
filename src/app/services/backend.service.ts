@@ -70,7 +70,7 @@ export class BackendService {
   getLibrosByFilter(filterType : string, content : string) : Observable<BackendResponse<Libro[]>>
   {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<BackendResponse<Libro[]>>(TodoLibroConfig.getBackendUrl() + `/filter/filter.php?filterType=${filterType}`, JSON.stringify({
+    return this.httpClient.post<BackendResponse<Libro[]>>(TodoLibroConfig.getBackendUrl() + `/filter/?filterType=${filterType}`, JSON.stringify({
       content: content
     }),
       {
@@ -82,10 +82,20 @@ export class BackendService {
   getLibroCount() : Observable<BackendResponse<{ payload : number } | Error>>
   {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get<BackendResponse<{ payload : number } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getLibrosCount.php`,
+    return this.httpClient.get<BackendResponse<{ payload : number } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksCount.php`,
       {
         headers: headers,
         withCredentials: false
+      });
+  }
+
+  getLibrosByEditorial(editorial : number) : Observable<BackendResponse<Libro[] | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksByPublisher.php?publisherId=${editorial}`,
+      {
+        headers: headers,
+        withCredentials: false,
       });
   }
 
