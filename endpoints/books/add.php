@@ -32,7 +32,6 @@ try {
         NOP_WRAP(new RuntimeError(400, "Bad Request - Not a book instance"));
 
     $sqlStatement = $sqlHandler->prepare(QUERY);
-    $sqlStatement->bindValue(":inISBN", $ISBN);
     $sqlStatement->bindValue(":newISBN", $userData['ISBN']);
     $sqlStatement->bindValue(":newName", $userData['Name']);
     $sqlStatement->bindValue(":newPublisher", $userData['Publisher']);
