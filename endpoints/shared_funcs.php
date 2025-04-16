@@ -108,6 +108,31 @@ class IsA
 
         return true;
     }
+
+    static function Category(mixed $any) : bool
+    {
+        if(!isset($any['CategoryId']))
+            return false;
+        
+        if(!isset($any['Name']))
+            return false;
+        
+        return true;
+    }
+
+    static function CartEntry(mixed $any) : bool
+    {
+        if(!isset($any['Users_userId']))
+            return false;
+        
+        if(!isset($any['Books_ISBN']))
+            return false;
+        
+        if(!isset($any['Quantity']))
+            return false;
+
+        return true;
+    }
 };
 
 ?>
