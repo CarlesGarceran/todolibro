@@ -1,21 +1,22 @@
 import { Component, inject, Inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { CookiesService } from '../services/cookies.service';
-import { User } from '../interfaces/user';
-import { SiteConfigService } from '../services/siteconfig.service';
-import { SessionService } from '../services/session.service';
-import { BackendService } from '../services/backend.service';
-import { SearchBarComponent } from '../components/search-bar/search-bar.component';
-import { LoggingService } from '../services/logging.service';
-import { UserData } from '../classes/UserData';
-import { ThemeSelectorComponent } from "../components/theme-selector/theme-selector.component";
-import { Error } from '../interfaces/Error';
-import { BackendResponse } from '../interfaces/backend-response';
+import { CartComponent } from "../cart/cart.component";
+import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { BackendService } from '../../services/backend.service';
+import { SessionService } from '../../services/session.service';
+import { SiteConfigService } from '../../services/siteconfig.service';
+import { CookiesService } from '../../services/cookies.service';
+import { LoggingService } from '../../services/logging.service';
+import { User } from '../../interfaces/user';
+import { UserData } from '../../classes/UserData';
+import { BackendResponse } from '../../interfaces/backend-response';
+import { Error } from '../../interfaces/Error';
 
 
 @Component({
   selector: 'app-topbar',
-  imports: [RouterLink, SearchBarComponent, ThemeSelectorComponent],
+  imports: [RouterLink, SearchBarComponent, ThemeSelectorComponent, CartComponent],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })

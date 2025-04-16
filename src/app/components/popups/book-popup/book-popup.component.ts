@@ -1,8 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { Libro } from '../../../interfaces/libro';
 import { AddLibroFormComponent } from '../../admin/forms/add-libro-form/add-libro-form.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Author } from '../../../interfaces/author';
+import { BackendService } from '../../../services/backend.service';
+import { ErrorPopupComponent } from '../error-popup/error-popup.component';
+import { temporalStorage } from '../../../classes/TemporalStorage';
+import { Error } from '../../../interfaces/Error';
 
 @Component({
   selector: 'app-book-popup',
@@ -10,8 +15,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './book-popup.component.html',
   styleUrl: './book-popup.component.css'
 })
-export class BookPopupComponent implements AfterViewInit {
+export class BookPopupComponent implements AfterViewInit, OnInit {
   private visible : boolean = false;
+  private backendService : BackendService = inject(BackendService);
 
   @ViewChild("modalHandler", { static: false })
   protected modalHandler? : ElementRef<HTMLInputElement>;
@@ -44,6 +50,24 @@ export class BookPopupComponent implements AfterViewInit {
     Price: 0,
     Stock: 0
   };
+
+  protected authors : Author[] = [];
+
+  ngOnInit(): void {
+    this.backendService.getAuthors().subscribe((rsp) => {
+      if(rsp.Success)
+      {
+        this.authors = rsp.Data as Author[];
+      }
+      else
+      {
+        const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+        const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+
+        errorFunc.call(errorInstance, (rsp.Data as Error));
+      }
+    });
+  }
 
   constructor() {
     

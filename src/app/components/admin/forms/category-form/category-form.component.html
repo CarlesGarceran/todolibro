@@ -1,0 +1,18 @@
+<div class="flex flex-row flex-wrap overflow-scroll w-full h-full">
+    <div class="navbar h-1/6">
+        <div class="navbar-center">
+            <a class="navbar-item">
+                <app-glowing-text textContent="Categorias"></app-glowing-text>
+            </a>
+        </div>
+        <div class="navbar-end">
+            <a class="navbar-item">
+                <button class="btn hover:btn-primary" (click)="onAddClick();">Add</button>
+            </a>
+        </div>
+    </div>
+
+    <app-category-table class="w-full h-full" [header]="table_Header" [body]="table_Body" (onDelete)="onDelete($event);" (onEdit)="onEdit($event);" #tableRef></app-category-table>
+
+    <app-category-popup #popupRef></app-category-popup>
+</div>

@@ -1,0 +1,62 @@
+<app-topbar></app-topbar>
+
+<div class="p-5 w-svw h-svw">
+    <div class="card p-5 min-w-full min-h-full max-w-full max-h-full">
+        <div class="justify-items-center">
+            <app-glowing-text class="text-center" textContent="Carrito"></app-glowing-text>
+        </div>
+        <div class="divider"></div>
+
+        <main class="w-full h-full">
+            <div class="flex w-full overflow-x-auto">
+                <table class="table table-zebra">
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(cart.length <= 0)
+                        {
+                            <tr>
+                                <td>
+                                    <app-loading-field></app-loading-field>
+                                </td>
+                                <td>
+                                    <app-loading-field></app-loading-field>
+                                </td>
+                                <td>
+                                    <app-loading-field></app-loading-field>
+                                </td>
+                            </tr>
+                        }
+                        @else 
+                        {
+                        @for (item of cart; track $index)
+                        {
+                            <tr>
+                                <td>{{getNombre(item.Books_ISBN)}}</td>
+                                <td>
+                                    <div class="flex flex-row gap-2">
+                                        <button class="btn btn-solid-primary hover:btn-primary" (click)="updateCart(item, 1);">+</button>
+                                        <input class="input w-36" [value]="item.Quantity" disabled readonly>
+                                        <button class="btn btn-solid-primary hover:btn-primary" (click)="updateCart(item, -1);">-</button>
+                                    </div>
+                                </td>
+                                <td>{{fixNumbers(getPrecio(item.Books_ISBN, item.Quantity))}}€</td>
+                            </tr>
+                        }
+                        }
+                        <tr>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<router-outlet />

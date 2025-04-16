@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TopbarComponent } from "../../topbar/topbar.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";;
 
 @Component({
   selector: 'app-config',

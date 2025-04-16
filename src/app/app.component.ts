@@ -5,10 +5,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ErrorPopupComponent } from "./components/popups/error-popup/error-popup.component";
 import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
+import { temporalStorage } from './classes/TemporalStorage';
+import { Carrito } from './classes/Carrito';
+import { AskUserPopupComponent } from "./components/popups/ask-user-popup/ask-user-popup.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule],
+  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule, AskUserPopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

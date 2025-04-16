@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Error } from '../../../interfaces/Error';
 import { temporalStorage } from '../../../classes/TemporalStorage';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-error-popup',
@@ -26,6 +27,9 @@ export class ErrorPopupComponent {
 
     if (temporalStorage.getFromStorage<Function>("show_error_popup") == null)
       temporalStorage.addToStorage<Function>("show_error_popup", this.popupShow); 
+  
+    if (temporalStorage.getFromStorage<Function>("throw_error") == null)
+      temporalStorage.addToStorage<Function>("throw_error", throwError); 
   }
 
   setError(err: Error) {
@@ -62,5 +66,13 @@ export class ErrorPopupComponent {
   {
     this.setError(err);
     this.showPopup();
+  }
+
+  static throwError(err : Error)
+  {
+    const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+    const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+  
+    errorFunc.call(errorInstance, err);
   }
 }

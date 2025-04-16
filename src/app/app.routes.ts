@@ -7,6 +7,7 @@ import { RootComponent } from './pages/admin/root/root.component';
 import { LibroComponent } from './pages/libro/libro.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { PublisherComponent } from './pages/publisher/publisher.component';
+import { CartCheckoutComponent } from './pages/cart-checkout/cart-checkout.component';
 
 export const routes: Routes = [
     {
@@ -58,5 +59,10 @@ export const routes: Routes = [
         path: "config",
         component: ConfigComponent,
         title: "Configuración del usuario"
+    },
+    {
+        path: "cart",
+        component: CartCheckoutComponent,
+        title: "Carrito"
     }
 ];

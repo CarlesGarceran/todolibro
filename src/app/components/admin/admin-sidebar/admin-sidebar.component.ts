@@ -5,10 +5,11 @@ import { SidebarSelection } from '../../../enums/SidebarSelection';
 import { AddLibroFormComponent } from "../forms/add-libro-form/add-libro-form.component";
 import { LogFormComponent } from "../forms/log-form/log-form.component";
 import { ThemeSelectorComponent } from "../../theme-selector/theme-selector.component";
+import { CategoryFormComponent } from "../forms/category-form/category-form.component";
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [AddLibroFormComponent, LogFormComponent, ThemeSelectorComponent],
+  imports: [AddLibroFormComponent, LogFormComponent, ThemeSelectorComponent, CategoryFormComponent],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css'
 })

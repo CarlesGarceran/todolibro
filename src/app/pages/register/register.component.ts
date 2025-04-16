@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormsModule, FormArray, FormControl } from '@angular/forms'
 import { Router, RouterLink } from '@angular/router';
-import { TopbarComponent } from '../../topbar/topbar.component'
+import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { CryptoService } from '../../services/crypto.service';
 import { BackendService } from '../../services/backend.service';
 import { CookiesService } from '../../services/cookies.service';

@@ -23,23 +23,8 @@
             @for (item of table_data; track $index)
             {
             <tr>
-                <td>{{item.ISBN}}</td>
+                <td>{{item.CategoryId}}</td>
                 <td>{{item.Name}}</td>
-                <td class="tooltip tooltip-top" [attr.data-tooltip]="">
-                    {{item.Author}}
-                </td>
-
-                <td class="tooltip tooltip-top" [attr.data-tooltip]="">
-                    {{item.Publisher}}
-                </td>
-                <td>{{item.Image}}</td>
-                @if(item.LaunchDate != null)
-                {
-                    <td>{{item.LaunchDate.toDateString()}}</td>
-                }
-                <td>{{item.Price}}</td>
-                <td><textarea readonly>{{item.Synopsis}}</textarea></td>
-                <td>{{item.Stock}}</td>
                 <td><button class="btn btn-outline-error" (click)="onDeleteFunc(item);">Delete</button></td>
                 <td><button class="btn btn-outline-success" (click)="onEditFunc(item);">Edit</button></td>
             </tr>

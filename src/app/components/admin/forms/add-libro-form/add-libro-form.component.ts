@@ -1,16 +1,18 @@
 import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Libro } from '../../../../interfaces/libro';
-import { BookTableComponent } from "../../tables/books/book-table/book-table.component";
+import { BookTableComponent } from "../../tables/book-table/book-table.component";
 import { BackendService } from '../../../../services/backend.service';
 import { BookPopupComponent } from "../../../popups/book-popup/book-popup.component";
 import { BackendResponse } from '../../../../interfaces/backend-response';
 import { Error } from '../../../../interfaces/Error';
 import { temporalStorage } from '../../../../classes/TemporalStorage';
 import { ErrorPopupComponent } from '../../../popups/error-popup/error-popup.component';
+import { LoggingService } from '../../../../services/logging.service';
+import { GlowingTextComponent } from "../../../text/glowing-text/glowing-text.component";
 
 @Component({
   selector: 'app-add-libro-form',
-  imports: [BookTableComponent, BookPopupComponent],
+  imports: [BookTableComponent, BookPopupComponent, GlowingTextComponent],
   templateUrl: './add-libro-form.component.html',
   styleUrl: './add-libro-form.component.css'
 })
@@ -21,6 +23,7 @@ export class AddLibroFormComponent implements OnInit {
   @ViewChild("tableRef")
   private tableRef! : BookTableComponent;
   private backendService : BackendService = inject(BackendService);
+  private LoggingService : LoggingService = inject(LoggingService);
 
   @ViewChild("popupRef")
   private popupRef! : BookPopupComponent;
@@ -68,9 +71,11 @@ export class AddLibroFormComponent implements OnInit {
     })
   }
 
-  success()
+  success(arg : string)
   {
+    this.LoggingService.logToServer(`The user has ${arg}`).subscribe((rsp) => {
 
+    });
   }
 
   onEditClick(libro : Libro)
@@ -100,7 +105,7 @@ export class AddLibroFormComponent implements OnInit {
     this.backendService.deleteLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
       if(rsp.Success)
       {
-        this.success();
+        this.success(`deleted the book ${libro.ISBN}`);
       }
       else
       {
@@ -119,7 +124,7 @@ export class AddLibroFormComponent implements OnInit {
       this.backendService.addLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
         if(rsp.Success)
         {
-          this.success();
+          this.success(`added the book ${libro.ISBN}`);
         }
         else
         {
@@ -135,7 +140,7 @@ export class AddLibroFormComponent implements OnInit {
       this.backendService.updateLibro(oldBook?.ISBN, libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
         if(rsp.Success)
         {
-          this.success();
+          this.success(`updated the book ${libro.ISBN}`);
         }
         else
         {

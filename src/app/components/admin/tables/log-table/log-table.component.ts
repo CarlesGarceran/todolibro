@@ -1,12 +1,12 @@
 import { Component, EventEmitter, inject, OnChanges, OnInit, Output } from '@angular/core';
-import { GenericTableComponent } from '../../generic/generic-table/generic-table.component';
-import { Log } from '../../../../../interfaces/log';
-import { LoadingFieldComponent } from '../../../../loading-field/loading-field.component';
-import { BackendService } from '../../../../../services/backend.service';
-import { BackendResponse } from '../../../../../interfaces/backend-response';
-import { Error } from '../../../../../interfaces/Error';
-import { temporalStorage } from '../../../../../classes/TemporalStorage';
-import { ErrorPopupComponent } from '../../../../popups/error-popup/error-popup.component';
+import { GenericTableComponent } from '../generic/generic-table/generic-table.component';
+import { Log } from '../../../../interfaces/log';
+import { LoadingFieldComponent } from '../../../loading-field/loading-field.component';
+import { BackendService } from '../../../../services/backend.service';
+import { BackendResponse } from '../../../../interfaces/backend-response';
+import { Error } from '../../../../interfaces/Error';
+import { temporalStorage } from '../../../../classes/TemporalStorage';
+import { ErrorPopupComponent } from '../../../popups/error-popup/error-popup.component';
 
 @Component({
   selector: 'app-log-table',

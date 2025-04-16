@@ -1,11 +1,18 @@
 import { ChangeDetectorRef, Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { TopbarComponent } from "../../topbar/topbar.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../../services/backend.service';
 import { Libro } from '../../interfaces/libro';
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStore, faShoppingCart, faHeart, faBook } from '@fortawesome/free-solid-svg-icons'
+import { temporalStorage } from '../../classes/TemporalStorage';
+import { Carrito } from '../../classes/Carrito';
+import { CarritoService } from '../../services/carrito.service';
+import { UserData } from '../../classes/UserData';
+import { Cart } from '../../interfaces/Cart';
+import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
+import { Error } from '../../interfaces/Error';
 
 @Component({
   selector: 'app-libro',
@@ -14,12 +21,13 @@ import { faStore, faShoppingCart, faHeart, faBook } from '@fortawesome/free-soli
   styleUrl: './libro.component.css'
 })
 export class LibroComponent implements OnInit {
+  private ISBN: string = "-1";
+
+  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private backendService: BackendService = inject(BackendService);
-  private ISBN: number = -1;
-
-  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private carritoService : CarritoService = inject(CarritoService);
 
   protected libro?: Libro;
   protected storeIcon = faStore;
@@ -31,9 +39,6 @@ export class LibroComponent implements OnInit {
     this.ISBN = this.route.snapshot.params['isbn'];
 
     this.backendService.getLibro(this.ISBN).subscribe((l: Libro) => {
-      console.log("Got libro");
-      console.log(l.Name);
-
       var lx = l;
 
       lx.Price = this.fixNumbers(l.Price);
@@ -45,5 +50,84 @@ export class LibroComponent implements OnInit {
   fixNumbers(n : number) : number
   {
     return parseFloat(n + "");
+  }
+
+  resyncCarrito()
+  {
+    var cart : Carrito = temporalStorage.getFromStorage<Carrito>("shopping_cart");
+
+    this.carritoService.getCarrito().subscribe((rsp) => {
+      if(rsp.Success)
+      {
+        cart.setCartEntries(rsp.Data as Cart[]);
+        temporalStorage.addToStorage("shopping_cart", cart);
+      }
+      else
+      {
+        const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+        const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+      
+        errorFunc.call(errorInstance, (rsp.Data as Error));
+      }
+    })
+  }
+
+
+  addToCarrito()
+  {
+    if(this.libro == null)
+      return;
+
+    if(temporalStorage.getFromStorage<Carrito>("shopping_cart") != null)
+    {
+      var cart : Carrito = temporalStorage.getFromStorage<Carrito>("shopping_cart");
+
+      if(this.carritoService.hasInCarrito(this.libro.ISBN, cart.getCartEntries()))
+      {
+        const cartEntry = this.carritoService.getFromCarrito(this.libro.ISBN, cart.getCartEntries());
+
+        if(cartEntry != null)
+        {
+          cartEntry.Quantity+=1;
+          
+          this.carritoService.updateCarrito(cartEntry).subscribe((rsp)=>
+          {
+            if(rsp.Success)
+            {
+              this.resyncCarrito();
+              ErrorPopupComponent.throwError({ error_code: 200, message: "Se ha añadido el elemento al carrito" });
+            }
+          });
+        }
+        else
+        {
+          var error : Error = { error_code: 300, message: "Fallo al obtener elemento del carrito local (puede deberse debido a una desincronización entre el servidor y su navegador)." };
+          ErrorPopupComponent.throwError(error);
+        }
+      }
+      else
+      {
+        const cartEntity : Cart = {
+          Books_ISBN: this.libro.ISBN,
+          Users_userId: -1,
+          Quantity: 1
+        };
+        this.carritoService.addToCarrito(cartEntity).subscribe((rsp) => {
+          if(rsp.Success)
+          {
+            ErrorPopupComponent.throwError({ error_code: 200, message: "Se ha añadido el elemento al carrito" });
+            this.resyncCarrito();
+          }
+        })
+      }
+    }
+    else
+    {
+      var error : Error = {
+        error_code: 300,
+        message: "Registrese o inicie sesión para usar esta función."
+      } 
+      ErrorPopupComponent.throwError(error);
+    }
   }
 }

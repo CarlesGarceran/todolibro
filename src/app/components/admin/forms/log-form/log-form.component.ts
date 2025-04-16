@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { LogTableComponent } from "../../tables/logs/log-table/log-table.component";
+import { LogTableComponent } from "../../tables/log-table/log-table.component";
 import { Log } from '../../../../interfaces/log';
 import { BackendService } from '../../../../services/backend.service';
 

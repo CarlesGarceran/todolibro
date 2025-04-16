@@ -1,0 +1,14 @@
+<label class="btn btn-primary hidden" for="modal-3">Open Modal</label>
+<input class="modal-state hidden" id="modal-3" type="checkbox" #modalHandler/>
+<div class="modal">
+	<label class="modal-overlay"></label>
+	<div class="modal-content flex flex-col gap-5">
+		<label for="modal-3" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+		<h2 class="text-xl">{{header}}</h2>
+		<span>{{body}}</span>
+		<div class="flex gap-3">
+			<button class="btn btn-error btn-block" (click)="onAccept();">{{accept_string}}</button>
+			<button class="btn btn-block" (click)="onDeny();">{{deny_string}}</button>
+		</div>
+	</div>
+</div>

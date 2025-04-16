@@ -20,6 +20,8 @@
         <p>
             {{libro.Synopsis}}
         </p>
+        
+        <div class="divider"></div>
     </div>
     <div class="flex card p-5 flex-shrink fit-screen flex-column">
 
@@ -33,7 +35,7 @@
             <button class="btn btn-outline-primary flex-grow">
                 <fa-icon [icon]="storeIcon"></fa-icon>&nbsp;Comprar
             </button>
-            <button class="btn btn-outline-success flex-grow">
+            <button class="btn btn-outline-success flex-grow" (click)="addToCarrito();">
                 <fa-icon [icon]="shoppingCartIcon"></fa-icon>&nbsp;Añadir al carrito
             </button>
         }

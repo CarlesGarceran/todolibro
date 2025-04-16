@@ -1,5 +1,5 @@
 import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { TopbarComponent } from "../../topbar/topbar.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";;
 import { temporalStorage } from '../../classes/TemporalStorage';
 import { Libro } from '../../interfaces/libro';
 import { LoadingComponent } from "../../components/loading/loading.component";

@@ -1,0 +1,50 @@
+<div class="flex w-full overflow-x-auto">
+    <table class="table-zebra table">
+        <thead>
+            <tr>
+                @for (item of header; track $index)
+                {
+                <th>{{item}}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (table_data?.length === 0)
+            {
+            <tr>
+                @for (item of header; track $index)
+                {
+                <td><app-loading-field></app-loading-field></td>
+                }
+            </tr>
+            }
+            @else
+            {
+            @for (item of table_data; track $index)
+            {
+            <tr>
+                <td>{{item.ISBN}}</td>
+                <td>{{item.Name}}</td>
+                <td class="tooltip tooltip-top" [attr.data-tooltip]="">
+                    {{item.Author}}
+                </td>
+
+                <td class="tooltip tooltip-top" [attr.data-tooltip]="">
+                    {{item.Publisher}}
+                </td>
+                <td>{{item.Image}}</td>
+                @if(item.LaunchDate != null)
+                {
+                    <td>{{item.LaunchDate.toDateString()}}</td>
+                }
+                <td>{{item.Price}}</td>
+                <td><textarea class="textarea" readonly>{{item.Synopsis}}</textarea></td>
+                <td>{{item.Stock}}</td>
+                <td><button class="btn btn-outline-error" (click)="onDeleteFunc(item);">Delete</button></td>
+                <td><button class="btn btn-outline-success" (click)="onEditFunc(item);">Edit</button></td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+</div>

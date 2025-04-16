@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TopbarComponent } from '../../topbar/topbar.component'
 import { FormsModule } from '@angular/forms'
 import { CookiesService } from '../../services/cookies.service';
 import { Router } from '@angular/router';
@@ -7,6 +6,7 @@ import { CryptoService } from '../../services/crypto.service';
 import { BackendService } from '../../services/backend.service';
 import { SessionService } from '../../services/session.service';
 import { UserData } from '../../classes/UserData';
+import { TopbarComponent } from '../../components/topbar/topbar.component';
 
 @Component({
   selector: 'app-login',

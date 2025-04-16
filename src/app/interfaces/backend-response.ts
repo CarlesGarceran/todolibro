@@ -1,6 +1,6 @@
 export interface BackendResponse<T>
 {
-    Success : boolean;
-    Time : Date;
+    readonly Success : boolean;
+    readonly Time : Date;
     Data : T;
 }

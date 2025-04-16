@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
-import { GenericTableComponent } from '../../generic/generic-table/generic-table.component';
-import { Libro } from '../../../../../interfaces/libro';
-import { LoadingComponent } from "../../../../loading/loading.component";
-import { LoadingFieldComponent } from "../../../../loading-field/loading-field.component";
+import { GenericTableComponent } from '../generic/generic-table/generic-table.component';
+import { Libro } from '../../../../interfaces/libro';
+import { LoadingComponent } from "../../../loading/loading.component";
+import { LoadingFieldComponent } from "../../../loading-field/loading-field.component";
 
 @Component({
   selector: 'app-book-table',

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { TopbarComponent } from "../../topbar/topbar.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";;
 import { Publisher } from '../../interfaces/publisher';
 import { BackendService } from '../../services/backend.service';
 import { ActivatedRoute } from '@angular/router';

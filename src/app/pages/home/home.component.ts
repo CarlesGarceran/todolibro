@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { TopbarComponent } from '../../topbar/topbar.component';
-import { Router, RouterOutlet } from '@angular/router';
-import { CookiesService } from '../../services/cookies.service';
+import { Component, OnInit } from '@angular/core';
+import { TopbarComponent } from "../../components/topbar/topbar.component";;
+import { RouterOutlet } from '@angular/router';
 import { LinearCarouselComponent } from "../../linear-carousel/linear-carousel.component";
 import { UserData } from '../../classes/UserData';
 import { User } from '../../interfaces/user';
