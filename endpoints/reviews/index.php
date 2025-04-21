@@ -13,3 +13,8 @@ onPUT(function()
 {
     include "put.php";
 });
+
+onPOST(function()
+{
+    include "post.php";
+});

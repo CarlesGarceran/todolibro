@@ -5,7 +5,7 @@ include_once "../../src/RuntimeError.php";
 include_once "../shared_funcs.php";
 include_once "../../src/Author.php";
 
-define("QUERY", "SELECT AVG(`Rating`) FROM `Reviews` WHERE `ISBN` = :inISBN;");
+define("QUERY", "SELECT * FROM `Reviews` WHERE `ISBN` = :inISBN;");
 
 try
 {
@@ -24,10 +24,7 @@ try
 
     $ex = $sqlStatement->fetchAll();
 
-    $auth = [];
-    $auth['rating'] = $ex[0][0];
-
-    NOP_WRAP($auth);
+    NOP_WRAP($ex);
 }
 catch(Exception $exception)
 {

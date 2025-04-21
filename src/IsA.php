@@ -58,4 +58,22 @@ class IsA
 
         return true;
     }
+
+
+    static function Review(mixed $any) : bool
+    {
+        if(!isset($any['ISBN']))
+            return false;
+        
+        if(!isset($any['UserId']))
+            return false;
+        
+        if(!isset($any['Comment']))
+            return false;
+
+        if(!isset($any['Rating']))
+            return false;
+
+        return true;
+    }
 };
