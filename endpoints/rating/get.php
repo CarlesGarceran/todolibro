@@ -5,34 +5,35 @@ include_once "../../src/RuntimeError.php";
 include_once "../shared_funcs.php";
 include_once "../../src/Author.php";
 
-define("QUERY", "SELECT * FROM Authors WHERE (AuthorId = :in_authorid);");
+define("QUERY", "SELECT AVG(`Rating`) FROM `Reviews` WHERE `ISBN` = :inISBN;");
 
 try
 {
     INIT_BACKEND_CALL();
 
-    if(!isset($_GET['authorId']))
-        NOP_OBJ(new RuntimeError(400, "Request does not contain an id of an author."));
+    if(!isset($_GET['isbn']))
+        NOP_WRAP(new RuntimeError(400, "Request does not contain an isbn."));
 
-    $authorId = (int)$_GET['authorId'];
+    $isbn = (int)$_GET['isbn'];
 
     $sqlHandler =  getSQLHandler();
     
     $sqlStatement = $sqlHandler->prepare(QUERY);
-    $sqlStatement->bindValue(":in_authorid", $authorId);
+    $sqlStatement->bindValue(":inISBN", $isbn);
     $sqlStatement->execute();
 
-    $ex = $sqlStatement->fetch();
+    $ex = $sqlStatement->fetchAll();
 
-    $auth = new Author((int)$ex['AuthorId'], $ex['Name'], $ex['Image']);
+    $auth = [];
+    $auth['rating'] = $ex[0][0];
 
-    NOP_OBJ($auth);
+    NOP_WRAP($auth);
 }
 catch(Exception $exception)
 {
     if(!is_in_production())
     {
-        $error = new RuntimeError(500, $ex->getMessage());
+        $error = new RuntimeError(500, $exception->getMessage());
         $var = toJson($error);
         echo $var;
         die();

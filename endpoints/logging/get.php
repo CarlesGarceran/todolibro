@@ -5,7 +5,7 @@ include_once "../../functions.php";
 include_once "../../src/RuntimeError.php";
 include_once "../../src/Libro.php";
 
-define("GET_ALL_LOGS", "SELECT * FROM Log;");
+define("GET_ALL_LOGS", "SELECT * FROM Log ORDER BY Time DESC;");
 
 try {
     INIT_BACKEND_CALL();
