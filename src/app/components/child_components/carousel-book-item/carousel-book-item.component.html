@@ -8,6 +8,7 @@
             <a class="rel" routerLink="/author/{{inputItem?.Author}}">Autor: {{Author?.Name}}</a>
             <a class="rel" routerLink="/publishers/{{inputItem?.Publisher}}">Editorial: {{Publisher?.Name}}</a>
             <a>Precio: {{inputItem?.Price}}€</a>
+            <app-app-star-rating></app-app-star-rating>
             <br>
             <button class="btn btn-primary" [routerLink]="['/book', inputItem?.ISBN]">Ver Ahora</button>
         </div>

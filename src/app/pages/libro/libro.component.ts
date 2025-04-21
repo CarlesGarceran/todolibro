@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { TopbarComponent } from "../../components/topbar/topbar.component";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BackendService } from '../../services/backend.service';
 import { Libro } from '../../interfaces/libro';
 import { LoadingComponent } from "../../components/loading/loading.component";
@@ -13,10 +13,12 @@ import { UserData } from '../../classes/UserData';
 import { Cart } from '../../interfaces/Cart';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
 import { Error } from '../../interfaces/Error';
+import { AppStarRatingComponent } from "../../components/app-star-rating/app-star-rating.component";
+import { ReviewBoxComponent } from "../../components/reviews/review-box/review-box.component";
 
 @Component({
   selector: 'app-libro',
-  imports: [TopbarComponent, LoadingComponent, FontAwesomeModule],
+  imports: [TopbarComponent, LoadingComponent, FontAwesomeModule, AppStarRatingComponent, RouterModule, ReviewBoxComponent],
   templateUrl: './libro.component.html',
   styleUrl: './libro.component.css'
 })

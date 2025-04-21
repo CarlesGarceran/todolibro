@@ -1,0 +1,14 @@
+<div class="inline">
+    Valoración:
+
+    @for (item of entries; track $index) {
+        @if(item == true)
+        {
+            <fa-icon [icon]="starFilled"></fa-icon>
+        }
+        @else 
+        {
+            <fa-icon [icon]="starEmpty"></fa-icon>
+        }
+    }
+</div>

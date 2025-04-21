@@ -7,11 +7,12 @@ import { RouterLink } from '@angular/router';
 import { BackendResponse } from '../../../interfaces/backend-response';
 import { Error } from '../../../interfaces/Error';
 import { temporalStorage } from '../../../classes/TemporalStorage';
+import { AppStarRatingComponent } from "../../app-star-rating/app-star-rating.component";
 
 
 @Component({
   selector: 'app-carousel-book-item',
-  imports: [RouterLink],
+  imports: [RouterLink, AppStarRatingComponent],
   templateUrl: './carousel-book-item.component.html',
   styleUrl: './carousel-book-item.component.css'
 })

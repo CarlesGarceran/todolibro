@@ -41,6 +41,13 @@ export class TopbarComponent implements OnInit, OnChanges {
     });
   }
 
+  getClearanceLevel() : void
+  {
+    this.backendServide.getUserRole().subscribe((value: number) => {
+      this.clearanceLevel = value;
+    });
+  }
+
   ngOnInit(): void {
     this.loggedIn = this.cookiesService.hasCookie("sessionId");
 
@@ -49,28 +56,22 @@ export class TopbarComponent implements OnInit, OnChanges {
 
     if (UserData.getUser() !== undefined) {
       this.userData = UserData.getUser();
+      this.getClearanceLevel();
       return;
     }
 
-    try {
-      this.backendServide.getUserData().subscribe((response: BackendResponse<User | Error>) => {
-        if (response.Success) {
-          this.userData = response.Data as User;
-          UserData.setUser(response.Data as User);
+    this.backendServide.getUserData().subscribe((response: BackendResponse<User | Error>) => {
+      if (response.Success) {
+        this.userData = response.Data as User;
+        UserData.setUser(response.Data as User);
 
-          this.backendServide.getUserRole().subscribe((value: number) => {
-            this.clearanceLevel = value;
-          });
-        }
-        else {
-          this.loggedIn = false;
-          this.cookiesService.deleteCookie("sessionId");
-        }
-      });
-    }
-    catch (ex) {
-      this.loggedIn = false;
-    }
+        this.getClearanceLevel();
+      }
+      else {
+        this.loggedIn = false;
+        this.cookiesService.deleteCookie("sessionId");
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void 

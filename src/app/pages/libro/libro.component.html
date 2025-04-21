@@ -22,6 +22,16 @@
         </p>
         
         <div class="divider"></div>
+
+        <div class="block">
+            Autor: <a [routerLink]="['/author', libro.Author]">{{libro.Author}}</a>
+            <br>
+            Editorial: <a [routerLink]="['/publishers', libro.Publisher]">{{libro.Publisher}}</a>
+            <br>
+            <app-app-star-rating></app-app-star-rating>
+        </div>
+
+        <div class="divider"></div>
     </div>
     <div class="flex card p-5 flex-shrink fit-screen flex-column">
 
@@ -56,4 +66,5 @@
         </button>
     </div>
 </div>
+<app-review-box></app-review-box>
 }
