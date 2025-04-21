@@ -1,14 +1,21 @@
 <div class="inline">
-    Valoración:
+    @if(showText)
+    {
+        Valoración:
+    }
+    
+    @for (item of fullStars; track $index)
+    {
+        <fa-icon [icon]="starFilled"></fa-icon>
+    }
 
-    @for (item of entries; track $index) {
-        @if(item == true)
-        {
-            <fa-icon [icon]="starFilled"></fa-icon>
-        }
-        @else 
-        {
-            <fa-icon [icon]="starEmpty"></fa-icon>
-        }
+    @if(hasHalfStar)
+    {
+        <fa-icon [icon]="halfStar"></fa-icon>
+    }
+      
+    @for (item of emptyStars; track $index)
+    {
+        <fa-icon [icon]="starEmpty"></fa-icon>
     }
 </div>

@@ -24,11 +24,11 @@
         <div class="divider"></div>
 
         <div class="block">
-            Autor: <a [routerLink]="['/author', libro.Author]">{{libro.Author}}</a>
+            Autor: <a [routerLink]="['/author', libro.Author]">{{authorName}}</a>
             <br>
-            Editorial: <a [routerLink]="['/publishers', libro.Publisher]">{{libro.Publisher}}</a>
+            Editorial: <a [routerLink]="['/publishers', libro.Publisher]">{{publisherName}}</a>
             <br>
-            <app-app-star-rating></app-app-star-rating>
+            <app-app-star-rating [Rating]="rating"></app-app-star-rating>
         </div>
 
         <div class="divider"></div>
@@ -66,5 +66,5 @@
         </button>
     </div>
 </div>
-<app-review-box></app-review-box>
+<app-review-box [ISBN]="libro.ISBN"></app-review-box>
 }

@@ -1,1 +1,17 @@
-<p>review-box works!</p>
+<div class="border-2 p-5 border-solid border-border bg-gray-1 border-t-0">
+    <div class="text-center"><app-glowing-text textContent="Reseñas"/></div>
+    <br>
+    @if(reviews.length <= 0)
+    {
+        <app-loading-field></app-loading-field>
+    }
+    @else 
+    {
+        <div class="flex gap-2 flex-col overflow-auto">
+            @for(review of reviews; track $index)
+            {
+                <app-review-entry [review]="review"></app-review-entry>
+            }
+        </div>
+    }
+</div>

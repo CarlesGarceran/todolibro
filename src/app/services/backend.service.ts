@@ -11,6 +11,7 @@ import { Log } from '../interfaces/log';
 import { BackendResponse } from '../interfaces/backend-response';
 import { Error } from '../interfaces/Error';
 import { Category } from '../interfaces/category';
+import { Review } from '../interfaces/review';
 
 @Injectable({
   providedIn: 'root'
@@ -236,6 +237,24 @@ export class BackendService {
 
 //#endregion
   
+//#region REVIEWS
+
+  getReviews(ISBN : string) : Observable<BackendResponse<Review[] | Error>>
+  {
+    return this.httpClient.get<BackendResponse<Review[] | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/?isbn=${ISBN}`, {});
+  }
+
+  //#region RATING
+  
+  getRating(ISBN : string) : Observable<BackendResponse<{rating : number} | Error>>
+  {
+    return this.httpClient.get<BackendResponse<{rating : number} | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/rating/?isbn=${ISBN}`, {});
+  }
+
+  //#endregion
+
+//#endregion
+
 //#region LOGS
 
   getLogs() : Observable<Log[]>

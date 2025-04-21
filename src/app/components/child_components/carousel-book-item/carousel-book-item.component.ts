@@ -22,6 +22,8 @@ export class CarouselBookItemComponent implements OnInit {
   protected Author?: Author;
   protected Publisher?: Publisher;
 
+  protected Rating : number = 0;
+
   private backendService: BackendService = inject(BackendService);
 
   constructor() {
@@ -33,6 +35,17 @@ export class CarouselBookItemComponent implements OnInit {
     {
       this.backendService.getAuthor(this.inputItem.Author).subscribe((auth : Author) => {
         this.Author = auth;
+      });
+
+      this.backendService.getRating(this.inputItem.ISBN).subscribe((rsp) => {
+        if(rsp.Success)
+        {
+          var rating = (rsp.Data as { rating : number }).rating;;
+          if(rating == null)
+            rating = 0;
+          
+          this.Rating = rating;
+        }
       });
 
       this.backendService.getPublisher(this.inputItem.Publisher).subscribe((pub : BackendResponse<Publisher | Error>) => {

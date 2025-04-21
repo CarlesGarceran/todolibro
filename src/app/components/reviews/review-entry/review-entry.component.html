@@ -1,1 +1,10 @@
-<p>review-entry works!</p>
+<div class="card max-w-full max-h-full min-h-full min-w-full p-5">
+    <div class="inline">
+        <p>{{getUser(entry.UserId)}} :
+            <app-app-star-rating [showText]="false" [Rating]="entry.Rating"></app-app-star-rating>
+        </p>
+    </div>
+    <p>
+        {{entry.Comment}}
+    </p>
+</div>

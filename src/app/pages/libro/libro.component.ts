@@ -15,6 +15,8 @@ import { ErrorPopupComponent } from '../../components/popups/error-popup/error-p
 import { Error } from '../../interfaces/Error';
 import { AppStarRatingComponent } from "../../components/app-star-rating/app-star-rating.component";
 import { ReviewBoxComponent } from "../../components/reviews/review-box/review-box.component";
+import { Author } from '../../interfaces/author';
+import { Publisher } from '../../interfaces/publisher';
 
 @Component({
   selector: 'app-libro',
@@ -25,27 +27,54 @@ import { ReviewBoxComponent } from "../../components/reviews/review-box/review-b
 export class LibroComponent implements OnInit {
   private ISBN: string = "-1";
 
+  // SERVICES & INJECTABLES
+
   private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private backendService: BackendService = inject(BackendService);
   private carritoService : CarritoService = inject(CarritoService);
 
+
+  protected rating : number = 0;
   protected libro?: Libro;
   protected storeIcon = faStore;
   protected shoppingCartIcon = faShoppingCart;
   protected wishListIcon = faHeart;
   protected shelveIcon = faBook;
+  protected authorName : string = "";
+  protected publisherName : string = "";
 
   ngOnInit(): void {
     this.ISBN = this.route.snapshot.params['isbn'];
 
+    this.backendService.getRating(this.ISBN).subscribe((rsp) => {
+      if(rsp.Success)
+        {
+          var rating = (rsp.Data as { rating : number }).rating;;
+          if(rating == null)
+            rating = 0;
+          
+          this.rating = rating;
+        }
+    });
     this.backendService.getLibro(this.ISBN).subscribe((l: Libro) => {
       var lx = l;
 
       lx.Price = this.fixNumbers(l.Price);
 
       this.libro = lx;
+
+      this.backendService.getAuthor(this.libro.Author).subscribe((rsp : Author) => {
+        this.authorName = rsp.Name;
+      });
+
+      this.backendService.getPublisher(this.libro.Publisher).subscribe((rsp) => {
+        if(rsp.Success)
+        {
+          this.publisherName = (rsp.Data as Publisher).Name;
+        }
+      });
     });
   }
 
