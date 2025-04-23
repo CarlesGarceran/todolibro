@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Set JSON header
+ */
 function JSON_CALL()
 {
     header("Content-Type: application/json");
@@ -25,12 +28,26 @@ function is_in_testing_site() : bool
     return createConfig()->testingSite;
 }
 
+/**
+ * Gets the SALT offset
+ */
 function getSalt() : string
 {
     include_once "db/configwrap.php";
 
     return config_getSalt();
 }
+
+/**
+ * Gets the AssetPath
+ */
+function getAssetsPath() : string
+{
+    include_once "db/configwrap.php";
+
+    return config_getAssetsPath();
+}
+
 
 /**
  * Gets the SQL Handler
@@ -129,14 +146,20 @@ function SHA256(string $raw) : string
  */
 function CORS() {
     
-    if (isset($_SERVER['HTTP_ORIGIN'])) {
+    if (isset($_SERVER['HTTP_ORIGIN'])) 
+    {
         header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Max-Age: 86400');
+    }
+    else
+    {
+        header("Access-Control-Allow-Origin: http://localhost:27033");
     }
     
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400');
+
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
+    {
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
             header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
         
@@ -166,72 +189,117 @@ function getLocaleHandler() : Locale
     return LoadLocale();
 }
 
-
+/**
+ * Is a GET Verb
+ */
 function isGET() : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === 'GET');
 }
 
+
+/**
+ * Is a PUT Verb
+ */
 function isPUT() : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === 'PUT');
 }
 
+
+/**
+ * Is a POST Verb
+ */
 function isPOST() : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === 'POST');
 }
 
+
+/**
+ * Is a PATCH Verb
+ */
 function isPATCH() : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === 'PATCH');
 }
 
+
+/**
+ * Is a DELETE Verb
+ */
 function isDELETE() : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === 'DELETE');
 }
 
+
+/**
+ * Is a OPTIONS Verb
+ */
 function isOPTIONS() : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === 'OPTIONS');
 }
 
+
+/**
+ * Is a CUSTOM Verb
+ */
 function isCUSTOM(string $expected) : bool
 {
     return ($_SERVER['REQUEST_METHOD'] === $expected);
 }
 
+
+/**
+ * Execute $callback on a GET Verb
+ */
 function onGET($callback)
 {
     if(isGET())
         $callback();
 }
 
+/**
+ * Execute $callback on a POST Verb
+ */
 function onPOST($callback)
 {
     if(isPOST())
         $callback();
 }
 
+/**
+ * Execute $callback on a PUT Verb
+ */
 function onPUT($callback)
 {
     if(isPUT())
         $callback();
 }
 
+/**
+ * Execute $callback on a PATCH Verb
+ */
 function onPATCH($callback)
 {
     if(isPATCH())
         $callback();
 }
 
+/**
+ * Execute $callback on a DELETE Verb
+ */
 function onDELETE($callback)
 {
     if(isDELETE())
         $callback();
 }
 
+/**
+ * Execute $callback on a CUSTOM Verb
+ */
 function onCUSTOM($expected, $callback)
 {
     if(isCUSTOM($expected))

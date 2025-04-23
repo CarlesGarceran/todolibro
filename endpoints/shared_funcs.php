@@ -1,7 +1,7 @@
 <?php
 /* Common functions that will be repeated often */
 
-include $_SERVER['DOCUMENT_ROOT'] . "/src/User.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/src/User.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/functions.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/src/IsA.php";
 
@@ -39,6 +39,17 @@ function HasRole(int $userId, int $expectedRole) : bool
     return true;
 }
 
+function GetSessionCookie(bool $useNewAPI = false)
+{
+    if(!isset($_COOKIE['sessionId']))
+        if($useNewAPI)
+            NOP_WRAP(new RuntimeError(400, "User not logged in"));
+        else
+            NOP_OBJ(new RuntimeError(400, "User not logged in"));
+
+    return $_COOKIE['sessionId'];
+}
+
 function GetUser(bool $useNewAPI = false)
 {
     if(!isset($_COOKIE['sessionId']))
@@ -64,6 +75,19 @@ function GetUser(bool $useNewAPI = false)
     return fromJson($_SESSION[$sessionId]['User']);
 }
 
+function GetUserFromDatabase($userId)
+{
+    $sql = "SELECT * FROM Users WHERE (userId = :userId) LIMIT 1;";
+
+    $sqlHandler = getSQLHandler();
+    
+    $sqlBind = $sqlHandler->prepare($sql);
+    $sqlBind->bindValue(":userId", $userId, PDO::PARAM_INT);
+
+    $sqlBind->execute();
+
+    return $sqlBind->fetch();
+}
 
 function getUserData() : object | array
 {

@@ -25,7 +25,7 @@ try {
     $tmp_user = fromJson($_SESSION[$sessionId]['User']);
     $userId =  (int)$tmp_user['id'];
 
-    if(!HasRole($userId, 255))
+    if(!HasRole($userId, 254))
         NOP_OBJ(new RuntimeError(404, "Unauthorized access, insufficient permissons"));
 
     $handler = getSQLHandler();

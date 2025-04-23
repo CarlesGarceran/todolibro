@@ -38,6 +38,7 @@ class Config
     public bool $testingSite;
     public string $siteName;
     public string $salt;
+    public string $assetsPath;
     
     public function __construct() 
     {
@@ -46,6 +47,7 @@ class Config
         $this->testingSite = false;
         $this->siteName = "CHAOS LANGUAGE";
         $this->salt = "";
+        $this->assetsPath = "/";
     }
 
     public function set(object | array $data)

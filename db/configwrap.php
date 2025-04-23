@@ -50,3 +50,8 @@ function config_getSalt(): string
 {
     return createConfig()->salt;
 }
+
+function config_getAssetsPath() : string
+{
+    return createConfig()->assetsPath;
+}

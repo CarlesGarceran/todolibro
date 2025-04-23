@@ -9,5 +9,6 @@
     "production": false,
     "testingSite": false,
     "siteName": "TodoLibro",
-    "salt": ""
+    "salt": "",
+    "assetsPath": "/mnt/workspace/todolibro/client/public/assets"
 }

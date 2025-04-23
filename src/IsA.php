@@ -34,44 +34,64 @@ class IsA
         return true;
     }
 
-    static function Category(mixed $any) : bool
+    static function Category(mixed $any): bool
     {
-        if(!isset($any['CategoryId']))
+        if (!isset($any['CategoryId']))
             return false;
-        
-        if(!isset($any['Name']))
-            return false;
-        
-        return true;
-    }
 
-    static function CartEntry(mixed $any) : bool
-    {
-        if(!isset($any['Users_userId']))
-            return false;
-        
-        if(!isset($any['Books_ISBN']))
-            return false;
-        
-        if(!isset($any['Quantity']))
+        if (!isset($any['Name']))
             return false;
 
         return true;
     }
 
-
-    static function Review(mixed $any) : bool
+    static function User(mixed $any): bool
     {
-        if(!isset($any['ISBN']))
-            return false;
-        
-        if(!isset($any['UserId']))
-            return false;
-        
-        if(!isset($any['Comment']))
+        if (!isset($any['id']))
             return false;
 
-        if(!isset($any['Rating']))
+        if (!isset($any['email']))
+            return false;
+
+        if (!isset($any['username']))
+            return false;
+
+        if (!isset($any['profile_picture']))
+            return false;
+
+        if (!isset($any['password']))
+            return false;
+
+        return true;
+    }
+
+    static function CartEntry(mixed $any): bool
+    {
+        if (!isset($any['Users_userId']))
+            return false;
+
+        if (!isset($any['Books_ISBN']))
+            return false;
+
+        if (!isset($any['Quantity']))
+            return false;
+
+        return true;
+    }
+
+
+    static function Review(mixed $any): bool
+    {
+        if (!isset($any['ISBN']))
+            return false;
+
+        if (!isset($any['UserId']))
+            return false;
+
+        if (!isset($any['Comment']))
+            return false;
+
+        if (!isset($any['Rating']))
             return false;
 
         return true;
