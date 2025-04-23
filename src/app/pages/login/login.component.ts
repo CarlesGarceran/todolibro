@@ -7,10 +7,11 @@ import { BackendService } from '../../services/backend.service';
 import { SessionService } from '../../services/session.service';
 import { UserData } from '../../classes/UserData';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, TopbarComponent],
+  imports: [FormsModule, TopbarComponent, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

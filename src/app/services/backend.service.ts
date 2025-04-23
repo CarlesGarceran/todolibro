@@ -12,6 +12,7 @@ import { BackendResponse } from '../interfaces/backend-response';
 import { Error } from '../interfaces/Error';
 import { Category } from '../interfaces/category';
 import { Review } from '../interfaces/review';
+import { FormUser } from '../pages/config/config.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,9 @@ export class BackendService {
 
   }
 
-//#region LIBROS
+  //#region LIBROS
 
-  getLibros(limit : number = -1): Observable<Libro[]> {
+  getLibros(limit: number = -1): Observable<Libro[]> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + `/books/getAllLibros.php?limit=${limit}`, null,
       {
@@ -57,11 +58,10 @@ export class BackendService {
       }));
   }
 
-  getLibro(ISBN : string) : Observable<Libro>
-  {
+  getLibro(ISBN: string): Observable<Libro> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<Libro>(TodoLibroConfig.getBackendUrl() + `/book/getByISBN.php`, JSON.stringify({
-      isbn : ISBN
+      isbn: ISBN
     }),
       {
         "headers": headers,
@@ -69,8 +69,7 @@ export class BackendService {
       });
   }
 
-  getLibrosByFilter(filterType : string, content : string) : Observable<BackendResponse<Libro[]>>
-  {
+  getLibrosByFilter(filterType: string, content: string): Observable<BackendResponse<Libro[]>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<BackendResponse<Libro[]>>(TodoLibroConfig.getBackendUrl() + `/filter/?filterType=${filterType}`, JSON.stringify({
       content: content
@@ -81,18 +80,16 @@ export class BackendService {
       });
   }
 
-  getLibroCount() : Observable<BackendResponse<{ payload : number } | Error>>
-  {
+  getLibroCount(): Observable<BackendResponse<{ payload: number } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get<BackendResponse<{ payload : number } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksCount.php`,
+    return this.httpClient.get<BackendResponse<{ payload: number } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksCount.php`,
       {
         headers: headers,
         withCredentials: false
       });
   }
 
-  getLibrosByEditorial(editorial : number) : Observable<BackendResponse<Libro[] | Error>>
-  {
+  getLibrosByEditorial(editorial: number): Observable<BackendResponse<Libro[] | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksByPublisher.php?publisherId=${editorial}`,
       {
@@ -101,8 +98,7 @@ export class BackendService {
       });
   }
 
-  updateLibro(ISBN : string, libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
-  {
+  updateLibro(ISBN: string, libro: Libro): Observable<BackendResponse<{ payload: Boolean } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.put<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/?ISBN=${ISBN}`, JSON.stringify(libro), {
       headers: headers,
@@ -110,8 +106,7 @@ export class BackendService {
     })
   }
 
-  addLibro(libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
-  {
+  addLibro(libro: Libro): Observable<BackendResponse<{ payload: Boolean } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'method': 'POST' });
     return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + '/books/', JSON.stringify(libro), {
       headers: headers,
@@ -119,9 +114,8 @@ export class BackendService {
     })
   }
 
-  deleteLibro(libro : Libro) : Observable<BackendResponse<{ payload: Boolean } | Error>>
-  {
-    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
+  deleteLibro(libro: Libro): Observable<BackendResponse<{ payload: Boolean } | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.delete<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/books/`, {
       headers: headers,
       body: JSON.stringify(libro),
@@ -129,18 +123,16 @@ export class BackendService {
     })
   }
 
-//#endregion
+  //#endregion
 
-//#region Categories
+  //#region Categories
 
-  getCategories() : Observable<BackendResponse<Category[] | Error>>
-  {
+  getCategories(): Observable<BackendResponse<Category[] | Error>> {
     return this.httpClient.get<BackendResponse<Category[] | Error>>(TodoLibroConfig.getBackendUrl() + `/categories/`, {});
   }
 
-  deleteCategory(category : Category) : Observable<BackendResponse<{payload: Boolean} | Error>>
-  {
-    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
+  deleteCategory(category: Category): Observable<BackendResponse<{ payload: Boolean } | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.delete<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/categories/`, {
       headers: headers,
       body: JSON.stringify(category),
@@ -148,8 +140,7 @@ export class BackendService {
     })
   }
 
-  updateCategory(categoryId : number, category : Category)
-  {
+  updateCategory(categoryId: number, category: Category) {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.put<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + `/categories/?CategoryId=${categoryId}`, JSON.stringify(category), {
       headers: headers,
@@ -157,8 +148,7 @@ export class BackendService {
     })
   }
 
-  addCategory(category : Category)
-  {
+  addCategory(category: Category) {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'method': 'POST' });
     return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + '/categories/', JSON.stringify(category), {
       headers: headers,
@@ -166,28 +156,29 @@ export class BackendService {
     })
   }
 
-//#endregion
+  //#endregion
 
-//#region Authors
+  //#region Authors
 
-  getAuthors() : Observable<BackendResponse<Author[] | Error>>
-  {
+  getAuthors(): Observable<BackendResponse<Author[] | Error>> {
     return this.httpClient.get<BackendResponse<Author[] | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/`, {});
   }
 
-  getAuthor(authorId : number) : Observable<Author> 
-  {
+  getAuthor(authorId: number): Observable<Author> {
     return this.httpClient.get<Author>(TodoLibroConfig.getBackendUrl() + `/author/getById.php?authorId=${authorId}`, {});
   }
 
-//#endregion
+  //#endregion
 
-  getPublisher(publisherId : number) : Observable<BackendResponse<Publisher | Error>>
-  {
+  getPublisher(publisherId: number): Observable<BackendResponse<Publisher | Error>> {
     return this.httpClient.get<any>(TodoLibroConfig.getBackendUrl() + `/publisher/getById.php?publisherId=${publisherId}`, {});
   }
 
-//#region USER
+  getPublishers(): Observable<BackendResponse<Publisher[] | Error>> {
+    return this.httpClient.get<BackendResponse<Publisher[] | Error>>(TodoLibroConfig.getBackendUrl() + `/publishers/`, {});
+  }
+
+  //#region USER
 
   getUserData(): Observable<BackendResponse<User | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -199,16 +190,30 @@ export class BackendService {
       });
   }
 
-  getUserName(userId : number) : Observable<BackendResponse<{ id : number, username : string } | Error>>
-  {
+  getUserDataById(userId: number): Observable<BackendResponse<{ userId: number, Name: string, ProfilePicture: string, Email: string, PasswordHash: string } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get<BackendResponse<{ id : number, username : string } | Error>>(TodoLibroConfig.getBackendUrl() + `/user/getUserName.php?userId=${userId}`,
+    return this.httpClient.get<BackendResponse<{ userId: number, Name: string, ProfilePicture: string, Email: string, PasswordHash: string } | Error>>(TodoLibroConfig.getBackendUrl() + `/user/getUserInfoById.php?userId=${userId}`, {
+      "headers": headers,
+    });
+  }
+
+  getUserName(userId: number): Observable<BackendResponse<{ id: number, username: string } | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<{ id: number, username: string } | Error>>(TodoLibroConfig.getBackendUrl() + `/user/getUserName.php?userId=${userId}`,
       {
         withCredentials: false
       });
   }
 
-//#endregion
+  updateUser(formUser: FormUser): Observable<BackendResponse<any | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.put<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/user/`, JSON.stringify(formUser),
+      {
+        withCredentials: true
+      });
+  }
+
+  //#endregion
 
   testGetSession(): Observable<string> {
     return this.httpClient.post<{ RSP: string }>(TodoLibroConfig.getBackendUrl() + "/test/sessionGetTest.php", {}, {
@@ -216,7 +221,7 @@ export class BackendService {
     }).pipe(map(response => response.RSP));
   }
 
-//#region ROLES
+  //#region ROLES
 
   getUserRole(): Observable<number> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -230,42 +235,38 @@ export class BackendService {
       }));
   }
 
-  getRoleName(roleId : number) : Observable<string>
-  {
-    return this.httpClient.get<{RoleName : string;}>(TodoLibroConfig.getBackendUrl() + `/roles/getRoleName.php?roleId=${roleId}`, {}).pipe(map(response => response.RoleName));
-  }
-
-//#endregion
-  
-//#region REVIEWS
-
-  getReviews(ISBN : string) : Observable<BackendResponse<Review[] | Error>>
-  {
-    return this.httpClient.get<BackendResponse<Review[] | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/?isbn=${ISBN}`, {});
-  }
-
-  //#region RATING
-  
-  getRating(ISBN : string) : Observable<BackendResponse<{rating : number} | Error>>
-  {
-    return this.httpClient.get<BackendResponse<{rating : number} | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/rating/?isbn=${ISBN}`, {});
+  getRoleName(roleId: number): Observable<string> {
+    return this.httpClient.get<{ RoleName: string; }>(TodoLibroConfig.getBackendUrl() + `/roles/getRoleName.php?roleId=${roleId}`, {}).pipe(map(response => response.RoleName));
   }
 
   //#endregion
 
-//#endregion
+  //#region REVIEWS
 
-//#region LOGS
+  getReviews(ISBN: string): Observable<BackendResponse<Review[] | Error>> {
+    return this.httpClient.get<BackendResponse<Review[] | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/?isbn=${ISBN}`, {});
+  }
 
-  getLogs() : Observable<Log[]>
-  {
+  //#region RATING
+
+  getRating(ISBN: string): Observable<BackendResponse<{ rating: number } | Error>> {
+    return this.httpClient.get<BackendResponse<{ rating: number } | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/rating/?isbn=${ISBN}`, {});
+  }
+
+  //#endregion
+
+  //#endregion
+
+  //#region LOGS
+
+  getLogs(): Observable<Log[]> {
     return this.httpClient.get(TodoLibroConfig.getBackendUrl() + "/logging/get.php",
       {
         withCredentials: true
-      }).pipe(map((arg : any) => {
-        var logs : Log[] = [];
+      }).pipe(map((arg: any) => {
+        var logs: Log[] = [];
 
-        arg.forEach((element : any) => {
+        arg.forEach((element: any) => {
           logs.push({
             userId: element['userId'],
             Action: element['Action'],
@@ -278,10 +279,9 @@ export class BackendService {
       }));
   }
 
-  deleteLog(log : Log) : Observable<any>
-  {
+  deleteLog(log: Log): Observable<any> {
     return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + "/logging/delete.php", JSON.stringify({
-      userId : log.userId,
+      userId: log.userId,
       action: log.Action,
       date: log.rawDate
     }), {
@@ -289,6 +289,35 @@ export class BackendService {
     });
   }
 
-//#endregion
+  //#endregion
 
+  //#region 
+
+  uploadFile(file: File) : Observable<BackendResponse<{fileName : string} | Error>> {
+    var formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.httpClient.post<BackendResponse<{fileName : string} | Error>>(TodoLibroConfig.getBackendUrl() + "/file/", formData,
+      {
+        withCredentials: true,
+        reportProgress: true,
+        observe: 'body'
+      });
+  }
+
+  deleteFile(fileName : string) : Observable<BackendResponse<any | Error>>
+  {
+    const obj : { fileName : string } = {
+      fileName: fileName
+    }
+
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.delete<BackendResponse<{fileName : string} | Error>>(TodoLibroConfig.getBackendUrl() + "/file/", {
+      headers: headers,
+      body: JSON.stringify(obj),
+      withCredentials: true,
+    });
+  }
+
+  //#endregion
 }

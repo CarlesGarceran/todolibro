@@ -27,10 +27,9 @@
 						</p>
 					</div>
 					<div class="dropdown-menu dropdown-menu-bottom-left">
-						<button class="dropdown-item text-sm">Perfil</button>
-						<button class="dropdown-item text-sm">Estanterias</button>
-						<button class="dropdown-item text-sm">Favoritos</button>
-						<button class="dropdown-item text-sm">Configuración de la cuenta</button>
+						<button class="dropdown-item text-sm" [routerLink]="['/config']">Configuración de la cuenta</button>
+						<button class="dropdown-item text-sm" [routerLink]="['/shelves']">Estanterias</button>
+						<button class="dropdown-item text-sm" [routerLink]="['/favorites']">Favoritos</button>
 						<button class="dropdown-item text-sm" (click)="closeSession();">Cerrar Sesión</button>
 						
 						@if(userIsAdministrator(1))
@@ -52,11 +51,10 @@
 				<div class="drawer-content pt-10 flex flex-col h-full">
 					<label for="drawer-right" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
 					<div class="button_holder">
-						<button class="btn btn-ghost btn-block text-sm" tabindex="0">Perfil</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="1">Estanterias</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="2">Favoritos</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="3">Configuración de la cuenta</button>
-						<button class="btn btn-ghost btn-block text-sm" tabindex="4" (click)="closeSession();">Cerrar Sesión</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="0" [routerLink]="['/config']">Configuración de la cuenta</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="1" [routerLink]="['/shelves']">Estanterias</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="2" [routerLink]="['/favorites']">Favoritos</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="3" (click)="closeSession();">Cerrar Sesión</button>
 						
 						@if(userIsAdministrator(1))
 						{

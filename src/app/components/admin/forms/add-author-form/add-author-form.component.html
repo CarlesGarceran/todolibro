@@ -1,0 +1,20 @@
+<div class="flex flex-row flex-wrap overflow-scroll">
+    <div class="navbar h-1/6">
+        <div class="navbar-center">
+            <a class="navbar-item">
+                <app-glowing-text textContent="Autores"></app-glowing-text>
+            </a>
+        </div>
+        <div class="navbar-end">
+            <a class="navbar-item">
+                <button class="btn hover:btn-primary" (click)="onAddClick();">Add</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="flex gap-1 flex-row flex-wrap p-0 h-5/6">
+        <app-author-table class="w-full" [header]="table_Header" [body]="table_Body" (onEdit)="onEditClick($event);" (onDelete)="onDeleteClick($event);" #tableRef></app-author-table>
+    </div>
+
+    <!-- <app-book-popup #popupRef></app-book-popup> -->
+</div>

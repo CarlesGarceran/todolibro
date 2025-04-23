@@ -17,10 +17,11 @@ import { AppStarRatingComponent } from "../../components/app-star-rating/app-sta
 import { ReviewBoxComponent } from "../../components/reviews/review-box/review-box.component";
 import { Author } from '../../interfaces/author';
 import { Publisher } from '../../interfaces/publisher';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-libro',
-  imports: [TopbarComponent, LoadingComponent, FontAwesomeModule, AppStarRatingComponent, RouterModule, ReviewBoxComponent],
+  imports: [TopbarComponent, LoadingComponent, FontAwesomeModule, AppStarRatingComponent, RouterModule, ReviewBoxComponent, FooterComponent],
   templateUrl: './libro.component.html',
   styleUrl: './libro.component.css'
 })

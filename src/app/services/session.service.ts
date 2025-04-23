@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TodoLibroConfig } from '../todolibro.config';
 import { Observable } from 'rxjs';
+import { Error } from '../interfaces/Error';
+import { BackendResponse } from '../interfaces/backend-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +22,9 @@ export class SessionService {
       });
     }
   
-    registerUser(obj: { name: string, email: string, password: string }): Observable<Object> {
+    registerUser(obj: { name: string, email: string, password: string }): Observable<BackendResponse<any | Error>> {
       var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this.httpClient.post(TodoLibroConfig.getBackendUrl() + "/register/", JSON.stringify(obj),
+      return this.httpClient.post<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + "/register/", JSON.stringify(obj),
         {
           "headers": headers,
           withCredentials: true

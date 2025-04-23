@@ -9,10 +9,11 @@ import { BackendService } from '../../services/backend.service';
 import { BackendResponse } from '../../interfaces/backend-response';
 import { Error } from '../../interfaces/Error';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-filter-book',
-  imports: [TopbarComponent, LoadingComponent, LibroEntryComponent],
+  imports: [TopbarComponent, LoadingComponent, LibroEntryComponent, FooterComponent],
   templateUrl: './filter-book.component.html',
   styleUrl: './filter-book.component.css'
 })

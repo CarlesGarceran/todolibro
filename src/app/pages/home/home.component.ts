@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TopbarComponent } from "../../components/topbar/topbar.component";;
 import { RouterOutlet } from '@angular/router';
-import { LinearCarouselComponent } from "../../linear-carousel/linear-carousel.component";
+import { LinearCarouselComponent } from "../../components/linear-carousel/linear-carousel.component";
 import { UserData } from '../../classes/UserData';
 import { User } from '../../interfaces/user';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 
 @Component({
   selector: 'app-home',
-  imports: [TopbarComponent, LinearCarouselComponent, RouterOutlet],
+  imports: [TopbarComponent, LinearCarouselComponent, RouterOutlet, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

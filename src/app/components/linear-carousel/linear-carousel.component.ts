@@ -1,9 +1,9 @@
 import { Component, ElementRef, inject, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { Libro } from '../interfaces/libro';
-import { LinearStorage } from '../classes/LinearStorage';
-import { CarouselBookItemComponent } from '../components/child_components/carousel-book-item/carousel-book-item.component';
-import { BackendService } from '../services/backend.service';
-import { LoadingComponent } from "../components/loading/loading.component";
+import { Libro } from '../../interfaces/libro';
+import { LinearStorage } from '../../classes/LinearStorage';
+import { CarouselBookItemComponent } from '../child_components/carousel-book-item/carousel-book-item.component';
+import { BackendService } from '../../services/backend.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-linear-carousel',

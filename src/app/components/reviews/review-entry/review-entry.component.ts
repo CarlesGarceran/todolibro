@@ -4,6 +4,7 @@ import { AppStarRatingComponent } from "../../app-star-rating/app-star-rating.co
 import { CacheStorage } from '../../../classes/CacheStorage';
 import { temporalStorage } from '../../../classes/TemporalStorage';
 import { BackendService } from '../../../services/backend.service';
+import { User } from '../../../interfaces/user';
 
 @Component({
   selector: 'app-review-entry',
@@ -14,9 +15,9 @@ import { BackendService } from '../../../services/backend.service';
 export class ReviewEntryComponent implements OnInit {
   @Input("review")
   public entry! : Review;
+  public imageUrl? : string = "/assets/default_pfp.png";
 
   private cache : CacheStorage = new CacheStorage();
-
   private backendService : BackendService = inject(BackendService);
 
   ngOnInit(): void {
@@ -24,6 +25,13 @@ export class ReviewEntryComponent implements OnInit {
     {
       this.cache = temporalStorage.getFromStorage<CacheStorage>("usernames_cache");
     }
+
+    this.backendService.getUserDataById(this.entry.UserId).subscribe((rsp) => {
+      if(rsp.Success)
+      {
+        this.imageUrl = (rsp.Data as {userId : number, Name : string, ProfilePicture: string, Email: string, PasswordHash: string}).ProfilePicture;
+      }
+    })
   }
 
   getUser(id : number) : string

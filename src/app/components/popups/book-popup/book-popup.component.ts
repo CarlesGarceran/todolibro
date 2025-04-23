@@ -8,6 +8,7 @@ import { BackendService } from '../../../services/backend.service';
 import { ErrorPopupComponent } from '../error-popup/error-popup.component';
 import { temporalStorage } from '../../../classes/TemporalStorage';
 import { Error } from '../../../interfaces/Error';
+import { Publisher } from '../../../interfaces/publisher';
 
 @Component({
   selector: 'app-book-popup',
@@ -52,12 +53,27 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
   };
 
   protected authors : Author[] = [];
+  protected publishers : Publisher[] = [];
 
   ngOnInit(): void {
     this.backendService.getAuthors().subscribe((rsp) => {
       if(rsp.Success)
       {
         this.authors = rsp.Data as Author[];
+      }
+      else
+      {
+        const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+        const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+
+        errorFunc.call(errorInstance, (rsp.Data as Error));
+      }
+    });
+
+    this.backendService.getPublishers().subscribe((rsp) => {
+      if(rsp.Success)
+      {
+        this.publishers = rsp.Data as Publisher[];
       }
       else
       {

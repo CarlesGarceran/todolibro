@@ -11,10 +11,11 @@ import { ErrorPopupComponent } from '../../components/popups/error-popup/error-p
 import { Error } from '../../interfaces/Error';
 import { AskUserPopupComponent } from '../../components/popups/ask-user-popup/ask-user-popup.component';
 import { LoadingFieldComponent } from "../../components/loading-field/loading-field.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-cart-checkout',
-  imports: [TopbarComponent, RouterOutlet, GlowingTextComponent, LoadingFieldComponent],
+  imports: [TopbarComponent, RouterOutlet, GlowingTextComponent, LoadingFieldComponent, FooterComponent],
   templateUrl: './cart-checkout.component.html',
   styleUrl: './cart-checkout.component.css'
 })

@@ -1,6 +1,8 @@
 <div class="card max-w-full max-h-full min-h-full min-w-full p-5">
     <div class="inline">
-        <p>{{getUser(entry.UserId)}} :
+        <p>
+            <img [src]="imageUrl" class="avatar">
+            {{getUser(entry.UserId)}} :
             <app-app-star-rating [showText]="false" [Rating]="entry.Rating"></app-app-star-rating>
         </p>
     </div>

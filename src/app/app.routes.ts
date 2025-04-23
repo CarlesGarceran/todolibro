@@ -8,6 +8,7 @@ import { LibroComponent } from './pages/libro/libro.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { PublisherComponent } from './pages/publisher/publisher.component';
 import { CartCheckoutComponent } from './pages/cart-checkout/cart-checkout.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
     {
@@ -64,5 +65,10 @@ export const routes: Routes = [
         path: "cart",
         component: CartCheckoutComponent,
         title: "Carrito"
-    }
+    },
+    {
+        path: "privacy-policy",
+        component: PrivacyPolicyComponent,
+        title: "Carrito"
+    },
 ];

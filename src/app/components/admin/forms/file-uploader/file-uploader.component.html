@@ -1,0 +1,22 @@
+<div class="flex flex-grow w-full h-full flex-row flex-wrap">
+    <div class="max-w-lg mx-auto mt-10 p-6 card rounded-lg shadow-md w-full">
+        <h2 class="text-2xl font-semibold mb-6 text-center">File Uploader</h2>
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-1" for="file">File</label>
+            @if(fieldNotEntered)
+            {
+            <input id="file" name="file" type="file" required class="input-file input-file-error w-full"
+                (change)="onFileSelected($event)" />
+            }
+            @else
+            {
+            <input id="file" name="file" type="file" required class="input-file w-full"
+                (change)="onFileSelected($event)" />
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" (click)="onSubmit()">
+            Upload File
+        </button>
+    </div>
+</div>
