@@ -30,7 +30,20 @@ try {
     if($_FILES['file']['error'] != UPLOAD_ERR_OK)
         NOP_WRAP(new RuntimeError(400, "Failed to upload file to server."));
 
-    $uploadPath = getAssetsPath() . "/uploads/";
+    $uploadPath = getAssetsPath();
+
+    if(!isset($_GET['admin']))
+    {    
+        $uploadPath = $uploadPath . "/uploads/";
+    }
+    else
+    {
+        if(isset($_GET['path']))
+        {
+            $uploadPath .= $_GET['path'];
+        }
+    }
+    
     $fileName = basename($userId . "_" . time() . "-" . sanetizeName($_FILES['file']['name']));
     $uploadFile = $uploadPath . $fileName;
 
