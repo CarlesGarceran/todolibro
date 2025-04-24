@@ -1,0 +1,25 @@
+<div class="inline">
+    @if(showText)
+    {
+        Valoración:
+    }
+    
+    @for(item of maxValue; track $index)
+    {
+        @if(AverageRating >= item)
+        {
+            <fa-icon [icon]="starFilled" (click)="setStarsValue(item, $event);"></fa-icon>
+        }
+        @else
+        {
+            @if(AverageRating == (item-0.5))
+            {
+                <fa-icon [icon]="halfStar" (click)="setStarsValue(item, $event);"></fa-icon>
+            }
+            @else
+            {
+                <fa-icon [icon]="starEmpty" (click)="setStarsValue(item, $event);"></fa-icon>
+            }
+        }
+    }
+</div>

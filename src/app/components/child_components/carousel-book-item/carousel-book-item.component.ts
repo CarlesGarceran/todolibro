@@ -22,7 +22,7 @@ export class CarouselBookItemComponent implements OnInit {
   protected Author?: Author;
   protected Publisher?: Publisher;
 
-  protected Rating : number = 0;
+  protected Rating: number = 0;
 
   private backendService: BackendService = inject(BackendService);
 
@@ -31,32 +31,30 @@ export class CarouselBookItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.inputItem != null) 
-    {
-      this.backendService.getAuthor(this.inputItem.Author).subscribe((auth : Author) => {
-        this.Author = auth;
+    if (this.inputItem != null) {
+      this.backendService.getAuthor(this.inputItem.Author).subscribe((rsp) => {
+        if (rsp.Success) {
+          this.Author = (rsp.Data as Author);
+        }
       });
 
       this.backendService.getRating(this.inputItem.ISBN).subscribe((rsp) => {
-        if(rsp.Success)
-        {
-          var rating = (rsp.Data as { rating : number }).rating;;
-          if(rating == null)
+        if (rsp.Success) {
+          var rating = (rsp.Data as { rating: number }).rating;;
+          if (rating == null)
             rating = 0;
-          
+
           this.Rating = rating;
         }
       });
 
-      this.backendService.getPublisher(this.inputItem.Publisher).subscribe((pub : BackendResponse<Publisher | Error>) => {
-        if(pub.Success)
-        {
+      this.backendService.getPublisher(this.inputItem.Publisher).subscribe((pub: BackendResponse<Publisher | Error>) => {
+        if (pub.Success) {
           this.Publisher = pub.Data as Publisher;
         }
-        else
-        {
+        else {
           var error: Error = pub.Data as Error;
-  
+
           const errComponent = temporalStorage.getFromStorage<Function>("show_error_popup");
           errComponent.call(temporalStorage.getFromStorage("error_popup"), error);
         }

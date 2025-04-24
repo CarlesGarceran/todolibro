@@ -31,7 +31,7 @@ export class PublisherComponent implements OnInit {
     this.activatedRoute.params.subscribe((rsp) => {
       this.publisherId = rsp['id'];
 
-      this.backendService.getLibrosByEditorial(this.publisherId).subscribe((rsp: BackendResponse<Libro[] | Error>) => {
+      this.backendService.getLibrosByPublisher(this.publisherId).subscribe((rsp: BackendResponse<Libro[] | Error>) => {
         if (!rsp.Success) {
           const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
           const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");

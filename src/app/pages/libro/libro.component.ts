@@ -66,8 +66,11 @@ export class LibroComponent implements OnInit {
 
       this.libro = lx;
 
-      this.backendService.getAuthor(this.libro.Author).subscribe((rsp : Author) => {
-        this.authorName = rsp.Name;
+      this.backendService.getAuthor(this.libro.Author).subscribe((rsp) => {
+        if(rsp.Success)
+        {
+          this.authorName = (rsp.Data as Author).Name;
+        }
       });
 
       this.backendService.getPublisher(this.libro.Publisher).subscribe((rsp) => {

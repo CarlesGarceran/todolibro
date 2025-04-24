@@ -1,6 +1,14 @@
 <div class="border-2 p-5 border-solid border-border bg-gray-1 border-t-0">
     <div class="text-center"><app-glowing-text textContent="Reseñas"/></div>
     <br>
+    <div class="card min-w-full min-h-full p-5 flex flex-row">
+        <textarea class="textarea max-w-full max-h-full flex-shrink resize-none w-2/4 flex-grow" [(ngModel)]="reviewText" placeholder="Pon tu review aquí."></textarea>
+        <div class="card min-w-fit min-h-fit p-5 w-1/4 flex-grow">
+            <app-interactable-star-component #starComponent></app-interactable-star-component>
+        </div>
+        <button class="w-[100px] h-auto btn btn-solid-primary hover:btn-primary" (click)="publishReview();">Publicar</button>
+    </div>
+    <br>
     @if(reviews.length <= 0)
     {
         <app-loading-field></app-loading-field>
@@ -8,9 +16,20 @@
     @else 
     {
         <div class="flex gap-2 flex-col overflow-auto">
+
+            @if(myReview != null)
+            {
+                <app-review-entry [review]="myReview"></app-review-entry>
+            }
+
+            <div class="divider"></div>
+
             @for(review of reviews; track $index)
             {
-                <app-review-entry [review]="review"></app-review-entry>
+                @if(myReview != review)
+                {
+                    <app-review-entry [review]="review"></app-review-entry>
+                }
             }
         </div>
     }

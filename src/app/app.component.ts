@@ -1,17 +1,15 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { SiteConfigService } from './services/siteconfig.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ErrorPopupComponent } from "./components/popups/error-popup/error-popup.component";
 import { FormsModule } from '@angular/forms';
-import { routes } from './app.routes';
-import { temporalStorage } from './classes/TemporalStorage';
-import { Carrito } from './classes/Carrito';
 import { AskUserPopupComponent } from "./components/popups/ask-user-popup/ask-user-popup.component";
+import { TopbarComponent } from "./components/topbar/topbar.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule, AskUserPopupComponent],
+  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule, AskUserPopupComponent, TopbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

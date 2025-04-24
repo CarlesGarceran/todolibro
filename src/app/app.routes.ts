@@ -9,6 +9,7 @@ import { ConfigComponent } from './pages/config/config.component';
 import { PublisherComponent } from './pages/publisher/publisher.component';
 import { CartCheckoutComponent } from './pages/cart-checkout/cart-checkout.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { AuthorComponent } from './pages/author/author.component';
 
 export const routes: Routes = [
     {
@@ -38,7 +39,7 @@ export const routes: Routes = [
     },
     {
         path: "author/:id",
-        component: FilterBookComponent,
+        component: AuthorComponent,
         title: "Perfil del Autor"
     },
     {

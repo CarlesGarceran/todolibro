@@ -89,14 +89,24 @@ export class BackendService {
       });
   }
 
-  getLibrosByEditorial(editorial: number): Observable<BackendResponse<Libro[] | Error>> {
+  getLibrosByPublisher(publisher: number): Observable<BackendResponse<Libro[] | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksByPublisher.php?publisherId=${editorial}`,
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksByPublisher.php?publisherId=${publisher}`,
       {
         headers: headers,
         withCredentials: false,
       });
   }
+
+  getLibrosByAuthor(author: number): Observable<BackendResponse<Libro[] | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/getBooksByAuthor.php?authorId=${author}`,
+      {
+        headers: headers,
+        withCredentials: false,
+      });
+  }
+
 
   updateLibro(ISBN: string, libro: Libro): Observable<BackendResponse<{ payload: Boolean } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -164,8 +174,8 @@ export class BackendService {
     return this.httpClient.get<BackendResponse<Author[] | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/`, {});
   }
 
-  getAuthor(authorId: number): Observable<Author> {
-    return this.httpClient.get<Author>(TodoLibroConfig.getBackendUrl() + `/author/getById.php?authorId=${authorId}`, {});
+  getAuthor(authorId: number): Observable<BackendResponse<Author | Error>> {
+    return this.httpClient.get<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/author/getById.php?authorId=${authorId}`, {});
   }
 
   //#endregion
@@ -245,6 +255,22 @@ export class BackendService {
 
   getReviews(ISBN: string): Observable<BackendResponse<Review[] | Error>> {
     return this.httpClient.get<BackendResponse<Review[] | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/?isbn=${ISBN}`, {});
+  }
+
+  getReview(ISBN: string, userId : number): Observable<BackendResponse<Review | Error>> {
+    return this.httpClient.get<BackendResponse<Review | Error>>(TodoLibroConfig.getBackendUrl() + `/review/?isbn=${ISBN}&userId=${userId}`, {});
+  }
+
+  getMyReview(ISBN: string): Observable<BackendResponse<Review | Error>> {
+    return this.httpClient.get<BackendResponse<Review | Error>>(TodoLibroConfig.getBackendUrl() + `/review/getMyReview.php?isbn=${ISBN}`, { withCredentials: true });
+  }
+
+  addReview(review: Review): Observable<BackendResponse<any | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/`, JSON.stringify(review), {
+      headers: headers,
+      withCredentials: true
+    });
   }
 
   //#region RATING
