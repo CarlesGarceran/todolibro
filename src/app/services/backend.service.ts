@@ -293,11 +293,11 @@ export class BackendService {
 
   //#region 
 
-  uploadFile(file: File) : Observable<BackendResponse<{fileName : string} | Error>> {
+  uploadFile(file: File, params : string = "") : Observable<BackendResponse<{fileName : string} | Error>> {
     var formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.httpClient.post<BackendResponse<{fileName : string} | Error>>(TodoLibroConfig.getBackendUrl() + "/file/", formData,
+    return this.httpClient.post<BackendResponse<{fileName : string} | Error>>(TodoLibroConfig.getBackendUrl() + `/file/${params}`, formData,
       {
         withCredentials: true,
         reportProgress: true,

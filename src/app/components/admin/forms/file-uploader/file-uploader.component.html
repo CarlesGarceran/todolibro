@@ -3,6 +3,7 @@
         <h2 class="text-2xl font-semibold mb-6 text-center">File Uploader</h2>
         <div class="mb-4">
             <label class="block text-sm font-medium mb-1" for="file">File</label>
+            <input id="fileName" name="fileName" type="text" required class="input w-full mb-5" placeholder="server route" [(ngModel)]="defaultPath">
             @if(fieldNotEntered)
             {
             <input id="file" name="file" type="file" required class="input-file input-file-error w-full"

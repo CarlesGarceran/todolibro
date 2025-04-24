@@ -2,16 +2,18 @@ import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { BackendService } from '../../../../services/backend.service';
 import { ErrorPopupComponent } from '../../../popups/error-popup/error-popup.component';
 import { Error } from '../../../../interfaces/Error';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-file-uploader',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './file-uploader.component.html',
   styleUrl: './file-uploader.component.css'
 })
 export class FileUploaderComponent {
   public file : File | null = null;
   public fieldNotEntered = false;
+  public defaultPath : string = "uploads/";
 
   private backendService : BackendService = inject(BackendService);
 
@@ -30,7 +32,7 @@ export class FileUploaderComponent {
     
     this.fieldNotEntered = false;
     
-    this.backendService.uploadFile(this.file).subscribe((rsp) => {
+    this.backendService.uploadFile(this.file, `?admin=true&path=${this.defaultPath}`).subscribe((rsp) => {
       if(rsp.Success)
       {
         const response = (rsp.Data as { fileName : string });
