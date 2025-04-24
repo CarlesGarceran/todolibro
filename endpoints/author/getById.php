@@ -12,7 +12,7 @@ try
     INIT_BACKEND_CALL();
 
     if(!isset($_GET['authorId']))
-        NOP_OBJ(new RuntimeError(400, "Request does not contain an id of an author."));
+        NOP_WRAP(new RuntimeError(400, "Request does not contain an id of an author."));
 
     $authorId = (int)$_GET['authorId'];
 
@@ -26,16 +26,14 @@ try
 
     $auth = new Author((int)$ex['AuthorId'], $ex['Name'], $ex['Image']);
 
-    NOP_OBJ($auth);
+    NOP_WRAP($auth);
 }
 catch(Exception $exception)
 {
     if(!is_in_production())
     {
         $error = new RuntimeError(500, $ex->getMessage());
-        $var = toJson($error);
-        echo $var;
-        die();
+        NOP_WRAP($error);
     }
     else
     {
