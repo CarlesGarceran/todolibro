@@ -18,3 +18,8 @@ onPOST(function()
 {
     include "post.php";
 });
+
+onDELETE(function()
+{
+    include "delete.php";
+});

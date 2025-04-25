@@ -5,8 +5,7 @@ include_once "../../src/RuntimeError.php";
 include_once "../shared_funcs.php";
 include_once "../../src/Author.php";
 
-define("QUERY", "UPDATE Reviews
-SET Comment = :inComment, Rating = :inRating
+define("QUERY", "DELETE FROM Reviews
 WHERE ISBN = :inISBN AND UserId = :inUserId;");
 
 try
@@ -15,13 +14,9 @@ try
     session_start();
 
     $user = GetUser();
-    $body = getUserData();
 
     if(!isset($_GET['isbn']))
         NOP_WRAP(new RuntimeError(400, "Request does not contain an isbn."));
-
-    if(!IsA::Review($body))
-        NOP_WRAP(new RuntimeError(400, "Body is not a review."));
 
     $isbn = $_GET['isbn'];
 
@@ -30,8 +25,6 @@ try
     $sqlStatement = $sqlHandler->prepare(QUERY);
     $sqlStatement->bindValue(":inISBN", $isbn);
     $sqlStatement->bindValue(":inUserId", (int)$user['id'], PDO::PARAM_INT);
-    $sqlStatement->bindValue(":inComment", (string)$body['Comment']);
-    $sqlStatement->bindValue(":inRating", (double)$body['Rating']);
     $sqlStatement->execute();
 
     NOP_WRAP([]);
