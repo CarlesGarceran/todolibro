@@ -22,7 +22,7 @@ export class ReviewBoxComponent implements OnInit {
   public ISBN : string = "";
   public reviews : Review[] = [];
 
-  public myReview : Review | null = null;
+  public myReview : Review | undefined = undefined;
 
   @ViewChild("starComponent")
   protected starComponent? : InteractableStarComponent; 
@@ -72,5 +72,10 @@ export class ReviewBoxComponent implements OnInit {
         window.location.reload();
       }
     })
+  }
+
+  reviewEquals(left? : Review, right? : Review) : boolean
+  {
+    return (left?.UserId == right?.UserId) && (left?.ISBN == right?.ISBN)
   }
 }

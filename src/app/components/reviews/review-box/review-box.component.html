@@ -17,18 +17,18 @@
     {
         <div class="flex gap-2 flex-col overflow-auto">
 
-            @if(myReview != null)
+            @if(myReview != undefined)
             {
-                <app-review-entry [review]="myReview"></app-review-entry>
+                <app-review-entry [review]="myReview" [isMine]="true"></app-review-entry>
             }
 
             <div class="divider"></div>
 
             @for(review of reviews; track $index)
             {
-                @if(myReview != review)
+                @if(!reviewEquals(review, (myReview || undefined)))
                 {
-                    <app-review-entry [review]="review"></app-review-entry>
+                    <app-review-entry [review]="review" [isMine] = false></app-review-entry>
                 }
             }
         </div>

@@ -1,12 +1,26 @@
 <div class="card max-w-full max-h-full min-h-full min-w-full p-5">
-    <div class="inline">
-        <p>
-            <img [src]="imageUrl" class="avatar">
+    <div class="flex flex-row align-middle">
+        <img [src]="imageUrl" class="avatar">
+        <span class="place-self-center">
             {{getUser(entry.UserId)}} :
             <app-app-star-rating [showText]="false" [Rating]="entry.Rating"></app-app-star-rating>
-        </p>
+        </span>
+
+        @if(isMine)
+        {
+            <button class="ml-auto place-self-end  btn btn-solid-primary hover:btn-primary" (click)="setEdit(true);">Editar</button>
+            <button class="ml-1 btn btn-solid-error hover:btn-error" (click)="deleteEntry();">Eliminar</button>
+        }
     </div>
-    <p>
-        {{entry.Comment}}
-    </p>
+        @if(isEditing)
+        {
+            <textarea class="textarea" [(ngModel)]="editingString"></textarea>
+            <app-interactable-star-component [Rating]="editingRating"></app-interactable-star-component>
+            <button class="btn btn-solid-primary hover:btn-primary" (click)="editEntry();">Guardar</button>
+            <button class="btn btn-solid-error hover:btn-error" (click)="setEdit(false);">Cancelar</button>
+        }
+        @else
+        {
+            <p>{{entry.Comment}}</p>
+        }
 </div>

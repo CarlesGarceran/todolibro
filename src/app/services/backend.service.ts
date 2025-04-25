@@ -273,6 +273,24 @@ export class BackendService {
     });
   }
 
+  updateReview(ISBN : string, review : Review) : Observable<BackendResponse<any | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.put<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/?isbn=${ISBN}`, JSON.stringify(review), {
+      headers: headers,
+      withCredentials: true
+    });
+  }
+  
+  deleteReview(ISBN : string) : Observable<BackendResponse<any | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.delete<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/reviews/?isbn=${ISBN}`, {
+      headers: headers,
+      withCredentials: true
+    });
+  }
+  
   //#region RATING
 
   getRating(ISBN: string): Observable<BackendResponse<{ rating: number } | Error>> {

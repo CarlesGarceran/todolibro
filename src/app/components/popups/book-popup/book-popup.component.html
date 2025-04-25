@@ -7,13 +7,13 @@
     <h2 class="text-xl m-5">{{popupTitle}}</h2>
     <div class="flex flex-col gap-5">
       <span>
-        ISBN: <input [(ngModel)]="local_libro.ISBN" class="input hover:input-solid flex-shrink" placeholder="ISBN">
+        ISBN: <input [(ngModel)]="local_libro.ISBN" class="input hover:input-primary flex-shrink" placeholder="ISBN">
       </span>
       <span>
-        Nombre: <input [(ngModel)]="local_libro.Name" class="input hover:input-solid flex-shrink" placeholder="Nombre">
+        Nombre: <input [(ngModel)]="local_libro.Name" class="input hover:input-primary flex-shrink" placeholder="Nombre">
       </span>
       <span>
-        Autor: <select [(ngModel)]="local_libro.Author" class="input">
+        Autor: <select [(ngModel)]="local_libro.Author" class="select hover:select-primary">
           @for (item of authors; track $index)
           {
           @if(local_libro.Author == item.AuthorId)
@@ -28,7 +28,7 @@
         </select>
       </span>
       <span>
-        Editorial: <select [(ngModel)]="local_libro.Publisher" class="input">
+        Editorial: <select [(ngModel)]="local_libro.Publisher" class="select hover:select-primary">
           @for (item of publishers; track $index)
           {
           @if(local_libro.Publisher == item.PublisherId)
@@ -43,23 +43,23 @@
         </select>
       </span>
       <span>
-        Fecha de Lanzamiento: <input class="input hover:input-solid flex-shrink" placeholder="Fecha de Lanzamiento"
+        Fecha de Lanzamiento: <input class="input hover:input-primary flex-shrink" placeholder="Fecha de Lanzamiento"
           type="date" [value]="convertToHTML(local_libro.LaunchDate)">
       </span>
       <span>
-        Imagen: <input [(ngModel)]="local_libro.Image" class="input hover:input-solid flex-shrink" placeholder="Imagen"
+        Imagen: <input [(ngModel)]="local_libro.Image" class="input hover:input-primary flex-shrink" placeholder="Imagen"
           type="text">
       </span>
       <span>
-        Precio: <input [(ngModel)]="local_libro.Price" class="input hover:input-solid flex-shrink" placeholder="Precio"
+        Precio: <input [(ngModel)]="local_libro.Price" class="input hover:input-primary flex-shrink" placeholder="Precio"
           type="number">
       </span>
       <span>
-        Synopsis: <textarea [(ngModel)]="local_libro.Synopsis" class="textarea input hover:input-solid flex-shrink"
+        Synopsis: <textarea [(ngModel)]="local_libro.Synopsis" class="textarea input hover:input-primary flex-shrink"
           placeholder="Synopsis"></textarea>
       </span>
       <span>
-        Stock: <input [(ngModel)]="local_libro.Stock" class="input hover:input-solid flex-shrink" placeholder="Precio"
+        Stock: <input [(ngModel)]="local_libro.Stock" class="input hover:input-primary flex-shrink" placeholder="Precio"
           type="number">
       </span>
     </div>
@@ -72,7 +72,7 @@
       {
       <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Actualizar</button>
       }
-      <button class="btn btn-error btn-block" for="modal-1" (click)="descartarCambios();">Cancelar</button>
+      <button class="btn btn-solid-error btn-block hover:btn-error" for="modal-1" (click)="descartarCambios();">Cancelar</button>
     </div>
   </div>
 </div>
