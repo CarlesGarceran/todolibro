@@ -13,7 +13,7 @@ WHERE
     UserId = :userId AND ISBN = :inISBN;");
 
 define("INSERT_QUERY", "INSERT INTO Reviews
-VALUES (:ISBN, :UserId, :Comment, :Rating);");
+VALUES (:ISBN, :UserId, :Comment, :Rating, CURRENT_TIMESTAMP());");
 
 try
 {

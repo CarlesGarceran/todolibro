@@ -79,6 +79,19 @@ class IsA
         return true;
     }
 
+    static function Author(mixed $any) : bool
+    {
+        if (!isset($any['AuthorId']))
+            return false;
+
+        if (!isset($any['Name']))
+            return false;
+
+        if (!isset($any['Image']))
+            return false;
+
+        return true;
+    }
 
     static function Review(mixed $any): bool
     {
@@ -92,6 +105,23 @@ class IsA
             return false;
 
         if (!isset($any['Rating']))
+            return false;
+
+        return true;
+    }
+
+    static function PurchaseDetail(mixed $any) : bool
+    {
+        if (!isset($any['cardDetails']))
+            return false;
+
+        if (!isset($any['cardOwner']))
+            return false;
+
+        if (!isset($any['cardCVV']))
+            return false;
+
+        if (!isset($any['cardExpirationDate']))
             return false;
 
         return true;

@@ -30,24 +30,25 @@ try {
     if($_FILES['file']['error'] != UPLOAD_ERR_OK)
         NOP_WRAP(new RuntimeError(400, "Failed to upload file to server."));
 
-    $uploadPath = getAssetsPath();
+    $assetsPath = getAssetsPath();
+    $uploadPath = "";
 
     if(!isset($_GET['admin']))
     {    
-        $uploadPath = $uploadPath . "/uploads/";
+        $uploadPath .= "/" . "uploads/";
     }
     else
     {
         if(isset($_GET['path']))
         {
-            $uploadPath .= $_GET['path'];
+            $uploadPath .= "/" . $_GET['path'];
         }
     }
     
     $fileName = basename($userId . "_" . time() . "-" . sanetizeName($_FILES['file']['name']));
     $uploadFile = $uploadPath . $fileName;
 
-    if(!move_uploaded_file($_FILES['file']['tmp_name'], $uploadFile))
+    if(!move_uploaded_file($_FILES['file']['tmp_name'], getAssetsPath() . $uploadFile))
         NOP_WRAP(new RuntimeError(500, "Failed to move uploaded file."));
 
     $isHttps = 
@@ -56,7 +57,7 @@ try {
         (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
     
 
-    NOP_WRAP(["fileName" => ($isHttps ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/endpoints/file/?name=uploads/" . $fileName]);
+    NOP_WRAP(["fileName" => ($isHttps ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/endpoints/file/?name=" . substr($uploadPath, 1) . $fileName]);
 } catch (Exception $ex) {
     if (!is_in_production()) {
         $error = new RuntimeError(500, $ex->getMessage());

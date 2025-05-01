@@ -13,7 +13,7 @@ function JSON_CALL()
  */
 function is_in_production() : bool 
 {
-    include_once "db/configwrap.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "db/configwrap.php";
 
     return createConfig()->production;
 }
@@ -23,7 +23,7 @@ function is_in_production() : bool
  */
 function is_in_testing_site() : bool 
 {
-    include_once "db/configwrap.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "db/configwrap.php";
 
     return createConfig()->testingSite;
 }
@@ -33,7 +33,7 @@ function is_in_testing_site() : bool
  */
 function getSalt() : string
 {
-    include_once "db/configwrap.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "db/configwrap.php";
 
     return config_getSalt();
 }
@@ -43,7 +43,7 @@ function getSalt() : string
  */
 function getAssetsPath() : string
 {
-    include_once "db/configwrap.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "db/configwrap.php";
 
     return config_getAssetsPath();
 }
@@ -54,14 +54,14 @@ function getAssetsPath() : string
  */
 function getSQLHandler() : PDO
 {
-    include_once "db/configwrap.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] .  "db/configwrap.php";
     $host = "mysql:host=" . getDBHostName() . ";dbname=" . getDBName();
     return new PDO($host, getDBUsername(), getDBPassword());
 }
 
 function getPageName() : string
 {
-    require "db/configwrap.php";
+    require $_SERVER['DOCUMENT_ROOT'] . "db/configwrap.php";
 
     return createConfig()->siteName;
 }
@@ -184,7 +184,7 @@ function INIT_BACKEND_CALL()
  */
 function getLocaleHandler() : Locale
 {
-    include "src/Locale.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "src/Locale.php";
 
     return LoadLocale();
 }
@@ -304,4 +304,18 @@ function onCUSTOM($expected, $callback)
 {
     if(isCUSTOM($expected))
         $callback();
+}
+
+/**
+ * Consumable method with the struct of a callable.
+ * Automatically calls callback on ran.
+ * 
+ * @param mixed $callback Method to invoke, can be inlined as a anonymous function or lambda.
+ * @param mixed $args Arguments to pass to the function. 
+ * 
+ * @return mixed Returns what the $callback returns, in case of returning something
+ */
+function invoke($callback, ...$args) : mixed
+{
+    return $callback(...$args);
 }

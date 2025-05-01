@@ -5,7 +5,7 @@ include_once "../../src/RuntimeError.php";
 include_once "../shared_funcs.php";
 include_once "../../src/Author.php";
 
-define("QUERY", "SELECT * FROM `Reviews` WHERE `ISBN` = :inISBN;");
+define("QUERY", "SELECT * FROM `Reviews` WHERE `ISBN` = :inISBN ORDER BY Timestamp;");
 
 try
 {

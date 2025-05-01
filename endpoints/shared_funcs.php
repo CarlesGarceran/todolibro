@@ -1,9 +1,9 @@
 <?php
 /* Common functions that will be repeated often */
 
-include_once $_SERVER['DOCUMENT_ROOT'] . "/src/User.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/functions.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/src/IsA.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "src/User.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "functions.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "src/IsA.php";
 
 function SESSION_SetUser(int $id, $name, $email, $pfp, $password, $sessionid)
 {
@@ -50,7 +50,7 @@ function GetSessionCookie(bool $useNewAPI = false)
     return $_COOKIE['sessionId'];
 }
 
-function GetUser(bool $useNewAPI = false)
+function GetUser(bool $useNewAPI = false) : User
 {
     if(!isset($_COOKIE['sessionId']))
         if($useNewAPI)

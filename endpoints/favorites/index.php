@@ -4,9 +4,14 @@ include "../../functions.php";
 
 INIT_BACKEND_CALL();
 
-onGET(function() {
+onGET(function()
+{
     include "get.php";
-    return;
+});
+
+onPUT(function()
+{
+    include "put.php";
 });
 
 onPOST(function()
@@ -17,9 +22,4 @@ onPOST(function()
 onDELETE(function()
 {
     include "delete.php";
-});
-
-onPUT(function()
-{
-    include "put.php";
 });

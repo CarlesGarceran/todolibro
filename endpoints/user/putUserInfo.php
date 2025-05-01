@@ -59,7 +59,7 @@ try
         return;
     }
 
-    if($userData['password'] == "")
+    if(strlen($userData['password']) <= 0)
     {
         $statement = $sqlHandler->prepare(QUERY_NO_PASSWORD);
     }

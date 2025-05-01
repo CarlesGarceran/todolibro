@@ -6,7 +6,7 @@ include_once "../shared_funcs.php";
 include_once "../../src/Author.php";
 
 define("QUERY", "UPDATE Reviews
-SET Comment = :inComment, Rating = :inRating
+SET Comment = :inComment, Rating = :inRating, Timestamp = CURRENT_TIMESTAMP()
 WHERE ISBN = :inISBN AND UserId = :inUserId;");
 
 try
