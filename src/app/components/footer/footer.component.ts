@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -7,23 +7,25 @@ import { RouterModule } from '@angular/router';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
-export class FooterComponent implements OnInit, OnChanges {
+export class FooterComponent implements OnInit, OnDestroy {
+  protected isOverflowing: boolean = false;
+  private intervalId: any;
 
-  protected isOverflowing : boolean = false;
+  checkOverflow(): boolean {
+    return document.documentElement.scrollHeight > window.innerHeight;
+  }
 
   ngOnInit(): void {
-    this.checkOverflows(); 
+    this.intervalId = setInterval(() => this.checkOverflows(), 100);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.checkOverflows();
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
-  checkOverflows()
-  {
-    const element = document.body;
-    this.isOverflowing = element.scrollHeight > element.clientHeight;
-
-
+  checkOverflows(): void {
+    this.isOverflowing = this.checkOverflow();
   }
 }

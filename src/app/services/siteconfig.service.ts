@@ -6,12 +6,12 @@ import { TodoLibroConfig } from '../todolibro.config';
 @Injectable({
   providedIn: 'root'
 })
-export class SiteConfigService 
+export class SiteConfigService
 {
   private testingBackendUrl : string = "http://192.168.1.254:27032/endpoints";
-  private productionBackendUrl : string = "http://143.131.220.131:27032/endpoints";
+  private productionBackendUrl : string = "http://91.126.226.193:27032/endpoints";
 
-  constructor(private httpClient : HttpClient) 
+  constructor(private httpClient : HttpClient)
   {
     TodoLibroConfig.setBackendUrl(this.productionBackendUrl);
 

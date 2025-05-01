@@ -13,6 +13,7 @@ import { Error } from '../interfaces/Error';
 import { Category } from '../interfaces/category';
 import { Review } from '../interfaces/review';
 import { FormUser } from '../pages/config/config.component';
+import { PurchaseDetails } from '../interfaces/purchase-details';
 
 @Injectable({
   providedIn: 'root'
@@ -168,6 +169,27 @@ export class BackendService {
 
   //#endregion
 
+  //#region Favorites
+
+  getFavorites() : Observable<BackendResponse<Libro[] | Error>>
+  {
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/favorites/`, { withCredentials: true });
+  }
+
+  addToFavorites(libro : Libro) : Observable<BackendResponse<any | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/favorites/`, JSON.stringify(libro), { withCredentials: true, headers: headers });
+  }
+
+  deleteFromFavorites(libro : Libro) : Observable<BackendResponse<any | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.delete<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/favorites/`, { withCredentials: true, headers: headers, body: JSON.stringify(libro) });
+  }
+
+  //#endregion
+
   //#region Authors
 
   getAuthors(): Observable<BackendResponse<Author[] | Error>> {
@@ -176,6 +198,33 @@ export class BackendService {
 
   getAuthor(authorId: number): Observable<BackendResponse<Author | Error>> {
     return this.httpClient.get<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/author/getById.php?authorId=${authorId}`, {});
+  }
+
+  addAuthor(author : Author) : Observable<BackendResponse<any | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/`, JSON.stringify(author), 
+  {
+    headers: headers,
+    withCredentials: true
+  });
+  }
+
+  updateAuthor(authorId : number, author : Author) : Observable<BackendResponse<any | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.put<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/?id=${authorId}`, JSON.stringify(author), 
+  {
+    headers: headers,
+    withCredentials: true
+  });
+  }
+
+  deleteAuthor(authorId : number) : Observable<BackendResponse<any | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.delete<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/?id=${authorId}`, 
+  {
+    headers: headers,
+    withCredentials: true
+  });
   }
 
   //#endregion
@@ -361,6 +410,26 @@ export class BackendService {
       body: JSON.stringify(obj),
       withCredentials: true,
     });
+  }
+
+  //#endregion
+
+  //#region PURCHASES
+
+  purchaseBook(book : Libro, purchaseDetails : PurchaseDetails) : Observable<BackendResponse<boolean | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<BackendResponse<boolean | Error>>(
+      TodoLibroConfig.getBackendUrl() + "/purchases/perform/", 
+      JSON.stringify({
+        purchaseData: purchaseDetails,
+        purchaseElement: book
+      }),
+      {
+      headers: headers,
+      withCredentials: true
+      }
+    );
   }
 
   //#endregion

@@ -25,7 +25,11 @@
             <tr>
                 <td>{{item.AuthorId}}</td>
                 <td>{{item.Name}}</td>
-                <td>{{item.Image}}</td>
+                <td>
+                    <div class="w-2/4 h-1/4 overflow-hidden">
+                        <img class="w-auto h-auto bg-content" [src]="item.Image">
+                    </div>
+                </td>
                 <td><button class="btn btn-outline-error" (click)="onDeleteFunc(item);">Delete</button></td>
                 <td><button class="btn btn-outline-success" (click)="onEditFunc(item);">Edit</button></td>
             </tr>

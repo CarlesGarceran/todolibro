@@ -1,0 +1,29 @@
+<label class="btn btn-primary hidden" for="modal-1">Open Modal</label>
+<input #modalHandler class="modal-state hidden" id="modal-1" type="checkbox" (click)="hidePopup();" />
+<div class="modal">
+  <label class="modal-overlay" for="modal-1"></label>
+  <div class="modal-content flex flex-col gap-5 w-fit h-fit">
+    <label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+    <h2 class="text-xl m-5">{{popupTitle}}</h2>
+    <div class="flex flex-col gap-5">
+      <span>
+        Nombre: <input [(ngModel)]="local_author.Name" class="input hover:input-primary flex-shrink" placeholder="Nombre">
+      </span>
+      <span>
+        Imagen: <input [(ngModel)]="local_author.Image" class="input hover:input-primary flex-shrink" placeholder="Imagen"
+          type="text">
+      </span>
+    </div>
+    <div class="flex gap-3">
+      @if (authorPtr.AuthorId == -1)
+      {
+      <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Guardar</button>
+      }
+      @else
+      {
+      <button class="btn btn-outline-success btn-block" for="modal-1" (click)="saveInstance();">Actualizar</button>
+      }
+      <button class="btn btn-solid-error btn-block hover:btn-error" for="modal-1" (click)="descartarCambios();">Cancelar</button>
+    </div>
+  </div>
+</div>

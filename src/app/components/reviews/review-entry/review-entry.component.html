@@ -1,9 +1,13 @@
 <div class="card max-w-full max-h-full min-h-full min-w-full p-5">
     <div class="flex flex-row align-middle">
-        <img [src]="imageUrl" class="avatar">
-        <span class="place-self-center">
+        <img [src]="imageUrl" class="avatar avatar-ring avatar-md">
+        <span class="ml-3 place-self-center">
             {{getUser(entry.UserId)}} :
             <app-app-star-rating [showText]="false" [Rating]="entry.Rating"></app-app-star-rating>
+        </span>
+
+        <span class="ml-auto place-self-end">
+            <p>{{entry.Timestamp}}</p>
         </span>
 
         @if(isMine)

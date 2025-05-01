@@ -28,6 +28,8 @@
             <br>
             Editorial: <a [routerLink]="['/publishers', libro.Publisher]">{{publisherName}}</a>
             <br>
+            Fecha de Lanzamiento: <a>{{libro.LaunchDate}}</a>
+            <br>
             <app-app-star-rating [Rating]="rating"></app-app-star-rating>
         </div>
 
@@ -58,9 +60,20 @@
                 <fa-icon [icon]="shoppingCartIcon"></fa-icon>&nbsp;Fuera de stock
             </button>
         }
-        <button class="btn btn-outline-error flex-grow">
+
+        @if(inFavorites)
+        {
+        <button class="btn btn-outline-error flex-grow" (click)="addToFavorites()">
             <fa-icon [icon]="wishListIcon"></fa-icon>&nbsp;Añadir a favoritos
         </button>
+        }
+        @else
+        {
+            <button class="btn btn-outline-error flex-grow" (click)="removeFromFavorites()">
+                <fa-icon [icon]="wishListIcon"></fa-icon>&nbsp;Eliminar de favoritos
+            </button>
+        }
+
         <button class="btn btn-outline-warning flex-grow">
             <fa-icon [icon]="shelveIcon"></fa-icon>&nbsp;Añadir a una estanteria
         </button>

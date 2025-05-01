@@ -2,19 +2,30 @@
     <div class="card-body flex flex-row grid-cols-3 items-center gap-4">
         <div class="flex-column">
             <div class="flex-row">
-                <div class="w-80 h-auto">
-                    <img [src]="libro?.Image" class="w-full h-full object-contain">
+                <div class="w-64 h-80 place-self-center">
+                    <img class="h-full w-full object-contain" [src]="libro?.Image">
                 </div>
-                <div>
+                <div class="flex flex-col gap-2 mt-3">
                     <h2 class="card-header">{{libro?.Name}}</h2>
                     <p class="text-content2">{{getTrimmedSynopsis()}}</p>
+                    <a class="rel" routerLink="/author/{{libro?.Author}}">Autor: {{Author?.Name}}</a>
+                    <a class="rel" routerLink="/publishers/{{libro?.Publisher}}">Editorial: {{Publisher?.Name}}</a>
+                    <app-app-star-rating [Rating]="Rating"></app-app-star-rating>
                 </div>
             </div>
             <div class="divider"></div>
-            <div class="btn-group btn-group-rounded btn-group-scrollable object-bottom">
-                <button class="btn btn-primary" [routerLink]="['/book', libro?.ISBN]">Ver Ahora</button>
-                <button class="btn btn-error">Añadir a favoritos</button>
-                <button class="btn btn-error">Añadir a una estanteria</button>
+            <div class="btn-group btn-group-scrollable object-bottom">
+                <button class="btn btn-solid-primary text-sm" [routerLink]="['/book', libro?.ISBN]">Ver Ahora</button>
+                @if(showFavoriteButton)
+                {
+                <button class="btn btn-solid-error text-sm" (click)="addToFavorites();">Añadir a favoritos</button>
+                }
+                @else
+                {
+                <button class="btn btn-solid-error text-sm" (click)="removeFromFavorites();">Eliminar de
+                    favoritos</button>
+                }
+                <button class="btn btn-solid-warning text-sm">Añadir a una estanteria</button>
             </div>
         </div>
     </div>

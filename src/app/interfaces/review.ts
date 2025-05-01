@@ -3,4 +3,5 @@ export interface Review {
     UserId : number;
     Comment : string;
     Rating : number;
+    Timestamp : Date;
 }

@@ -30,6 +30,7 @@
 						<button class="dropdown-item text-sm" [routerLink]="['/config']">Configuración de la cuenta</button>
 						<button class="dropdown-item text-sm" [routerLink]="['/shelves']">Estanterias</button>
 						<button class="dropdown-item text-sm" [routerLink]="['/favorites']">Favoritos</button>
+						<button class="dropdown-item text-sm" [routerLink]="['/cart']">Carrito</button>
 						<button class="dropdown-item text-sm" (click)="closeSession();">Cerrar Sesión</button>
 						
 						@if(userIsAdministrator(1))
@@ -54,6 +55,7 @@
 						<button class="btn btn-ghost btn-block text-sm" tabindex="0" [routerLink]="['/config']">Configuración de la cuenta</button>
 						<button class="btn btn-ghost btn-block text-sm" tabindex="1" [routerLink]="['/shelves']">Estanterias</button>
 						<button class="btn btn-ghost btn-block text-sm" tabindex="2" [routerLink]="['/favorites']">Favoritos</button>
+						<button class="btn btn-ghost btn-block text-sm" tabindex="2" [routerLink]="['/cart']">Carrito</button>
 						<button class="btn btn-ghost btn-block text-sm" tabindex="3" (click)="closeSession();">Cerrar Sesión</button>
 						
 						@if(userIsAdministrator(1))

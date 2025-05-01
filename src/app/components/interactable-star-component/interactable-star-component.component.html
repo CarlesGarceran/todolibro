@@ -8,17 +8,17 @@
     {
         @if(AverageRating >= item)
         {
-            <fa-icon [icon]="starFilled" (click)="setStarsValue(item, $event);"></fa-icon>
+            <fa-icon [icon]="starFilled" (click)="setStarsValue(item, $event);" class="star"></fa-icon>
         }
         @else
         {
             @if(AverageRating == (item-0.5))
             {
-                <fa-icon [icon]="halfStar" (click)="setStarsValue(item, $event);"></fa-icon>
+                <fa-icon [icon]="halfStar" (click)="setStarsValue(item, $event);" class="star"></fa-icon>
             }
             @else
             {
-                <fa-icon [icon]="starEmpty" (click)="setStarsValue(item, $event);"></fa-icon>
+                <fa-icon [icon]="starEmpty" (click)="setStarsValue(item, $event);" class="star"></fa-icon>
             }
         }
     }

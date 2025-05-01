@@ -1,4 +1,4 @@
-<div class="flex w-full overflow-x-auto">
+<div class="flex w-fit overflow-x-auto">
     <table class="table-zebra table">
         <thead>
             <tr>
@@ -32,10 +32,14 @@
                 <td class="tooltip tooltip-top" [attr.data-tooltip]="">
                     {{item.Publisher}}
                 </td>
-                <td>{{item.Image}}</td>
+                <td>
+                    <div class="w-2/4 h-1/4 overflow-hidden">
+                        <img class="w-auto h-auto bg-content" [src]="item.Image">
+                    </div>
+                </td>
                 @if(item.LaunchDate != null)
                 {
-                    <td>{{item.LaunchDate.toDateString()}}</td>
+                <td>{{item.LaunchDate.toDateString()}}</td>
                 }
                 <td>{{item.Price}}</td>
                 <td><textarea class="textarea" readonly>{{item.Synopsis}}</textarea></td>

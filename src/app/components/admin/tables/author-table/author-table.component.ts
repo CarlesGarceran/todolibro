@@ -39,13 +39,13 @@ export class AuthorTableComponent extends GenericTableComponent<string, Author> 
     this.table_data = this.b_Data;
   }
 
-  onDeleteFunc(libro : Libro): void
+  onDeleteFunc(author : Author): void
   {
-    this.onDelete.emit(libro);
+    this.onDelete.emit(author);
   }
 
-  onEditFunc(libro : Libro) : void
+  onEditFunc(author : Author) : void
   {
-    this.onEdit.emit(libro);
+    this.onEdit.emit(author);
   }
 }

@@ -73,9 +73,7 @@ export class AddLibroFormComponent implements OnInit {
 
   success(arg : string)
   {
-    this.LoggingService.logToServer(`The user has ${arg}`).subscribe((rsp) => {
-
-    });
+    return this.LoggingService.logToServer(`The user has ${arg}`).subscribe((rsp) => {});
   }
 
   onEditClick(libro : Libro)
@@ -105,7 +103,7 @@ export class AddLibroFormComponent implements OnInit {
     this.backendService.deleteLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
       if(rsp.Success)
       {
-        this.success(`deleted the book ${libro.ISBN}`);
+        this.success(`deleted the book ${libro.ISBN}`).add(() => { window.location.reload(); });
       }
       else
       {
@@ -124,7 +122,7 @@ export class AddLibroFormComponent implements OnInit {
       this.backendService.addLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
         if(rsp.Success)
         {
-          this.success(`added the book ${libro.ISBN}`);
+          this.success(`added the book ${libro.ISBN}`)
         }
         else
         {
@@ -140,7 +138,7 @@ export class AddLibroFormComponent implements OnInit {
       this.backendService.updateLibro(oldBook?.ISBN, libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
         if(rsp.Success)
         {
-          this.success(`updated the book ${libro.ISBN}`);
+          this.success(`updated the book ${libro.ISBN}`)
         }
         else
         {

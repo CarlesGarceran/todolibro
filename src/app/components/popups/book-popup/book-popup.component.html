@@ -44,7 +44,7 @@
       </span>
       <span>
         Fecha de Lanzamiento: <input class="input hover:input-primary flex-shrink" placeholder="Fecha de Lanzamiento"
-          type="date" [value]="convertToHTML(local_libro.LaunchDate)">
+          type="date" [(ngModel)]="dateString">
       </span>
       <span>
         Imagen: <input [(ngModel)]="local_libro.Image" class="input hover:input-primary flex-shrink" placeholder="Imagen"

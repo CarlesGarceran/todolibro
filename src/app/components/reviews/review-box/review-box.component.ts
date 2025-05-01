@@ -59,7 +59,8 @@ export class ReviewBoxComponent implements OnInit {
       Comment: this.reviewText,
       Rating: (this.starComponent?.AverageRating || 0),
       ISBN: this.ISBN,
-      UserId: 0
+      UserId: 0,
+      Timestamp: new Date()
     };
 
     this.backendService.addReview(review).subscribe((rsp) => {

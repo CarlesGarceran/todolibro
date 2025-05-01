@@ -106,7 +106,10 @@ export class ConfigComponent implements OnInit {
 
     if(this.user.password != null)
     {
-      clone.password = this.cryptoService.getSHA256Hash(this.user.password);
+      if(this.user.password != "")
+        clone.password = this.cryptoService.getSHA256Hash(this.user.password);
+      else
+        clone.password = "";
     }
 
     this.backendService.updateUser(clone).subscribe((rsp) => {

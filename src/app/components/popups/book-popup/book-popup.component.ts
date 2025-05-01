@@ -17,17 +17,19 @@ import { Publisher } from '../../../interfaces/publisher';
   styleUrl: './book-popup.component.css'
 })
 export class BookPopupComponent implements AfterViewInit, OnInit {
-  private visible : boolean = false;
-  private backendService : BackendService = inject(BackendService);
+  private visible: boolean = false;
+  private backendService: BackendService = inject(BackendService);
 
   @ViewChild("modalHandler", { static: false })
-  protected modalHandler? : ElementRef<HTMLInputElement>;
-  
+  protected modalHandler?: ElementRef<HTMLInputElement>;
+
 
   @Input()
-  public popupTitle : string = "";
+  public popupTitle: string = "";
 
-  protected local_libro : Libro = {
+  public dateString: string = "";
+
+  protected local_libro: Libro = {
     ISBN: '',
     Name: '',
     Author: 0,
@@ -39,8 +41,8 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
     Stock: 0
   };
 
-  private libroFormComponent! : AddLibroFormComponent;
-  protected libroPtr : Libro = {
+  private libroFormComponent!: AddLibroFormComponent;
+  protected libroPtr: Libro = {
     ISBN: '',
     Name: '',
     Author: 0,
@@ -52,17 +54,15 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
     Stock: 0
   };
 
-  protected authors : Author[] = [];
-  protected publishers : Publisher[] = [];
+  protected authors: Author[] = [];
+  protected publishers: Publisher[] = [];
 
   ngOnInit(): void {
     this.backendService.getAuthors().subscribe((rsp) => {
-      if(rsp.Success)
-      {
+      if (rsp.Success) {
         this.authors = rsp.Data as Author[];
       }
-      else
-      {
+      else {
         const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
         const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
 
@@ -71,12 +71,10 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
     });
 
     this.backendService.getPublishers().subscribe((rsp) => {
-      if(rsp.Success)
-      {
+      if (rsp.Success) {
         this.publishers = rsp.Data as Publisher[];
       }
-      else
-      {
+      else {
         const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
         const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
 
@@ -86,77 +84,68 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
   }
 
   constructor() {
-    
+
   }
 
-  setLibro(libro : Libro, formComponent : AddLibroFormComponent)
-  {
+  setLibro(libro: Libro, formComponent: AddLibroFormComponent) {
     this.local_libro = libro;
     this.libroFormComponent = formComponent;
-   
-    if(this.local_libro.ISBN == '')
-    {
+
+    if (this.local_libro.ISBN == '') {
       this.popupTitle = "Añadir Libro";
     }
-    else
-    {
+    else {
       this.popupTitle = "Editando Libro: " + this.local_libro.Name;
     }
+
+    this.dateString = this.convertToHTML(this.local_libro.LaunchDate);
 
     Object.assign(this.libroPtr, libro);
   }
 
-  setVisible(value : boolean)
-  {
+  setVisible(value: boolean) {
     this.visible = value;
   }
 
-  ngAfterViewInit(): void 
-  {
-    if(this.modalHandler != null && this.visible)
-    {
+  ngAfterViewInit(): void {
+    if (this.modalHandler != null && this.visible) {
       console.log("Showing popup");
       this.modalHandler?.nativeElement.click();
     }
   }
 
-  showPopup()
-  {
-    if(this.visible == true) return;
+  showPopup() {
+    if (this.visible == true) return;
 
     this.modalHandler?.nativeElement.click();
     this.visible = true;
   }
 
-  hidePopup()
-  {
-    if(this.visible == false) return;
+  hidePopup() {
+    if (this.visible == false) return;
 
     this.modalHandler?.nativeElement.click();
     this.visible = false;
   }
 
-  descartarCambios()
-  {
+  descartarCambios() {
     this.local_libro = this.libroPtr;
     this.hidePopup();
   }
 
-  saveInstance()
-  {
-    if(this.local_libro != null)
-    {
+  saveInstance() {
+    if (this.local_libro != null) {
+      this.local_libro.LaunchDate =  new Date(this.dateString);
       this.libroFormComponent.libroUpdated(this.local_libro, this.libroPtr);
     }
     this.hidePopup();
   }
 
-  convertToHTML(date? : Date) : string
-  {
-    if(date != null)
-      return date.getFullYear().toString().padStart(4, '0') + "-" + 
-    (date.getMonth()+1).toString().padStart(2, '0') + "-" +
-    date.getDate().toString().padStart(2, '0');
+  convertToHTML(date?: Date): string {
+    if (date != null)
+      return date.getFullYear().toString().padStart(4, '0') + "-" +
+        (date.getMonth() + 1).toString().padStart(2, '0') + "-" +
+        date.getDate().toString().padStart(2, '0');
 
     return "";
   }

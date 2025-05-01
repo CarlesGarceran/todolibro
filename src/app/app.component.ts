@@ -6,10 +6,11 @@ import { ErrorPopupComponent } from "./components/popups/error-popup/error-popup
 import { FormsModule } from '@angular/forms';
 import { AskUserPopupComponent } from "./components/popups/ask-user-popup/ask-user-popup.component";
 import { TopbarComponent } from "./components/topbar/topbar.component";
+import { InfoPopupComponent } from "./components/popups/info-popup/info-popup.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule, AskUserPopupComponent, TopbarComponent],
+  imports: [RouterOutlet, FontAwesomeModule, ErrorPopupComponent, FormsModule, AskUserPopupComponent, InfoPopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

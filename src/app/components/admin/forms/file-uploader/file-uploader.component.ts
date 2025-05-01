@@ -3,6 +3,7 @@ import { BackendService } from '../../../../services/backend.service';
 import { ErrorPopupComponent } from '../../../popups/error-popup/error-popup.component';
 import { Error } from '../../../../interfaces/Error';
 import { FormsModule } from '@angular/forms';
+import { AskUserPopupComponent } from '../../../popups/ask-user-popup/ask-user-popup.component';
 
 @Component({
   selector: 'app-file-uploader',
@@ -36,7 +37,22 @@ export class FileUploaderComponent {
       if(rsp.Success)
       {
         const response = (rsp.Data as { fileName : string });
-        console.log(response.fileName);
+        
+        AskUserPopupComponent.askUser("Request success", `Quieres copiar la URI del recurso a el portapapeles?\n URI: ${response.fileName}`, "Yes", "No",
+          ()=>{
+            try
+            {
+              navigator.clipboard.writeText(response.fileName).then(() => {});
+            }
+            catch(ex)
+            {
+
+            }
+          },
+          () => {
+            
+          }
+        )
       }
       else
       {

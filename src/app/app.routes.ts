@@ -10,6 +10,7 @@ import { PublisherComponent } from './pages/publisher/publisher.component';
 import { CartCheckoutComponent } from './pages/cart-checkout/cart-checkout.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { AuthorComponent } from './pages/author/author.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,11 @@ export const routes: Routes = [
     {
         path: "privacy-policy",
         component: PrivacyPolicyComponent,
-        title: "Carrito"
+        title: "Politica de privacidad de datos"
+    },
+    {
+        path: "favorites",
+        component: FavoritesComponent,
+        title: "Favoritos"
     },
 ];

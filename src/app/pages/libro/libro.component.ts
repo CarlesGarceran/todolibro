@@ -18,6 +18,7 @@ import { ReviewBoxComponent } from "../../components/reviews/review-box/review-b
 import { Author } from '../../interfaces/author';
 import { Publisher } from '../../interfaces/publisher';
 import { FooterComponent } from "../../components/footer/footer.component";
+import { InfoPopupComponent } from '../../components/popups/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-libro',
@@ -45,6 +46,7 @@ export class LibroComponent implements OnInit {
   protected shelveIcon = faBook;
   protected authorName : string = "";
   protected publisherName : string = "";
+  protected inFavorites : boolean = false;
 
   ngOnInit(): void {
     this.ISBN = this.route.snapshot.params['isbn'];
@@ -79,6 +81,14 @@ export class LibroComponent implements OnInit {
           this.publisherName = (rsp.Data as Publisher).Name;
         }
       });
+
+      this.backendService.getFavorites().subscribe((rsp) => {
+        if(rsp.Success)
+        {
+          const favorites = rsp.Data as Libro[];
+          this.inFavorites = !(favorites.filter((_) => _ == this.libro).length > 0);
+        }
+      })
     });
   }
 
@@ -107,6 +117,37 @@ export class LibroComponent implements OnInit {
     })
   }
 
+  addToFavorites()
+  {
+    if(this.libro != null)
+    {
+      this.backendService.addToFavorites(this.libro).subscribe((rsp) => {
+        if(!rsp.Success)
+        {
+          ErrorPopupComponent.throwError(rsp.Data as Error);
+        }
+        else
+        {
+          InfoPopupComponent.throwInfo({ error_code: 0, message: "Se añadio el libro a la lista de favoritos." }, "Añadido a favoritos");
+          this.inFavorites = true;
+        }
+      });
+    }
+  }
+
+  removeFromFavorites() {
+      if (this.libro != null) {
+        this.backendService.deleteFromFavorites(this.libro).subscribe((rsp) => {
+          if (!rsp.Success) {
+            ErrorPopupComponent.throwError(rsp.Data as Error);
+          }
+          else {
+            InfoPopupComponent.throwInfo({ error_code: 0, message: "Se elimino el libro a la lista de favoritos." }, "Eliminado de favoritos");
+            this.inFavorites = false;
+          }
+        });
+      }
+    }
 
   addToCarrito()
   {

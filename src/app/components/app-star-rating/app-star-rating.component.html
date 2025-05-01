@@ -6,16 +6,16 @@
     
     @for (item of fullStars; track $index)
     {
-        <fa-icon [icon]="starFilled"></fa-icon>
+        <fa-icon [icon]="starFilled" class="star"></fa-icon>
     }
 
     @if(hasHalfStar)
     {
-        <fa-icon [icon]="halfStar"></fa-icon>
+        <fa-icon [icon]="halfStar" class="star"></fa-icon>
     }
       
     @for (item of emptyStars; track $index)
     {
-        <fa-icon [icon]="starEmpty"></fa-icon>
+        <fa-icon [icon]="starEmpty" class="star"></fa-icon>
     }
 </div>
