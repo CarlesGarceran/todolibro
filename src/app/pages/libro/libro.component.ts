@@ -86,7 +86,7 @@ export class LibroComponent implements OnInit {
         if(rsp.Success)
         {
           const favorites = rsp.Data as Libro[];
-          this.inFavorites = !(favorites.filter((_) => _ == this.libro).length > 0);
+          this.inFavorites = (favorites.findIndex(rsp => rsp.ISBN == this.libro?.ISBN) == -1);
         }
       })
     });
@@ -129,7 +129,7 @@ export class LibroComponent implements OnInit {
         else
         {
           InfoPopupComponent.throwInfo({ error_code: 0, message: "Se añadio el libro a la lista de favoritos." }, "Añadido a favoritos");
-          this.inFavorites = true;
+          this.inFavorites = false;
         }
       });
     }
@@ -143,7 +143,7 @@ export class LibroComponent implements OnInit {
           }
           else {
             InfoPopupComponent.throwInfo({ error_code: 0, message: "Se elimino el libro a la lista de favoritos." }, "Eliminado de favoritos");
-            this.inFavorites = false;
+            this.inFavorites = true;
           }
         });
       }
@@ -205,5 +205,39 @@ export class LibroComponent implements OnInit {
       } 
       ErrorPopupComponent.throwError(error);
     }
+  }
+
+
+  onPurchaseClicked()
+  {
+    if(!this.hasStock())
+    {
+      var error : Error = {
+        error_code: 300,
+        message: "No se dispone de stock."
+      } 
+      ErrorPopupComponent.throwError(error);
+
+      return;
+    }
+
+    if(temporalStorage.getFromStorage<Carrito>("shopping_cart") == null)
+    {
+      var error : Error = {
+        error_code: 300,
+        message: "Registrese o inicie sesión para usar esta función."
+      } 
+      ErrorPopupComponent.throwError(error);
+    }
+
+    this.router.navigate(["/purchase", this.ISBN]);
+  }
+
+  private hasStock()
+  {
+    if(this.libro == null)
+      return false;
+
+    return (this.libro?.Stock > 0);
   }
 }

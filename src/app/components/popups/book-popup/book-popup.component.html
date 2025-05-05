@@ -13,34 +13,12 @@
         Nombre: <input [(ngModel)]="local_libro.Name" class="input hover:input-primary flex-shrink" placeholder="Nombre">
       </span>
       <span>
-        Autor: <select [(ngModel)]="local_libro.Author" class="select hover:select-primary">
-          @for (item of authors; track $index)
-          {
-          @if(local_libro.Author == item.AuthorId)
-          {
-          <option [value]="item.AuthorId" selected>{{item.AuthorId}} - {{item.Name}}</option>
-          }
-          @else
-          {
-          <option [value]="item.AuthorId">{{item.AuthorId}} - {{item.Name}}</option>
-          }
-          }
-        </select>
+        Autor: 
+        <app-searchable-select [options]="toStringArrayAuthors(authors)" [searchTerm]="local_libro.Author + ' - '"  (onSelected)="onAuthorSelected($event)"></app-searchable-select>
       </span>
       <span>
-        Editorial: <select [(ngModel)]="local_libro.Publisher" class="select hover:select-primary">
-          @for (item of publishers; track $index)
-          {
-          @if(local_libro.Publisher == item.PublisherId)
-          {
-          <option [value]="item.PublisherId" selected>{{item.PublisherId}} - {{item.Name}}</option>
-          }
-          @else
-          {
-          <option [value]="item.PublisherId">{{item.PublisherId}} - {{item.Name}}</option>
-          }
-          }
-        </select>
+        Editorial:
+        <app-searchable-select [options]="toStringArrayPublishers(publishers)" [searchTerm]="local_libro.Publisher + ' - '"  (onSelected)="onPublisherSelected($event)"></app-searchable-select>
       </span>
       <span>
         Fecha de Lanzamiento: <input class="input hover:input-primary flex-shrink" placeholder="Fecha de Lanzamiento"

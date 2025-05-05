@@ -1,8 +1,12 @@
-import { AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, inject, OnChanges, OnInit, Output } from '@angular/core';
 import { GenericTableComponent } from '../generic/generic-table/generic-table.component';
 import { Libro } from '../../../../interfaces/libro';
 import { LoadingComponent } from "../../../loading/loading.component";
 import { LoadingFieldComponent } from "../../../loading-field/loading-field.component";
+import { CacheStorage } from '../../../../classes/CacheStorage';
+import { BackendService } from '../../../../services/backend.service';
+import { Publisher } from '../../../../interfaces/publisher';
+import { Author } from '../../../../interfaces/author';
 
 @Component({
   selector: 'app-book-table',
@@ -16,6 +20,11 @@ export class BookTableComponent extends GenericTableComponent<string, Libro> imp
   public onEdit : EventEmitter<Libro> = new EventEmitter<Libro>();
   @Output("onDelete")
   public onDelete : EventEmitter<Libro> = new EventEmitter<Libro>();
+
+  protected authorCacheStorage : CacheStorage = new CacheStorage();
+  protected publisherCacheStorage : CacheStorage = new CacheStorage();
+
+  private backendService : BackendService = inject(BackendService);
 
   constructor() {
     super();
@@ -47,5 +56,39 @@ export class BookTableComponent extends GenericTableComponent<string, Libro> imp
   onEditFunc(libro : Libro) : void
   {
     this.onEdit.emit(libro);
+  }
+
+  getOrSavePublisherName(publisherId : number) : string
+  {
+    if(this.publisherCacheStorage.getFromCache<string>(publisherId.toString()))
+      return this.publisherCacheStorage.getFromCache(publisherId.toString());
+    else
+    {
+      this.backendService.getPublisher(publisherId).subscribe((rsp) => {
+        if(rsp.Success)
+        {
+          this.publisherCacheStorage.addToCache(publisherId.toString(), (rsp.Data as Publisher).Name);
+        }
+      })
+    }
+
+    return "";
+  }
+
+  getOrSaveAuthorName(authorId : number) : string
+  {
+    if(this.authorCacheStorage.getFromCache<string>(authorId.toString()))
+      return this.authorCacheStorage.getFromCache(authorId.toString());
+    else
+    {
+      this.backendService.getAuthor(authorId).subscribe((rsp) => {
+        if(rsp.Success)
+        {
+          this.authorCacheStorage.addToCache(authorId.toString(), (rsp.Data as Author).Name);
+        }
+      })
+    }
+
+    return "";
   }
 }

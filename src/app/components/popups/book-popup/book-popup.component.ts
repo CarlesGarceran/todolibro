@@ -9,10 +9,11 @@ import { ErrorPopupComponent } from '../error-popup/error-popup.component';
 import { temporalStorage } from '../../../classes/TemporalStorage';
 import { Error } from '../../../interfaces/Error';
 import { Publisher } from '../../../interfaces/publisher';
+import { SearchableSelectComponent } from "../../searchable-select/searchable-select.component";
 
 @Component({
   selector: 'app-book-popup',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SearchableSelectComponent],
   templateUrl: './book-popup.component.html',
   styleUrl: './book-popup.component.css'
 })
@@ -148,5 +149,42 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
         date.getDate().toString().padStart(2, '0');
 
     return "";
+  }
+
+  toStringArrayPublishers(publishers : Publisher[]) : string[]
+  {
+    var arr : string[] = [];
+
+    publishers.forEach(element => arr.push(`${element.PublisherId} - ${element.Name}`));
+
+    return arr;
+  }
+
+  
+  toStringArrayAuthors(authors : Author[]) : string[]
+  {
+    var arr : string[] = [];
+
+    authors.forEach(element => arr.push(`${element.AuthorId} - ${element.Name}`));
+
+    return arr;
+  }
+
+  onAuthorSelected(event : string)
+  {
+    if(event == "")
+      return;
+
+    const id : number = Number.parseInt(event.substring(0, event.indexOf(' ')));
+    this.local_libro.Author = id;
+  }
+
+  onPublisherSelected(arg : string)
+  {
+    if(arg == "")
+      return;
+    
+    const id : number = Number.parseInt(arg.substring(0, arg.indexOf(' ')));
+    this.local_libro.Publisher = id;
   }
 }

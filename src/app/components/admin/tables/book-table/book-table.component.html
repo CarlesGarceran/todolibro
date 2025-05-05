@@ -25,11 +25,11 @@
             <tr>
                 <td>{{item.ISBN}}</td>
                 <td>{{item.Name}}</td>
-                <td class="tooltip tooltip-top" [attr.data-tooltip]="">
+                <td class="tooltip tooltip-top" [attr.data-tooltip]="getOrSaveAuthorName(item.Author)">
                     {{item.Author}}
                 </td>
 
-                <td class="tooltip tooltip-top" [attr.data-tooltip]="">
+                <td class="tooltip tooltip-top" [attr.data-tooltip]="getOrSavePublisherName(item.Publisher)">
                     {{item.Publisher}}
                 </td>
                 <td>

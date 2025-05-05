@@ -66,10 +66,8 @@ export class LibroEntryComponent implements OnInit {
         if(rsp.Success)
         {
           var favorites = rsp.Data as Libro[];
-          console.log("GOT FAVORITES");
-          console.log(favorites.filter((_) => _ == this.libro));
 
-          this.showFavoriteButton = (favorites.filter((_) => _ == this.libro).length <= 0);
+          this.showFavoriteButton = (favorites.findIndex(rsp => rsp.ISBN == this.libro?.ISBN) == -1);
         }
       })
     }
@@ -95,6 +93,7 @@ export class LibroEntryComponent implements OnInit {
         else {
           InfoPopupComponent.throwInfo({ error_code: 0, message: "Se añadio el libro a la lista de favoritos." }, "Añadido a favoritos");
           this.onFavoritesAdded.emit(null);
+          this.showFavoriteButton = false;
         }
       });
     }
@@ -109,6 +108,7 @@ export class LibroEntryComponent implements OnInit {
         else {
           InfoPopupComponent.throwInfo({ error_code: 0, message: "Se elimino el libro a la lista de favoritos." }, "Eliminado de favoritos");
           this.onFavoritesRemoved.emit(null);
+          this.showFavoriteButton = true;
         }
       });
     }

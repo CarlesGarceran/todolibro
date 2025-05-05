@@ -12,10 +12,11 @@ import { Error } from '../../interfaces/Error';
 import { AskUserPopupComponent } from '../../components/popups/ask-user-popup/ask-user-popup.component';
 import { LoadingFieldComponent } from "../../components/loading-field/loading-field.component";
 import { FooterComponent } from "../../components/footer/footer.component";
+import { PurchaseComponent } from "../../components/purchase/purchase.component";
 
 @Component({
   selector: 'app-cart-checkout',
-  imports: [TopbarComponent, RouterOutlet, GlowingTextComponent, LoadingFieldComponent, FooterComponent],
+  imports: [TopbarComponent, RouterOutlet, GlowingTextComponent, LoadingFieldComponent, FooterComponent, PurchaseComponent],
   templateUrl: './cart-checkout.component.html',
   styleUrl: './cart-checkout.component.css'
 })
@@ -103,5 +104,15 @@ export class CartCheckoutComponent implements OnInit {
         });
       });
     }
+  }
+
+
+  getPrecioTotal() : number
+  {
+    let precioTotal = 0;
+
+    this.cart.forEach((element : Cart) => precioTotal += this.getPrecio(element.Books_ISBN, element.Quantity));
+
+    return precioTotal;
   }
 }

@@ -1,1 +1,10 @@
-<p>purchase works!</p>
+<div class="card max-w-full max-h-full min-h-full">
+    <app-glowing-text textContent="Comprar" class="text-center"></app-glowing-text>
+    <div class="flex flex-col">
+        Numero Tarjeta: <input class="input input-field hover:input-primary" type="text" [(ngModel)]="purchaseDetails.cardDetails"><br>
+        Nombre: <input class="input input-field hover:input-primary" type="text" [(ngModel)]="purchaseDetails.cardOwner"><br>
+        CVV: <input class="input input-field hover:input-primary" type="number" [(ngModel)]="purchaseDetails.cardCVV"><br>
+        Fecha expiración: <input class="input hover:input-primary" type="date" [(ngModel)]="dateString"><br>
+        <button class="btn btn-solid-primary hover:btn-primary" (click)="onPurchase();" (submit)="onPurchase();">Comprar</button>
+    </div>
+</div>
