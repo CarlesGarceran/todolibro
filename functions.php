@@ -170,6 +170,14 @@ function CORS() {
     }
 }
 
+
+function getLogLevel() : int
+{
+    include_once $_SERVER['DOCUMENT_ROOT'] . "db/configwrap.php";
+
+    return config_getLogLevel();
+}
+
 /**
  * Initializes a backend call
  */
@@ -257,6 +265,8 @@ function isCUSTOM(string $expected) : bool
  */
 function onGET($callback)
 {
+    LOG_REQUESTS();
+
     if(isGET())
         $callback();
 }
@@ -266,6 +276,8 @@ function onGET($callback)
  */
 function onPOST($callback)
 {
+    LOG_REQUESTS();
+
     if(isPOST())
         $callback();
 }
@@ -275,6 +287,8 @@ function onPOST($callback)
  */
 function onPUT($callback)
 {
+    LOG_REQUESTS();
+
     if(isPUT())
         $callback();
 }
@@ -284,6 +298,8 @@ function onPUT($callback)
  */
 function onPATCH($callback)
 {
+    LOG_REQUESTS();
+
     if(isPATCH())
         $callback();
 }
@@ -293,6 +309,8 @@ function onPATCH($callback)
  */
 function onDELETE($callback)
 {
+    LOG_REQUESTS();
+
     if(isDELETE())
         $callback();
 }
@@ -302,6 +320,8 @@ function onDELETE($callback)
  */
 function onCUSTOM($expected, $callback)
 {
+    LOG_REQUESTS();
+
     if(isCUSTOM($expected))
         $callback();
 }
@@ -318,4 +338,33 @@ function onCUSTOM($expected, $callback)
 function invoke($callback, ...$args) : mixed
 {
     return $callback(...$args);
+}
+
+function LOG_REQUESTS()
+{
+    if(getLogLevel() >= 2)
+    {
+        $verb = $_SERVER['REQUEST_METHOD'];
+        $remote_addr = $_SERVER['REMOTE_ADDR'] . $_SERVER['REMOTE_PORT'];
+        $socket = $_SERVER['SERVER_ADDR'] . ":" . $_SERVER['SERVER_PORT'];
+        LogDB(new User(-1, "Automated", "", "", ""), "A petition to the $socket [$verb] has been done from $remote_addr");
+    }
+}
+
+function logOnMinimum($callback)
+{
+    if(getLogLevel() >= 0)
+        $callback();
+}
+
+function logOnMedium($callback)
+{
+    if(getLogLevel() >= 1)
+        $callback();
+}
+
+function logOnMaximum($callback)
+{
+    if(getLogLevel() >= 2)
+        $callback();
 }

@@ -40,7 +40,6 @@ function getDBPassword(): string
     return createConfig()->db_config->password;
 }
 
-
 function config_getSiteName(): string
 {
     return createConfig()->siteName;
@@ -54,4 +53,9 @@ function config_getSalt(): string
 function config_getAssetsPath() : string
 {
     return createConfig()->assetsPath;
+}
+
+function config_getLogLevel() : int
+{
+    return createConfig()->logLevel;
 }

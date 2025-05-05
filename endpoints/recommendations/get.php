@@ -9,6 +9,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . "src/PurchaseDetails.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/Payment/perform_purchase.php";
 
 define("GET_SALES", "SELECT * FROM Sales WHERE UserId = :userId;");
+define("GET_SALE_BOOKS", "SELECT * FROM Sale_has_Books WHERE SaleId = :saleId");
 
 try {
     INIT_BACKEND_CALL();

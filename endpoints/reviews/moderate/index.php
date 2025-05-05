@@ -4,7 +4,7 @@ include "../../functions.php";
 
 INIT_BACKEND_CALL();
 
-onGET(function()
+onPUT(function()
 {
-    include "get.php";
+    include "force_update.php";
 });

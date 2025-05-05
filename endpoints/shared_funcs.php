@@ -50,29 +50,39 @@ function GetSessionCookie(bool $useNewAPI = false)
     return $_COOKIE['sessionId'];
 }
 
-function GetUser(bool $useNewAPI = false) : User
+function GetUser(bool $useNewAPI = false) : User | array
 {
-    if(!isset($_COOKIE['sessionId']))
-        if($useNewAPI)
-            NOP_WRAP(new RuntimeError(400, "User not logged in"));
-        else
-            NOP_OBJ(new RuntimeError(400, "User not logged in"));
-
-    $sessionId = $_COOKIE['sessionId'];
-
-    if(!isset($_SESSION))
-        if($useNewAPI)
-            NOP_WRAP(new RuntimeError(500, "Failed to initialize session"));
-        else
-            NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
-
-    if(!isset($_SESSION[$sessionId]))
+    try
+    {
+        if(!isset($_COOKIE['sessionId']))
+            if($useNewAPI)
+                NOP_WRAP(new RuntimeError(400, "User not logged in"));
+            else
+                NOP_OBJ(new RuntimeError(400, "User not logged in"));
+    
+        $sessionId = $_COOKIE['sessionId'];
+    
+        if(!isset($_SESSION))
+            if($useNewAPI)
+                NOP_WRAP(new RuntimeError(500, "Failed to initialize session"));
+            else
+                NOP_OBJ(new RuntimeError(500, "Failed to initialize session"));
+    
+        if(!isset($_SESSION[$sessionId]))
+            if ($useNewAPI)
+                NOP_WRAP(new RuntimeError(500, "Failed to obtain user profile"));
+            else
+                NOP_OBJ(new RuntimeError(500, "Failed to obtain user profile"));
+    
+        return fromJson($_SESSION[$sessionId]['User']);
+    }
+    catch(Exception $ex)
+    {
         if ($useNewAPI)
-            NOP_WRAP(new RuntimeError(500, "Failed to obtain user profile"));
+            NOP_WRAP(new RuntimeError(500, "Failed to process user profile"));
         else
-            NOP_OBJ(new RuntimeError(500, "Failed to obtain user profile"));
-
-    return fromJson($_SESSION[$sessionId]['User']);
+            NOP_OBJ(new RuntimeError(500, "Failed to process user profile"));
+    }
 }
 
 function GetUserFromDatabase($userId)
@@ -97,6 +107,17 @@ function getUserData() : object | array
         $fileContents = "";
 
     return fromJson($fileContents);
+}
+
+function LogToDB(int $userId, string $action)
+{
+    $sqlHandler = getSQLHandler();
+
+    $sqlStatement = $sqlHandler->prepare("INSERT INTO Log(userId, Action, Time) VALUES (:userId, :action, NOW());");
+    $sqlStatement->bindValue(":userId", $userId, PDO::PARAM_INT);
+    $sqlStatement->bindValue(":action", $action);
+
+    $sqlStatement->execute();
 }
 
 ?>

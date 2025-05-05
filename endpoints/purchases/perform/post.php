@@ -19,8 +19,7 @@ try {
     INIT_BACKEND_CALL();
     session_start();
 
-    //$user = GetUser(true);
-    $user = new User(3, "CGS", "", "", "", "");
+    $user = GetUser(true);
     $userData = getUserData();
 
     if(!isset($userData['purchaseData']))

@@ -39,6 +39,7 @@ class Config
     public string $siteName;
     public string $salt;
     public string $assetsPath;
+    public int $logLevel;
     
     public function __construct() 
     {
@@ -48,6 +49,7 @@ class Config
         $this->siteName = "CHAOS LANGUAGE";
         $this->salt = "";
         $this->assetsPath = "/";
+        $this->logLevel = 0;
     }
 
     public function set(object | array $data)

@@ -56,6 +56,7 @@ try {
         $_SERVER['SERVER_PORT'] == 443 ||
         (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
     
+    LogToDB($userId, "User $userId has uploaded the file ($fileName) to the server");
 
     NOP_WRAP(["fileName" => ($isHttps ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/endpoints/file/?name=" . substr($uploadPath, 1) . $fileName]);
 } catch (Exception $ex) {
