@@ -108,6 +108,32 @@ export class BackendService {
       });
   }
 
+  getLibrosMasCompradosByAuthor(author: number): Observable<BackendResponse<Libro[] | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/most_purchased/author/?authorId=${author}`,
+      {
+        headers: headers,
+        withCredentials: false,
+      });
+  }
+
+  getLibrosMasCompradosByPublisher(publisher: number): Observable<BackendResponse<Libro[] | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/most_purchased/publisher/?publisherId=${publisher}`,
+      {
+        headers: headers,
+        withCredentials: false,
+      });
+  }
+
+  getLibrosMasComprados(): Observable<BackendResponse<Libro[] | Error>> {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + `/books/most_purchased/`,
+      {
+        headers: headers,
+        withCredentials: false,
+      });
+  }
 
   updateLibro(ISBN: string, libro: Libro): Observable<BackendResponse<{ payload: Boolean } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });

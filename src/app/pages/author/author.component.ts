@@ -12,15 +12,17 @@ import { BackendResponse } from '../../interfaces/backend-response';
 import { Error } from '../../interfaces/Error';
 import { temporalStorage } from '../../classes/TemporalStorage';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
+import { LibroEntryComponent } from "../../components/filter/libro-entry/libro-entry.component";
 
 @Component({
   selector: 'app-author',
-  imports: [TopbarComponent, LoadingComponent, GlowingTextComponent, LinearCarouselComponent, FooterComponent],
+  imports: [TopbarComponent, LoadingComponent, GlowingTextComponent, LinearCarouselComponent, FooterComponent, LibroEntryComponent],
   templateUrl: './author.component.html',
   styleUrl: './author.component.css'
 })
 export class AuthorComponent implements OnInit {
   protected author?: Author;
+  public mostPurchasedBooks: Libro[] = [];
   public bookBuffer: Libro[] = [];
 
 
@@ -31,6 +33,15 @@ export class AuthorComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((rsp) => {
       this.authorId = rsp['id'];
+
+      this.backendService.getLibrosMasCompradosByAuthor(this.authorId).subscribe((rsp: BackendResponse<Libro[] | Error>) => {
+        if (!rsp.Success) {
+          ErrorPopupComponent.throwError(rsp.Data as Error);
+        }
+        else {
+          this.mostPurchasedBooks = (rsp.Data as Libro[]);
+        }
+      });
 
       this.backendService.getLibrosByAuthor(this.authorId).subscribe((rsp: BackendResponse<Libro[] | Error>) => {
         if (!rsp.Success) {

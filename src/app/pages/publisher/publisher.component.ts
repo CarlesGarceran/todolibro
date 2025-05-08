@@ -12,15 +12,17 @@ import { LinearCarouselComponent } from "../../components/linear-carousel/linear
 import { GlowingTextComponent } from "../../components/text/glowing-text/glowing-text.component";
 import { Libro } from '../../interfaces/libro';
 import { FooterComponent } from "../../components/footer/footer.component";
+import { LibroEntryComponent } from "../../components/filter/libro-entry/libro-entry.component";
 
 @Component({
   selector: 'app-publisher',
-  imports: [TopbarComponent, LoadingComponent, LinearCarouselComponent, GlowingTextComponent, FooterComponent],
+  imports: [TopbarComponent, LoadingComponent, LinearCarouselComponent, GlowingTextComponent, FooterComponent, LibroEntryComponent],
   templateUrl: './publisher.component.html',
   styleUrl: './publisher.component.css'
 })
 export class PublisherComponent implements OnInit {
   public publisher?: Publisher;
+  public mostPurchasedBooks: Libro[] = [];
   public bookBuffer: Libro[] = [];
 
   private backendService: BackendService = inject(BackendService);
@@ -30,6 +32,18 @@ export class PublisherComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((rsp) => {
       this.publisherId = rsp['id'];
+
+      this.backendService.getLibrosMasCompradosByPublisher(this.publisherId).subscribe((rsp: BackendResponse<Libro[] | Error>) => {
+        if (!rsp.Success) {
+          const errorInstance = temporalStorage.getFromStorage<ErrorPopupComponent>("error_popup");
+          const errorFunc = temporalStorage.getFromStorage<Function>("show_error_popup");
+
+          errorFunc.call(errorInstance, (rsp.Data as Error));
+        }
+        else {
+          this.mostPurchasedBooks = (rsp.Data as Libro[]);
+        }
+      });
 
       this.backendService.getLibrosByPublisher(this.publisherId).subscribe((rsp: BackendResponse<Libro[] | Error>) => {
         if (!rsp.Success) {

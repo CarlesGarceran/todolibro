@@ -9,6 +9,7 @@ import { ErrorPopupComponent } from '../../components/popups/error-popup/error-p
 import { Error } from '../../interfaces/Error';
 import { CreditCardComponent } from "../../components/credit-card/credit-card.component";
 import { AppStarRatingComponent } from "../../components/app-star-rating/app-star-rating.component";
+import { InfoPopupComponent } from '../../components/popups/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-purchase',
@@ -50,6 +51,15 @@ export class PurchaseComponent implements OnInit {
     this.backendService.purchaseBook(this.libro, this.purchaseDetails).subscribe((rsp) => {
       if (!rsp.Success) {
         ErrorPopupComponent.throwError(rsp.Data as Error);
+      }
+      else
+      {
+        this.router.navigate(['/home']).then(() => {
+          InfoPopupComponent.throwInfo({
+            error_code: 0,
+            message: "Se ha realizado la compra."
+          }, "Carrito Comprado");
+        })
       }
     });
   }
