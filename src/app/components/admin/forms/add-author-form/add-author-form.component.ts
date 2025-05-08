@@ -74,6 +74,8 @@ export class AddAuthorFormComponent implements OnInit {
     if (oldAuthor.AuthorId == -1) {
       this.backendService.addAuthor(author).subscribe(rsp => {
         if (rsp.Success) {
+          author.AuthorId = rsp.Data as number;
+          this.table_Body.push(author);
           this.success(`added the author ${author.Name}`)
         }
         else {
@@ -83,7 +85,7 @@ export class AddAuthorFormComponent implements OnInit {
     }
     else {
       this.backendService.updateAuthor(oldAuthor.AuthorId, author).subscribe(rsp => {
-        if (rsp.Success) {
+        if (rsp.Success) { 
           this.success(`updated the author ${oldAuthor.Name}`)
         }
         else {

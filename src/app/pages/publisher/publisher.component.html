@@ -9,9 +9,15 @@
     <br>
     <div class="flex w-full h-full">
         <app-glowing-text class="w-full justify-center text-center" [textContent]="publisher.Name"></app-glowing-text>
-    </div><div class="flex w-full h-full">
+    </div>
+
+    
+    @if(mostPurchasedBooks.length > 0)
+    {
+    <div class="flex w-full h-full">
         <app-linear-carousel [book_buffer]="mostPurchasedBooks" header_name="Los mas comprados" [prepackedData]="true"></app-linear-carousel>
     </div>
+    }
 
     <div class="flex w-full h-full flex-row p-5 gap-5">
         @for (item of bookBuffer; track $index) {

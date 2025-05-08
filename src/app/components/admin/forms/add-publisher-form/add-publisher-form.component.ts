@@ -72,6 +72,8 @@ export class AddPublisherFormComponent implements OnInit {
     if (oldPublisher.PublisherId == -1) {
       this.backendService.addPublisher(publisher).subscribe(rsp => {
         if (rsp.Success) {
+          publisher.PublisherId = rsp.Data as number;
+          this.table_Body.push(publisher);
           this.success(`added the publisher ${publisher.Name}`)
         }
         else {

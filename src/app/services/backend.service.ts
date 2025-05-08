@@ -143,9 +143,9 @@ export class BackendService {
     })
   }
 
-  addLibro(libro: Libro): Observable<BackendResponse<{ payload: Boolean } | Error>> {
+  addLibro(libro: Libro): Observable<BackendResponse<{ payload: boolean } | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + '/books/', JSON.stringify(libro), {
+    return this.httpClient.post<BackendResponse<{ payload: boolean } | Error>>(TodoLibroConfig.getBackendUrl() + '/books/', JSON.stringify(libro), {
       headers: headers,
       withCredentials: true
     })
@@ -187,7 +187,7 @@ export class BackendService {
 
   addCategory(category: Category) {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<BackendResponse<{ payload: Boolean } | Error>>(TodoLibroConfig.getBackendUrl() + '/categories/', JSON.stringify(category), {
+    return this.httpClient.post<BackendResponse<number | Error>>(TodoLibroConfig.getBackendUrl() + '/categories/', JSON.stringify(category), {
       headers: headers,
       withCredentials: true
     })
@@ -239,9 +239,9 @@ export class BackendService {
     return this.httpClient.get<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/author/getById.php?authorId=${authorId}`, {});
   }
 
-  addAuthor(author: Author): Observable<BackendResponse<any | Error>> {
+  addAuthor(author: Author): Observable<BackendResponse<Number | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/`, JSON.stringify(author),
+    return this.httpClient.post<BackendResponse<Number | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/`, JSON.stringify(author),
       {
         headers: headers,
         withCredentials: true
@@ -257,9 +257,9 @@ export class BackendService {
       });
   }
 
-  deleteAuthor(authorId: number): Observable<BackendResponse<any | Error>> {
+  deleteAuthor(authorId: number): Observable<BackendResponse<Number | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.delete<BackendResponse<Author | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/?id=${authorId}`,
+    return this.httpClient.delete<BackendResponse<Number | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/?id=${authorId}`,
       {
         headers: headers,
         withCredentials: true
@@ -278,9 +278,9 @@ export class BackendService {
     return this.httpClient.get<BackendResponse<Publisher[] | Error>>(TodoLibroConfig.getBackendUrl() + `/publishers/`, {});
   }
 
-  addPublisher(publisher: Publisher): Observable<BackendResponse<any | Error>> {
+  addPublisher(publisher: Publisher): Observable<BackendResponse<Number | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<any>(TodoLibroConfig.getBackendUrl() + `/publishers/`, JSON.stringify(publisher), {
+    return this.httpClient.post<BackendResponse<Number | Error>>(TodoLibroConfig.getBackendUrl() + `/publishers/`, JSON.stringify(publisher), {
       headers: headers,
       withCredentials: true
     });
@@ -288,7 +288,7 @@ export class BackendService {
 
   updatePublisher(publisherId: number, publisher: Publisher): Observable<BackendResponse<any | Error>> {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.put<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/authors/?id=${publisherId}`, JSON.stringify(publisher),
+    return this.httpClient.put<BackendResponse<any | Error>>(TodoLibroConfig.getBackendUrl() + `/publishers/?id=${publisherId}`, JSON.stringify(publisher),
       {
         headers: headers,
         withCredentials: true

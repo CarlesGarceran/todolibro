@@ -122,6 +122,7 @@ export class AddLibroFormComponent implements OnInit {
       this.backendService.addLibro(libro).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
         if(rsp.Success)
         {
+          this.table_Body.push(libro);
           this.success(`added the book ${libro.ISBN}`)
         }
         else

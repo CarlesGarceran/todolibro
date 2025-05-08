@@ -176,6 +176,7 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
       return;
 
     const id : number = Number.parseInt(event.substring(0, event.indexOf(' ')));
+    console.log(id);
     this.local_libro.Author = id;
   }
 
@@ -185,6 +186,7 @@ export class BookPopupComponent implements AfterViewInit, OnInit {
       return;
     
     const id : number = Number.parseInt(arg.substring(0, arg.indexOf(' ')));
+    console.log(id);
     this.local_libro.Publisher = id;
   }
 }

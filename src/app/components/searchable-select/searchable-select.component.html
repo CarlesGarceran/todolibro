@@ -1,17 +1,10 @@
 <div class="flex flex-col">
-    <input class="input hover:input-primary" type="text" [(ngModel)]="searchTerm" placeholder="Search..." />
-    <select class="select hover:select-primary" [(ngModel)]="selectedOption" (ngModelChange)="onChanged($event)">
-        @for(option of filteredOptions(); track $index)
-        {
-            @if(option.includes(searchTerm))
-            {
-                <option [value]="option" selected>{{ option }}</option>
-            }
-            @else 
-            {    
-                <option [value]="option">{{ option }}</option>
-            }
-        }
+    <input class="input hover:input-primary" type="text" [(ngModel)]="searchTerm" placeholder="Search..." (ngModelChange)="updateFilteredOptions()" />
+  
+    <select class="select hover:select-primary" [(ngModel)]="selectedOption" (ngModelChange)="onChanged($event)" (change)="onChangedElement($event)">
+      @for (option of filtered; track $index) {
+        <option [value]="option">{{ option }}</option>
+      }
     </select>
   </div>
   

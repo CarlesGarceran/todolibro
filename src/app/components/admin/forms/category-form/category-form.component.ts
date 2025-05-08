@@ -89,9 +89,11 @@ export class CategoryFormComponent implements OnInit {
   {
     if(categoria.CategoryId == 0)
       {
-        this.backendService.addCategory(categoria).subscribe((rsp : BackendResponse<{ payload: Boolean } | Error>)=>{
+        this.backendService.addCategory(categoria).subscribe((rsp : BackendResponse<number | Error>)=>{
           if(rsp.Success)
           {
+            categoria.CategoryId = rsp.Data as number;
+            this.table_Body.push(categoria);
             this.success(`added the category ${categoria.Name}`);
           }
           else

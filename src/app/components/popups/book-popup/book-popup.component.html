@@ -14,11 +14,11 @@
       </span>
       <span>
         Autor: 
-        <app-searchable-select [options]="toStringArrayAuthors(authors)" [searchTerm]="local_libro.Author + ' - '"  (onSelected)="onAuthorSelected($event)"></app-searchable-select>
+        <app-searchable-select [options]="toStringArrayAuthors(authors)" [searchTerm]="libroPtr.Author + ' - '" (onSelected)="onAuthorSelected($event)"></app-searchable-select>
       </span>
       <span>
         Editorial:
-        <app-searchable-select [options]="toStringArrayPublishers(publishers)" [searchTerm]="local_libro.Publisher + ' - '"  (onSelected)="onPublisherSelected($event)"></app-searchable-select>
+        <app-searchable-select [options]="toStringArrayPublishers(publishers)" [searchTerm]="libroPtr.Publisher + ' - '" (onSelected)="onPublisherSelected($event)"></app-searchable-select>
       </span>
       <span>
         Fecha de Lanzamiento: <input class="input hover:input-primary flex-shrink" placeholder="Fecha de Lanzamiento"
