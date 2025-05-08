@@ -1,4 +1,11 @@
 <app-topbar></app-topbar>
-<app-linear-carousel header_name="Ultimos Lanzamientos"></app-linear-carousel>
+<div class="flex flex-col gap-5">
+    <app-linear-carousel header_name="Ultimos Lanzamientos"></app-linear-carousel>
+
+    @if(userLoggedIn)
+    {
+    <app-linear-carousel header_name="Recomendado para ti"></app-linear-carousel>
+    }
+</div>
 <router-outlet />
 <app-footer></app-footer>

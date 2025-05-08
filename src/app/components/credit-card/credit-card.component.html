@@ -1,8 +1,8 @@
-<div class="visa-card">
+<div class="visa-card flex">
     <div class="logoContainer">
         @if(cardIssuer)
         {
-            <img [src]="cardIssuer.logo" [alt]="cardIssuer.name" class="card-logo">
+            <img [src]="cardIssuer.logo" [alt]="cardIssuer.name" class="card-logo w-full h-full">
         }
         @else
         {
@@ -12,6 +12,7 @@
     <div class="number-container">
         <label class="input-label" for="cardNumber">CARD NUMBER</label>
         <input 
+        [(ngModel)]="cardDetails.cardDetails"
         class="inputstyle"
         id="cardNumber" 
         placeholder="XXXX XXXX XXXX XXXX" 
@@ -23,16 +24,16 @@
     <div class="name-date-cvv-container">
         <div class="name-wrapper">
             <label class="input-label" for="holderName">CARD HOLDER</label>
-            <input class="inputstyle" id="holderName" placeholder="NAME" type="text" />
+            <input class="inputstyle" [(ngModel)]="cardDetails.cardOwner" id="holderName" placeholder="NAME" type="text" />
         </div>
 
         <div class="expiry-wrapper">
             <label class="input-label" for="expiry">VALID THRU</label>
-            <input class="inputstyle" id="expiry" placeholder="MM/YY" type="text" />
+            <input class="inputstyle" [(ngModel)]="cardDetails.cardExpirationDate" id="expiry" placeholder="MM/YY" type="text" />
         </div>
         <div class="cvv-wrapper">
             <label class="input-label" for="cvv">CVV</label>
-            <input class="inputstyle" placeholder="***" maxlength="3" id="cvv" type="password" />
+            <input class="inputstyle" [(ngModel)]="cardDetails.cardCVV" placeholder="***" maxlength="3" id="cvv" type="password" />
         </div>
     </div>
 </div>

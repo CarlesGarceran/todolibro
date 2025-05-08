@@ -54,7 +54,7 @@ export class LibroComponent implements OnInit {
     this.backendService.getRating(this.ISBN).subscribe((rsp) => {
       if(rsp.Success)
         {
-          var rating = (rsp.Data as { rating : number }).rating;;
+          var rating = (rsp.Data as { rating : number }).rating;
           if(rating == null)
             rating = 0;
           
