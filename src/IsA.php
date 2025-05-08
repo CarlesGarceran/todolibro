@@ -93,6 +93,21 @@ class IsA
         return true;
     }
 
+    static function Publisher(mixed $any) : bool
+    {
+        if (!isset($any['PublisherId']))
+            return false;
+
+        if (!isset($any['Name']))
+            return false;
+
+        if (!isset($any['Image']))
+            return false;
+
+        return true;
+    }
+
+
     static function Review(mixed $any): bool
     {
         if (!isset($any['ISBN']))

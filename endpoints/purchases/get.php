@@ -22,7 +22,7 @@ try {
 
         $sqlStatement->execute();
 
-        return $sqlStatement->fetch();
+        return $sqlStatement->fetchAll();
     }, $user);
 
     NOP_WRAP($sales);
