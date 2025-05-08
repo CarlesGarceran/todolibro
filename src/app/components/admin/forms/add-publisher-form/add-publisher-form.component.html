@@ -1,4 +1,4 @@
-<div class="flex flex-row flex-wrap overflow-scroll">
+<div class="flex flex-row flex-wrap overflow-scroll w-full h-full">
     <div class="navbar h-1/6">
         <div class="navbar-center">
             <a class="navbar-item">
@@ -12,9 +12,7 @@
         </div>
     </div>
 
-    <div class="flex gap-1 flex-row flex-wrap p-0 h-5/6">
-        <app-publisher-table class="w-full" [header]="table_Header" [body]="table_Body" (onEdit)="onEditClick($event);" (onDelete)="onDeleteClick($event);" #tableRef></app-publisher-table>
-    </div>
+    <app-publisher-table class="w-full h-full" [header]="table_Header" [body]="table_Body" (onEdit)="onEditClick($event);" (onDelete)="onDeleteClick($event);" #tableRef></app-publisher-table>
 
-    <!-- <app-book-popup #popupRef></app-book-popup> -->
+    <app-publisher-popup #popupRef></app-publisher-popup>
 </div>

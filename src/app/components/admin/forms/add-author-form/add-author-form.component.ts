@@ -41,7 +41,6 @@ export class AddAuthorFormComponent implements OnInit {
       if (rsp.Success) {
         this.table_Body = rsp.Data as Author[];
         this.tableRef?.updateTable();
-
       }
     });
   }
