@@ -15,6 +15,7 @@ VALUES (:saleId, :ISBN);");
 
 define("GET_CART_ENTRIES", "SELECT * FROM Cart
 WHERE Users_userId = :userId");
+define("DELETE_CART_ENTRIES", "DELETE FROM Cart Where Users_userId = :userId");
 
 define("GET_BOOKS_BY_ISBN", "SELECT * FROM Books WHERE ISBN = :IN_ISBN");
 
@@ -25,10 +26,7 @@ try {
     $user = GetUser(true);
     $userData = getUserData();
 
-    if(!isset($userData['purchaseData']))
-        NOP_WRAP(new RuntimeError(400, "Bad Request, no purchase details."));
-
-    if (!IsA::PurchaseDetail($userData['purchaseData']))
+    if (!IsA::PurchaseDetail($userData))
         NOP_WRAP(new RuntimeError(400, "Bad Request, purchaseData is not a PurchaseDetail."));
 
     $cartData = null;
@@ -68,10 +66,10 @@ try {
     }, $cartData);
 
     $purchaseDetails = new PurchaseDetails(
-        $userData['purchaseData']['cardDetails'], 
-        $userData['purchaseData']['cardOwner'], 
-        $userData['purchaseData']['cardCVV'], 
-        date_create($userData['purchaseData']['cardExpirationDate'])
+        $userData['cardDetails'], 
+        $userData['cardOwner'], 
+        $userData['cardCVV'], 
+        $userData['cardExpirationDate']
     );
 
     onPurchasePerformed(
@@ -150,7 +148,18 @@ try {
 
 
             if($success)
+            {
+                invoke(function($userId)
+                {
+                    $sqlHandler = getSQLHandler();
+                    $sqlStatement = $sqlHandler->prepare(DELETE_CART_ENTRIES);
+                    $sqlStatement->bindValue(":userId", $userId);
+            
+                    $sqlStatement->execute();
+                }, $userId);
+
                 NOP_WRAP($purchaseData);
+            }
 
         }
     );

@@ -50,7 +50,7 @@ try {
         $userData['purchaseData']['cardDetails'], 
         $userData['purchaseData']['cardOwner'], 
         $userData['purchaseData']['cardCVV'], 
-        date_create($userData['purchaseData']['cardExpirationDate'])
+        $userData['purchaseData']['cardExpirationDate']
     );
 
     onPurchasePerformed(
