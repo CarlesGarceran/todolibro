@@ -26,8 +26,8 @@ try {
     $statement->bindValue(":Image", $body['Image']);
     $statement->execute();
 
-    $authors = $statement->fetchAll();
-    NOP_WRAP($authors);
+    $insertId = $sqlHandler->lastInsertId();
+    NOP_WRAP($insertId);
 } catch (Exception $ex) {
     if (!is_in_production()) {
         $error = new RuntimeError(500, $ex->getMessage());

@@ -4,7 +4,7 @@ include_once "../../functions.php";
 include_once "../shared_funcs.php";
 include_once "../../src/RuntimeError.php";
 
-define("QUERY", "UPDATE Publisher SET Name = :name, Image = :image WHERE PublisherId = :publisherId;");
+define("QUERY", "UPDATE Publishers SET Name = :name, Image = :image WHERE PublisherId = :publisherId;");
 
 try {
     INIT_BACKEND_CALL();
