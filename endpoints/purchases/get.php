@@ -6,7 +6,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . "src/RuntimeError.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/Libro.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/User.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/PurchaseDetails.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "src/Payment/perform_purchase.php";
 
 define("GET_SALES", "SELECT * FROM Sales WHERE UserId = :userId;");
 
@@ -18,8 +17,8 @@ try {
     
     $sales = invoke(function ($user) {
         $sqlHandler = getSQLHandler();
-        $sqlStatement = $sqlHandler->prepare(GET_BOOK_BY_ISBN);
-        $sqlStatement->bindValue(":ISBN", $user['id']);
+        $sqlStatement = $sqlHandler->prepare(GET_SALES);
+        $sqlStatement->bindValue(":userId", $user['id']);
 
         $sqlStatement->execute();
 
