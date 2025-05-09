@@ -8,11 +8,11 @@ import { Error } from '../../interfaces/Error';
 import { temporalStorage } from '../../classes/TemporalStorage';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
 import { LoadingComponent } from "../../components/loading/loading.component";
-import { LinearCarouselComponent } from "../../components/linear-carousel/linear-carousel.component";
 import { GlowingTextComponent } from "../../components/text/glowing-text/glowing-text.component";
 import { Libro } from '../../interfaces/libro';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { LibroEntryComponent } from "../../components/filter/libro-entry/libro-entry.component";
+import { LinearCarouselComponent } from '../../components/carousel/linear-carousel/linear-carousel.component';
 
 @Component({
   selector: 'app-publisher',

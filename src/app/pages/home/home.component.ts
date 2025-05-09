@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TopbarComponent } from "../../components/topbar/topbar.component";;
 import { RouterOutlet } from '@angular/router';
-import { LinearCarouselComponent } from "../../components/linear-carousel/linear-carousel.component";
 import { UserData } from '../../classes/UserData';
 import { User } from '../../interfaces/user';
 import { FooterComponent } from "../../components/footer/footer.component";
@@ -9,6 +8,7 @@ import { Libro } from '../../interfaces/libro';
 import { BackendService } from '../../services/backend.service';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
 import { Error } from '../../interfaces/Error';
+import { LinearCarouselComponent } from '../../components/carousel/linear-carousel/linear-carousel.component';
 
 
 @Component({

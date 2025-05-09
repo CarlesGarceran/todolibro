@@ -4,7 +4,6 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { GlowingTextComponent } from "../../components/text/glowing-text/glowing-text.component";
 import { Author } from '../../interfaces/author';
 import { Libro } from '../../interfaces/libro';
-import { LinearCarouselComponent } from "../../components/linear-carousel/linear-carousel.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { BackendService } from '../../services/backend.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +12,7 @@ import { Error } from '../../interfaces/Error';
 import { temporalStorage } from '../../classes/TemporalStorage';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
 import { LibroEntryComponent } from "../../components/filter/libro-entry/libro-entry.component";
+import { LinearCarouselComponent } from '../../components/carousel/linear-carousel/linear-carousel.component';
 
 @Component({
   selector: 'app-author',
