@@ -6,10 +6,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . "src/RuntimeError.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/Libro.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/User.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "src/PurchaseDetails.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "src/Payment/perform_purchase.php";
 
 define("GET_SALES", "SELECT * FROM Sales WHERE UserId = :userId;");
-define("GET_SALE_BOOKS", "SELECT * FROM Sale_has_Books WHERE SaleId = :saleId");
+define("GET_SALE_BOOKS", "SELECT * FROM Sale_has_Books WHERE SaleId IN :saleId");
 
 try {
     INIT_BACKEND_CALL();
@@ -19,13 +18,34 @@ try {
     
     $sales = invoke(function ($user) {
         $sqlHandler = getSQLHandler();
-        $sqlStatement = $sqlHandler->prepare(GET_BOOK_BY_ISBN);
-        $sqlStatement->bindValue(":ISBN", $user['id']);
+        $sqlStatement = $sqlHandler->prepare(GET_SALES);
+        $sqlStatement->bindValue(":userId", $user['id']);
 
         $sqlStatement->execute();
 
-        return $sqlStatement->fetch();
+        return $sqlStatement->fetchAll();
     }, $user);
+    
+    $saleBooks = invoke(function($sales)
+    {
+        $saleBooks = [];
+        $sqlHandler = getSQLHandler();
+        foreach ($sales as $sale) 
+        {
+            $statement = $sqlHandler->prepare(GET_SALE_BOOKS);
+            $statement->bindValue(":saleId", $sale['SaleId']);
+            $statement->execute();
+
+            $books = $statement->fetchAll();
+
+            foreach($books as $book)
+            {
+                array_push($saleBooks, $book);
+            }
+        }
+
+        return $saleBooks;
+    }, $sales);
 
     NOP_WRAP($sales);
 } catch (Exception $ex) {
