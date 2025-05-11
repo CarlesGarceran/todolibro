@@ -1,0 +1,35 @@
+<label class="btn btn-primary hidden" for="modal-1">Open Modal</label>
+<input #modalHandler class="modal-state hidden" id="modal-1" type="checkbox" (click)="hidePopup();" />
+<div class="modal">
+    <label class="modal-overlay" for="modal-1"></label>
+    <div class="modal-content flex flex-col gap-5 w-fit h-fit">
+        <label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        <h2 class="text-xl m-5">{{popupTitle}}</h2>
+        <div class="flex flex-col gap-5">
+            <span>
+                ISBN: <input class="input" type="number" [(ngModel)]="local_category.isbn" placeholder="ISBN" readonly>
+            </span>
+
+            <span class="p-5">
+                Categorias:
+                <ul class="list-disc flex flex-col flex-wrap gap-5">
+                    @for (category of local_category.categories; track $index)
+                    {
+                        <div class="flex flex-row w-full gap-5">
+                            <li class="w-auto">{{category.Name}}</li>
+                            <button class="btn btn-solid-error hover:btn-error w-auto h-auto" (click)="onDelete($index)">Remove</button>
+                        </div>
+                    }
+                </ul>
+                <div class="mt-5">
+                    <app-searchable-select (onSelected)="onSelected($event)" [options]="options" #selectableHandler></app-searchable-select>
+                </div>
+            </span>
+        </div>
+        <div class="flex gap-3">
+            <button class="btn btn-outline-success btn-block" for="modal-1"
+                (click)="saveInstance();">Actualizar</button>
+            <button class="btn btn-error btn-block" for="modal-1" (click)="descartarCambios();">Cancelar</button>
+        </div>
+    </div>
+</div>

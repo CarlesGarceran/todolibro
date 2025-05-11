@@ -9,10 +9,11 @@ import { CategoryFormComponent } from "../forms/category-form/category-form.comp
 import { FileUploaderComponent } from "../forms/file-uploader/file-uploader.component";
 import { AddAuthorFormComponent } from "../forms/add-author-form/add-author-form.component";
 import { AddPublisherFormComponent } from "../forms/add-publisher-form/add-publisher-form.component";
+import { CategorizeFormComponent } from "../forms/categorize-form/categorize-form.component";
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [AddLibroFormComponent, LogFormComponent, ThemeSelectorComponent, CategoryFormComponent, FileUploaderComponent, AddAuthorFormComponent, AddPublisherFormComponent],
+  imports: [AddLibroFormComponent, LogFormComponent, ThemeSelectorComponent, CategoryFormComponent, FileUploaderComponent, AddAuthorFormComponent, AddPublisherFormComponent, CategorizeFormComponent],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css'
 })

@@ -14,6 +14,7 @@ import { Category } from '../interfaces/category';
 import { Review } from '../interfaces/review';
 import { FormUser } from '../pages/config/config.component';
 import { PurchaseDetails } from '../interfaces/purchase-details';
+import { CategorizedBook } from '../interfaces/categorized-book';
 
 @Injectable({
   providedIn: 'root'
@@ -193,16 +194,34 @@ export class BackendService {
     })
   }
 
-  categorizeBook(category: Category, book: Libro): Observable<BackendResponse<any | Error>> {
+  getCategorizedBooks() : Observable<BackendResponse<CategorizedBook[] | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<CategorizedBook[] | Error>>(
+      TodoLibroConfig.getBackendUrl() + '/categorize/',
+      {
+        headers: headers,
+        withCredentials: true
+      });
+  }
+
+  getCategorizedBook(ISBN : string) : Observable<BackendResponse<CategorizedBook | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<CategorizedBook | Error>>(
+      TodoLibroConfig.getBackendUrl() + `/categorize/?isbn=${ISBN}`,
+      {
+        headers: headers,
+        withCredentials: true
+      });
+  }
+
+  categorizeBook(categorizedBook : CategorizedBook) : Observable<BackendResponse<any | Error>>
+  {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<BackendResponse<any | Error>>(
-      TodoLibroConfig.getBackendUrl() + '/categorize/',
-      JSON.stringify(
-        {
-          category: category,
-          book: book
-        }
-      ),
+      TodoLibroConfig.getBackendUrl() + `/categorize/`,
+      JSON.stringify(categorizedBook),
       {
         headers: headers,
         withCredentials: true
