@@ -9,7 +9,7 @@ FROM Books
     JOIN Sale_has_Books shb ON (Books.ISBN = shb.ISBN)
 WHERE Books.Author = :author
 GROUP BY shb.ISBN
-ORDER BY shb.ISBN ASC
+ORDER BY COUNT(shb.ISBN) ASC
 LIMIT 20;
 ");
 
