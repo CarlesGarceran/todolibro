@@ -6,5 +6,5 @@ INIT_BACKEND_CALL();
 
 onGET(function()
 {
-    include "get.php";
+    include "by/author/get.php";
 });
