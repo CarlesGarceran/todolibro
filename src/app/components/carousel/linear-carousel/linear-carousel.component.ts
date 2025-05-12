@@ -92,10 +92,8 @@ export class LinearCarouselComponent extends LinearStorage<Libro> implements OnI
 
     if(this.libro_buffer.length <= 0 && !this.inputData)
     {
-      this.backendService.getLibros(10).subscribe((libros: Libro[]) => {
-        libros.forEach((value: Libro) => {
-          this.data.push(value);
-        })
+      this.backendService.getLibros().subscribe((libros: Libro[]) => {
+        this.data = libros;
   
         if (this.data != null) {
           this.counter = 0;

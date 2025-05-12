@@ -6,7 +6,19 @@
 
     @if(userLoggedIn)
     {
-    <app-linear-carousel header_name="Recomendado para ti"></app-linear-carousel>
+        @if(recomendados.length <= 0)
+        {
+            <app-loading />
+            {{rerollRecommanded()}}
+        }
+        @else
+        {
+            <app-linear-carousel header_name="Recomendado para ti" [prepackedData]="true" [book_buffer]="recomendados"></app-linear-carousel>
+        }
+    }
+    @else
+    {
+        {{tryGetSession()}}
     }
 </div>
 <router-outlet />

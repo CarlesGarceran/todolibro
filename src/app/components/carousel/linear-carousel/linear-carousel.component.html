@@ -18,7 +18,7 @@
 
             <!-- Carousel Content -->
             <div class="flex overflow-hidden w-full space-x-4 px-8" #scrollContainer>
-                @for (item of buffer; track $index) {
+                @for (item of data; track $index) {
                 <app-carousel-book-item [Item]="item"></app-carousel-book-item>
                 }
             </div>

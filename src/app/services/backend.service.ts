@@ -287,7 +287,7 @@ export class BackendService {
 
   //#endregion
 
-  //#region Publishers
+  //#region PUBLISHERS
 
   getPublisher(publisherId: number): Observable<BackendResponse<Publisher | Error>> {
     return this.httpClient.get<any>(TodoLibroConfig.getBackendUrl() + `/publisher/getById.php?publisherId=${publisherId}`, {});
@@ -525,6 +525,37 @@ export class BackendService {
         withCredentials: true
       }
     );
+  }
+
+  //#endregion
+
+  //#region USER FUNCTIONS
+
+  getRecommandedBooks() : Observable<BackendResponse<Libro[] | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + "/recommendations/", {
+      headers: headers,
+      withCredentials: true
+    });
+  }
+
+  getRecommandedBooksByAuthor() : Observable<BackendResponse<Libro[] | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + "/recommendations/by/author/", {
+      headers: headers,
+      withCredentials: true
+    });
+  }
+
+  getRecommandedBooksByPublisher() : Observable<BackendResponse<Libro[] | Error>>
+  {
+    var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<BackendResponse<Libro[] | Error>>(TodoLibroConfig.getBackendUrl() + "/recommendations/by/publisher/", {
+      headers: headers,
+      withCredentials: true
+    });
   }
 
   //#endregion

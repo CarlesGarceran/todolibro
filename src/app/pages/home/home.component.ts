@@ -9,16 +9,19 @@ import { BackendService } from '../../services/backend.service';
 import { ErrorPopupComponent } from '../../components/popups/error-popup/error-popup.component';
 import { Error } from '../../interfaces/Error';
 import { LinearCarouselComponent } from '../../components/carousel/linear-carousel/linear-carousel.component';
+import { LoadingComponent } from "../../components/loading/loading.component";
+import { LoadingFieldComponent } from "../../components/loading-field/loading-field.component";
 
 
 @Component({
   selector: 'app-home',
-  imports: [TopbarComponent, LinearCarouselComponent, RouterOutlet, FooterComponent],
+  imports: [TopbarComponent, LinearCarouselComponent, RouterOutlet, FooterComponent, LoadingComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   
+  protected recomendados : Libro[] = [];
   protected masComprados : Libro[] = [];
   protected userLoggedIn : boolean = false;
   private user? : User;
@@ -30,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = UserData.getUser();
-    this.userLoggedIn = (this.user != null);
+    this.userLoggedIn = (this.user != undefined);
 
 
     this.backendService.getLibrosMasComprados().subscribe((rsp) => {
@@ -43,5 +46,43 @@ export class HomeComponent implements OnInit {
         ErrorPopupComponent.throwError(rsp.Data as Error);
       }
     });
+
+    if(this.userLoggedIn)
+    {
+      this.backendService.getRecommandedBooks().subscribe(rsp => {
+        if(!rsp.Success)
+        {
+          ErrorPopupComponent.throwError(rsp.Data as Error);
+        }
+        else
+        {
+          this.recomendados = rsp.Data as Libro[];
+        }
+      });
+    }
+  }
+
+  tryGetSession()
+  {
+    this.user = UserData.getUser();
+    this.userLoggedIn = (this.user != undefined);
+  }
+
+
+  rerollRecommanded()
+  {
+    if(this.userLoggedIn)
+      {
+        this.backendService.getRecommandedBooks().subscribe(rsp => {
+          if(!rsp.Success)
+          {
+            ErrorPopupComponent.throwError(rsp.Data as Error);
+          }
+          else
+          {
+            this.recomendados = rsp.Data as Libro[];
+          }
+        });
+      }
   }
 }
