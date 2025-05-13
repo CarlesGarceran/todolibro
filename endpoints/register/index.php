@@ -52,8 +52,13 @@ try
 
     // CHECK IF USER IS VALID
 
-    if (filter_var($userData['email'], FILTER_VALIDATE_EMAIL) == false) {
+    if (filter_var($userData['email'], FILTER_VALIDATE_EMAIL) == false && !isValidCharset($userData['email'])) {
         NOP_WRAP(new RuntimeError(400, "La dirección de correo electronico no es valida."));
+        return;
+    }
+
+    if (!isValidCharset($userData['name'])) {
+        NOP_WRAP(new RuntimeError(400, "El nombre de usuario contiene caracteres prohibidos."));
         return;
     }
 

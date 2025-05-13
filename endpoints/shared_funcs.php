@@ -13,6 +13,17 @@ function SESSION_SetUser(int $id, $name, $email, $pfp, $password, $sessionid)
     $_SESSION[$sessionid]["User"] = toJson($newUser);
 }
 
+function isValidCharset(string $arg) : bool
+{
+    if(str_contains($arg, "'"))
+        return false;
+
+
+
+
+    return true;
+}
+
 function HasRole(int $userId, int $expectedRole) : bool
 {
     $sql = "SELECT MAX(r.RoleId) as 'Level'
