@@ -74,9 +74,10 @@
 						</li>
 
 						<li class="menu-item" (click)="setSelected(3);">
-							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="22 22 32 32" xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"
-								enable-background="new 0 0 76.00 76.00" xml:space="preserve">
+							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="22 22 32 32"
+								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+								version="1.1" baseProfile="full" enable-background="new 0 0 76.00 76.00"
+								xml:space="preserve">
 								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 								<g id="SVGRepo_iconCarrier">
@@ -118,14 +119,21 @@
 						</li>
 						}
 
-						<li>
+						@if (HasAccess(130))
+						{<li>
 							<input type="checkbox" id="menu-2" class="menu-toggle" />
 							<label class="menu-item justify-between" for="menu-2">
 								<div class="flex gap-2">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-75" fill="none"
-										viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-										<path stroke-linecap="round" stroke-linejoin="round"
-											d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+									<svg class="h-5 w-5 opacity-75" fill="currentColor" stroke="none" viewBox="0 5 24 24" version="1.1"
+										xmlns="http://www.w3.org/2000/svg">
+										<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+										<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+										</g>
+										<g id="SVGRepo_iconCarrier">
+											<path
+												d="M2.594 4.781l-1.719 1.75h15.5l-1.719-1.75h-12.063zM17.219 13.406h-17.219v-6.031h17.219v6.031zM12.063 11.688v-1.719h-6.875v1.719h0.844v-0.875h5.156v0.875h0.875zM17.219 20.313h-17.219v-6.031h17.219v6.031zM12.063 18.594v-1.75h-6.875v1.75h0.844v-0.875h5.156v0.875h0.875zM17.219 27.188h-17.219v-6h17.219v6zM12.063 25.469v-1.719h-6.875v1.719h0.844v-0.875h5.156v0.875h0.875z">
+											</path>
+										</g>
 									</svg>
 									<span>Categorias</span>
 								</div>
@@ -147,6 +155,7 @@
 								</div>
 							</div>
 						</li>
+						}
 
 						@if (HasAccess(254))
 						{
@@ -167,24 +176,6 @@
 							<span>Logs</span>
 						</li>
 
-						
-						<li class="menu-item" (click)="setSelected(9);">
-							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16"
-								xmlns="http://www.w3.org/2000/svg">
-								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-								<g id="SVGRepo_iconCarrier">
-									<g>
-										<path
-											d="M5.314 1.256a.75.75 0 01-.07 1.058L3.889 3.5l1.355 1.186a.75.75 0 11-.988 1.128l-2-1.75a.75.75 0 010-1.128l2-1.75a.75.75 0 011.058.07zM7.186 1.256a.75.75 0 00.07 1.058L8.611 3.5 7.256 4.686a.75.75 0 10.988 1.128l2-1.75a.75.75 0 000-1.128l-2-1.75a.75.75 0 00-1.058.07zM2.75 7.5a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H2.75zM2 11.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75zM2.75 13.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z">
-										</path>
-									</g>
-								</g>
-							</svg>
-
-							<span>Roles</span>
-						</li>
-
 						<li class="menu-item" (click)="setSelected(10);">
 							<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16"
 								xmlns="http://www.w3.org/2000/svg">
@@ -201,6 +192,27 @@
 
 							<span>File Uploader</span>
 						</li>
+						}
+
+
+						@if(HasAccess(255))
+						{
+							<li class="menu-item" (click)="setSelected(9);">
+								<svg class="h-5 w-5 opacity-75 fill-current" viewBox="0 0 16 16"
+									xmlns="http://www.w3.org/2000/svg">
+									<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+									<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+									<g id="SVGRepo_iconCarrier">
+										<g>
+											<path
+												d="M5.314 1.256a.75.75 0 01-.07 1.058L3.889 3.5l1.355 1.186a.75.75 0 11-.988 1.128l-2-1.75a.75.75 0 010-1.128l2-1.75a.75.75 0 011.058.07zM7.186 1.256a.75.75 0 00.07 1.058L8.611 3.5 7.256 4.686a.75.75 0 10.988 1.128l2-1.75a.75.75 0 000-1.128l-2-1.75a.75.75 0 00-1.058.07zM2.75 7.5a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H2.75zM2 11.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75zM2.75 13.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z">
+											</path>
+										</g>
+									</g>
+								</svg>
+	
+								<span>Roles</span>
+							</li>
 						}
 					</ul>
 				</section>
@@ -246,11 +258,13 @@
 				}
 				@case(2)
 				{
-					<app-add-author-form class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-add-author-form>
+				<app-add-author-form
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-add-author-form>
 				}
 				@case(3)
 				{
-					<app-add-publisher-form class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-add-publisher-form>
+				<app-add-publisher-form
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-add-publisher-form>
 				}
 				@case(6)
 				{
@@ -259,15 +273,18 @@
 				}
 				@case(7)
 				{
-					<app-category-form class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-category-form>
+				<app-category-form
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-category-form>
 				}
 				@case(8)
 				{
-					<app-categorize-form class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-categorize-form>
+				<app-categorize-form
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-categorize-form>
 				}
 				@case(10)
 				{
-					<app-file-uploader class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-file-uploader>
+				<app-file-uploader
+					class="flex h-full w-full border-2 border-solid border-border bg-gray-1 p-5"></app-file-uploader>
 				}
 				@default
 				{
