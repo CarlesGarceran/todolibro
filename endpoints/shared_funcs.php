@@ -18,7 +18,8 @@ function isValidCharset(string $arg) : bool
     if(str_contains($arg, "'"))
         return false;
 
-
+    if(str_contains($arg, '"'))
+	return false;
 
 
     return true;
