@@ -11,7 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class InteractableStarComponent {
   @Input("Rating")
-  public AverageRating : number = 0;
+  public AverageRating : number = 0.5;
 
   public starFilled = STAR_FILLED;
   public halfStar = STAR_HALF;
@@ -45,11 +45,11 @@ export class InteractableStarComponent {
     const rect = starElement.getBoundingClientRect();
     const clickX = event.clientX;
 
-    if (clickX < (rect.left + (rect.width / 2))) 
+    if (clickX < (rect.left + (rect.width / 2)))
     {
       this.AverageRating = rate - 0.5;
-    } 
-    else 
+    }
+    else
     {
       this.AverageRating = rate;
     }
