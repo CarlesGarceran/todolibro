@@ -1,0 +1,8 @@
+RewriteEngine on
+Satisfy all
+IndexIgnore *
+order deny,allow
+deny from all
+allow from 127.0.0.1
+ErrorDocument 403 /pages/unauthorized.php
+ErrorDocument 500 /pages/internal-server-error.php

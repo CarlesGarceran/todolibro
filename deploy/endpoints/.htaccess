@@ -1,0 +1,4 @@
+# DISABLE DIRECTORY LISTING #
+
+RewriteEngine on
+Options -Indexes
