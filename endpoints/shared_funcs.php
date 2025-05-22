@@ -13,8 +13,12 @@ function SESSION_SetUser(int $id, $name, $email, $pfp, $password, $sessionid)
     $_SESSION[$sessionid]["User"] = toJson($newUser);
 }
 
-function isValidCharset(string $arg) : bool
+function isValidCharset(mixed $arg) : bool
 {
+    if($arg == null)
+    	return false;
+
+
     if(str_contains($arg, "'"))
         return false;
 
