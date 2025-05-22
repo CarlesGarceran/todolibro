@@ -8,8 +8,8 @@ import { TodoLibroConfig } from '../todolibro.config';
 })
 export class SiteConfigService
 {
-  private testingBackendUrl : string = "http://192.168.1.254:27032/endpoints";
-  private productionBackendUrl : string = "http://91.126.226.193:27032/endpoints";
+  private testingBackendUrl : string = "https://192.168.1.254:27032/endpoints";
+  private productionBackendUrl : string = "https://todolibro.dpdns.org/endpoints";
 
   constructor(private httpClient : HttpClient)
   {
