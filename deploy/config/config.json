@@ -10,6 +10,6 @@
     "testingSite": false,
     "siteName": "TodoLibro",
     "salt": "",
-    "assetsPath": "/mnt/workspace/todolibro/server/assets",
+    "assetsPath": "/mnt/workspace/todolibro/deploy/assets",
     "logLevel": 0
 }
