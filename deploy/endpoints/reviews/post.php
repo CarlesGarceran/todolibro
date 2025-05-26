@@ -20,7 +20,7 @@ try
     INIT_BACKEND_CALL();
     session_start();
 
-    $user = GetUser();
+    $user = GetUser(true);
     $userData = getUserData();
 
     if(!IsA::Review($userData))
