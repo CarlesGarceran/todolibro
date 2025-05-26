@@ -56,6 +56,7 @@ catch(Exception $exception)
     }
     else
     {
-        die();
+        $error = new RuntimeError(500, "Internal Server Error");
+        NOP_WRAP($error);
     }
 }

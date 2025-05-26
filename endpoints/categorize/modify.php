@@ -53,9 +53,17 @@ try {
     }, $userData['categories'], $userData['isbn']);
 
     NOP_WRAP([]);
-} catch (Exception $ex) {
-    if (!is_in_production()) {
+} 
+catch (Exception $ex) 
+{
+    if (!is_in_production()) 
+    {
         $error = new RuntimeError(500, $ex->getMessage());
+        NOP_WRAP($error);
+    }
+    else
+    {
+        $error = new RuntimeError(500, "Internal Server Error");
         NOP_WRAP($error);
     }
 }

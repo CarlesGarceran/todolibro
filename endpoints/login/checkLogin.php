@@ -80,4 +80,9 @@ catch(Exception $ex)
         echo $var;
         die();
     }
+    else
+    {
+        $error = new RuntimeError(500, "Internal Server Error");
+        NOP_OBJ($error);
+    }
 }

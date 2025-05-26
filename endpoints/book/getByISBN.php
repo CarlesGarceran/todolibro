@@ -26,8 +26,11 @@ catch(Exception $ex)
     if(!is_in_production())
     {
         $error = new RuntimeError(500, $ex->getMessage());
-        $var = toJson($error);
-        echo $var;
-        die();
+        NOP_OBJ($error);
+    }
+    else
+    {
+        $error = new RuntimeError(500, "Internal Server Error");
+        NOP_OBJ($error);
     }
 }

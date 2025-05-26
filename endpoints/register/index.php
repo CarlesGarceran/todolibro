@@ -107,4 +107,9 @@ catch (Exception $ex)
         $error = new RuntimeError(500, $ex->getMessage());
         NOP_WRAP($error);
     }
+    else
+    {
+        $error = new RuntimeError(500, "Internal Server Error");
+        NOP_WRAP($error);
+    }
 }

@@ -19,4 +19,9 @@ catch(Exception $ex)
         $error = new RuntimeError(500, $ex->getMessage());
         NOP_OBJ($error);
     }
+    else
+    {
+        $error = new RuntimeError(500, "Internal Server Error");
+        NOP_OBJ($error);
+    }
 }
