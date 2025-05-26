@@ -1,5 +1,6 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../../interfaces/user';
+import { RouterModule } from '@angular/router';
 import { BackendService } from '../../../services/backend.service';
 import { SidebarSelection } from '../../../enums/SidebarSelection';
 import { AddLibroFormComponent } from "../forms/add-libro-form/add-libro-form.component";
@@ -13,7 +14,7 @@ import { CategorizeFormComponent } from "../forms/categorize-form/categorize-for
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [AddLibroFormComponent, LogFormComponent, ThemeSelectorComponent, CategoryFormComponent, FileUploaderComponent, AddAuthorFormComponent, AddPublisherFormComponent, CategorizeFormComponent],
+  imports: [AddLibroFormComponent, LogFormComponent, ThemeSelectorComponent, CategoryFormComponent, FileUploaderComponent, AddAuthorFormComponent, AddPublisherFormComponent, CategorizeFormComponent, RouterModule],
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.css'
 })
