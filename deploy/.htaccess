@@ -1,7 +1,0 @@
-RewriteEngine on
-RewriteBase /
-
-# If the requested URL is not a file or directory, serve the index.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [QSA,L]
