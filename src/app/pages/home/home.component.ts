@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
   private user? : User;
   private backendService : BackendService = inject(BackendService);
 
+  private requestedRecommanded : boolean = false;
+
   constructor() 
   {
   }
@@ -49,6 +51,12 @@ export class HomeComponent implements OnInit {
 
     if(this.userLoggedIn)
     {
+      if(this.requestedRecommanded)
+        return;
+
+      this.requestedRecommanded = true;
+      this.recomendados = [];
+
       this.backendService.getRecommandedBooks().subscribe(rsp => {
         if(!rsp.Success)
         {
@@ -73,6 +81,12 @@ export class HomeComponent implements OnInit {
   {
     if(this.userLoggedIn)
       {
+        if(this.requestedRecommanded)
+          return;
+
+        this.requestedRecommanded = true;
+        this.recomendados = [];
+
         this.backendService.getRecommandedBooks().subscribe(rsp => {
           if(!rsp.Success)
           {

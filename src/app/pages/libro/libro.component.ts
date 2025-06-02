@@ -200,7 +200,7 @@ export class LibroComponent implements OnInit {
     else
     {
       var error : Error = {
-        error_code: 300,
+        error_code: 401,
         message: "Registrese o inicie sesión para usar esta función."
       } 
       ErrorPopupComponent.throwError(error);
@@ -213,7 +213,7 @@ export class LibroComponent implements OnInit {
     if(!this.hasStock())
     {
       var error : Error = {
-        error_code: 300,
+        error_code: 403,
         message: "No se dispone de stock."
       } 
       ErrorPopupComponent.throwError(error);
@@ -224,13 +224,15 @@ export class LibroComponent implements OnInit {
     if(temporalStorage.getFromStorage<Carrito>("shopping_cart") == null)
     {
       var error : Error = {
-        error_code: 300,
+        error_code: 401,
         message: "Registrese o inicie sesión para usar esta función."
       } 
       ErrorPopupComponent.throwError(error);
     }
-
-    this.router.navigate(["/purchase", this.ISBN]);
+    else
+    {
+      this.router.navigate(["/purchase", this.ISBN]);
+    }
   }
 
   private hasStock()
